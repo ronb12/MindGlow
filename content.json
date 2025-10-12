@@ -1,0 +1,314 @@
+{
+  "app": {
+    "name": "MindGlow",
+    "version": "3.0.0",
+    "company": "Bradley Virtual Solutions, LLC",
+    "description": "Wellness & Meditation App with 51 features",
+    "features": 51
+  },
+  "quotes": [
+    {
+      "id": 1,
+      "text": "The present moment is filled with joy and happiness. If you are attentive, you will see it.",
+      "author": "Thich Nhat Hanh",
+      "category": "mindfulness"
+    },
+    {
+      "id": 2,
+      "text": "Meditation is not about stopping thoughts, but recognizing that we are more than our thoughts and our feelings.",
+      "author": "Arianna Huffington",
+      "category": "meditation"
+    },
+    {
+      "id": 3,
+      "text": "Peace comes from within. Do not seek it without.",
+      "author": "Buddha",
+      "category": "peace"
+    },
+    {
+      "id": 4,
+      "text": "The mind is everything. What you think you become.",
+      "author": "Buddha",
+      "category": "mindfulness"
+    },
+    {
+      "id": 5,
+      "text": "Wherever you are, be all there.",
+      "author": "Jim Elliot",
+      "category": "presence"
+    },
+    {
+      "id": 6,
+      "text": "Your calm mind is the ultimate weapon against your challenges.",
+      "author": "Bryant McGill",
+      "category": "calm"
+    },
+    {
+      "id": 7,
+      "text": "In the midst of movement and chaos, keep stillness inside of you.",
+      "author": "Deepak Chopra",
+      "category": "stillness"
+    }
+  ],
+  "meditations": [
+    {
+      "id": 1,
+      "title": "Morning Awakening",
+      "category": "guided",
+      "duration": 10,
+      "description": "Start your day with clarity and intention",
+      "difficulty": "beginner"
+    },
+    {
+      "id": 2,
+      "title": "Stress Relief",
+      "category": "stress",
+      "duration": 15,
+      "description": "Release tension and find peace",
+      "difficulty": "beginner"
+    },
+    {
+      "id": 3,
+      "title": "Deep Sleep",
+      "category": "sleep",
+      "duration": 30,
+      "description": "Drift into restful sleep",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 4,
+      "title": "Focus Boost",
+      "category": "focus",
+      "duration": 12,
+      "description": "Enhance concentration and productivity",
+      "difficulty": "beginner"
+    },
+    {
+      "id": 5,
+      "title": "Chakra Balance",
+      "category": "chakra",
+      "duration": 20,
+      "description": "Align your energy centers",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 6,
+      "title": "Loving-Kindness",
+      "category": "guided",
+      "duration": 15,
+      "description": "Cultivate compassion and love",
+      "difficulty": "beginner"
+    },
+    {
+      "id": 7,
+      "title": "Body Scan",
+      "category": "guided",
+      "duration": 18,
+      "description": "Progressive relaxation technique",
+      "difficulty": "beginner"
+    },
+    {
+      "id": 8,
+      "title": "Anxiety Relief",
+      "category": "stress",
+      "duration": 10,
+      "description": "Calm anxious thoughts",
+      "difficulty": "beginner"
+    },
+    {
+      "id": 9,
+      "title": "Sleep Story: Forest",
+      "category": "sleep",
+      "duration": 25,
+      "description": "Journey through peaceful woods",
+      "difficulty": "beginner"
+    },
+    {
+      "id": 10,
+      "title": "Visualization",
+      "category": "guided",
+      "duration": 14,
+      "description": "Create your perfect sanctuary",
+      "difficulty": "intermediate"
+    }
+  ],
+  "ambientSounds": [
+    { "id": 1, "name": "Rain", "icon": "cloud-rain", "duration": "loop" },
+    { "id": 2, "name": "Ocean", "icon": "water", "duration": "loop" },
+    { "id": 3, "name": "Forest", "icon": "tree", "duration": "loop" },
+    { "id": 4, "name": "Birds", "icon": "dove", "duration": "loop" },
+    { "id": 5, "name": "Wind", "icon": "wind", "duration": "loop" },
+    { "id": 6, "name": "Fire", "icon": "fire", "duration": "loop" },
+    { "id": 7, "name": "Stream", "icon": "tint", "duration": "loop" },
+    { "id": 8, "name": "Thunder", "icon": "bolt", "duration": "loop" }
+  ],
+  "affirmations": [
+    "I am worthy of love and respect",
+    "I choose peace and calm",
+    "I am growing and evolving every day",
+    "I trust in my journey",
+    "I am confident and capable",
+    "I attract positive energy",
+    "I am grateful for this moment",
+    "I deserve happiness and success"
+  ],
+  "yogaPoses": [
+    { "id": 1, "name": "Mountain Pose", "description": "Foundation for standing poses", "difficulty": "beginner" },
+    { "id": 2, "name": "Downward Dog", "description": "Full body stretch", "difficulty": "beginner" },
+    { "id": 3, "name": "Warrior I", "description": "Strength and focus", "difficulty": "intermediate" },
+    { "id": 4, "name": "Tree Pose", "description": "Balance and stability", "difficulty": "beginner" },
+    { "id": 5, "name": "Child's Pose", "description": "Rest and recovery", "difficulty": "beginner" },
+    { "id": 6, "name": "Cat-Cow", "description": "Spine flexibility", "difficulty": "beginner" }
+  ],
+  "articles": [
+    { 
+      "id": 1,
+      "title": "The Science of Meditation", 
+      "preview": "Discover how meditation changes your brain",
+      "category": "science",
+      "readTime": 5
+    },
+    { 
+      "id": 2,
+      "title": "Building Healthy Habits", 
+      "preview": "Tips for lasting lifestyle changes",
+      "category": "habits",
+      "readTime": 7
+    },
+    { 
+      "id": 3,
+      "title": "Understanding Stress", 
+      "preview": "Learn to manage and reduce stress",
+      "category": "stress",
+      "readTime": 6
+    },
+    { 
+      "id": 4,
+      "title": "Sleep Hygiene Guide", 
+      "preview": "Improve your sleep quality naturally",
+      "category": "sleep",
+      "readTime": 8
+    },
+    { 
+      "id": 5,
+      "title": "Mindfulness in Daily Life", 
+      "preview": "Bring awareness to everyday moments",
+      "category": "mindfulness",
+      "readTime": 5
+    }
+  ],
+  "wellnessTips": [
+    { "id": 1, "tip": "Start your day with a glass of water", "category": "hydration" },
+    { "id": 2, "tip": "Take regular breaks from screens", "category": "digital wellness" },
+    { "id": 3, "tip": "Practice gratitude daily", "category": "mental health" },
+    { "id": 4, "tip": "Move your body for 30 minutes", "category": "physical health" },
+    { "id": 5, "tip": "Connect with loved ones", "category": "social wellness" },
+    { "id": 6, "tip": "Get sunlight exposure", "category": "vitamin D" },
+    { "id": 7, "tip": "Maintain a consistent sleep schedule", "category": "sleep" }
+  ],
+  "breathingExercises": [
+    {
+      "id": 1,
+      "name": "Box Breathing",
+      "description": "4-4-4-4 pattern for stress relief",
+      "pattern": [
+        { "action": "Inhale", "duration": 4 },
+        { "action": "Hold", "duration": 4 },
+        { "action": "Exhale", "duration": 4 },
+        { "action": "Hold", "duration": 4 }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "4-7-8 Breathing",
+      "description": "Natural tranquilizer for the nervous system",
+      "pattern": [
+        { "action": "Inhale", "duration": 4 },
+        { "action": "Hold", "duration": 7 },
+        { "action": "Exhale", "duration": 8 }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Calm Breathing",
+      "description": "Simple breathing for relaxation",
+      "pattern": [
+        { "action": "Inhale", "duration": 4 },
+        { "action": "Exhale", "duration": 6 }
+      ]
+    }
+  ],
+  "features": [
+    { "id": 1, "name": "User Authentication", "category": "auth" },
+    { "id": 2, "name": "Guided Meditation Sessions", "category": "meditation" },
+    { "id": 3, "name": "Breathing Exercises", "category": "breathing" },
+    { "id": 4, "name": "Sleep Stories", "category": "sleep" },
+    { "id": 5, "name": "Ambient Soundscapes", "category": "audio" },
+    { "id": 6, "name": "Mood Tracking", "category": "wellness" },
+    { "id": 7, "name": "Stress Level Monitoring", "category": "wellness" },
+    { "id": 8, "name": "Daily Affirmations", "category": "mindfulness" },
+    { "id": 9, "name": "Gratitude Journal", "category": "journal" },
+    { "id": 10, "name": "Meditation Timer", "category": "meditation" },
+    { "id": 11, "name": "Progress Tracking", "category": "stats" },
+    { "id": 12, "name": "Streak Counter", "category": "stats" },
+    { "id": 13, "name": "Achievement Badges", "category": "gamification" },
+    { "id": 14, "name": "Customizable Goals", "category": "settings" },
+    { "id": 15, "name": "Yoga Pose Library", "category": "library" },
+    { "id": 16, "name": "Body Scan Meditation", "category": "meditation" },
+    { "id": 17, "name": "Mindful Walking Guide", "category": "mindfulness" },
+    { "id": 18, "name": "Nature Sounds", "category": "audio" },
+    { "id": 19, "name": "Binaural Beats", "category": "audio" },
+    { "id": 20, "name": "Chakra Meditation", "category": "meditation" },
+    { "id": 21, "name": "Loving-Kindness Meditation", "category": "meditation" },
+    { "id": 22, "name": "Visualization Exercises", "category": "meditation" },
+    { "id": 23, "name": "Progressive Muscle Relaxation", "category": "relaxation" },
+    { "id": 24, "name": "Anxiety Relief Programs", "category": "wellness" },
+    { "id": 25, "name": "Focus and Concentration Sessions", "category": "productivity" },
+    { "id": 26, "name": "Sleep Quality Tracking", "category": "wellness" },
+    { "id": 27, "name": "Water Intake Tracker", "category": "wellness" },
+    { "id": 28, "name": "Screen Time Monitor", "category": "wellness" },
+    { "id": 29, "name": "Daily Wellness Tips", "category": "education" },
+    { "id": 30, "name": "Habit Tracker", "category": "wellness" },
+    { "id": 31, "name": "Personal Notes", "category": "journal" },
+    { "id": 32, "name": "Friend Connections", "category": "community" },
+    { "id": 33, "name": "Community Sharing", "category": "community" },
+    { "id": 34, "name": "Group Meditation Sessions", "category": "community" },
+    { "id": 35, "name": "Weekly Challenges", "category": "gamification" },
+    { "id": 36, "name": "Wellness Articles Library", "category": "education" },
+    { "id": 37, "name": "Mindful Eating Guide", "category": "education" },
+    { "id": 38, "name": "Productivity Timer (Pomodoro)", "category": "productivity" },
+    { "id": 39, "name": "Quote of the Day", "category": "inspiration" },
+    { "id": 40, "name": "Weather-based Mood Insights", "category": "insights" },
+    { "id": 41, "name": "Calendar Integration", "category": "integration" },
+    { "id": 42, "name": "Reminder Notifications", "category": "notifications" },
+    { "id": 43, "name": "Dark/Light Theme", "category": "customization" },
+    { "id": 44, "name": "Offline Mode Support", "category": "pwa" },
+    { "id": 45, "name": "Export Progress Data", "category": "data" },
+    { "id": 46, "name": "Customizable Backgrounds", "category": "customization" },
+    { "id": 47, "name": "Session History", "category": "stats" },
+    { "id": 48, "name": "Personal Stats Dashboard", "category": "stats" },
+    { "id": 49, "name": "Wellness Score Calculation", "category": "stats" },
+    { "id": 50, "name": "Voice-Guided Sessions", "category": "audio" },
+    { "id": 51, "name": "Forgot Password / Password Reset", "category": "auth" }
+  ],
+  "config": {
+    "defaultMeditationGoal": 20,
+    "defaultWaterGoal": 8,
+    "defaultHabitsGoal": 5,
+    "pomodoroTime": 25,
+    "themes": ["light", "dark"],
+    "backgrounds": 8
+  },
+  "stats": {
+    "totalFeatures": 51,
+    "meditationSessions": 10,
+    "breathingExercises": 3,
+    "ambientSounds": 8,
+    "yogaPoses": 6,
+    "articles": 5,
+    "tips": 7,
+    "affirmations": 8,
+    "backgrounds": 8
+  }
+}
+
