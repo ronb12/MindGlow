@@ -24,6 +24,7 @@ export class AuthManager {
         this.setupAuthTabs();
         this.setupForms();
         this.setupLogout();
+        this.setupForgotPassword();
     }
 
     setupAuthTabs() {
@@ -151,6 +152,114 @@ export class AuthManager {
         const userNameElement = document.getElementById('user-name');
         if (userNameElement) {
             userNameElement.textContent = userName;
+        }
+    }
+    
+    setupForgotPassword() {
+        const forgotLink = document.getElementById('forgot-password-link');
+        const forgotModal = document.getElementById('forgot-password-modal');
+        const forgotForm = document.getElementById('forgot-password-form');
+        const closeBtn = forgotModal?.querySelector('.close');
+        
+        if (forgotLink) {
+            forgotLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.showForgotPasswordModal();
+            });
+        }
+        
+        if (forgotForm) {
+            forgotForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.getElementById('reset-email').value;
+                this.sendPasswordReset(email);
+            });
+        }
+        
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                forgotModal.classList.add('hidden');
+                this.resetForgotPasswordForm();
+            });
+        }
+        
+        if (forgotModal) {
+            forgotModal.addEventListener('click', (e) => {
+                if (e.target === forgotModal) {
+                    forgotModal.classList.add('hidden');
+                    this.resetForgotPasswordForm();
+                }
+            });
+        }
+    }
+    
+    showForgotPasswordModal() {
+        const modal = document.getElementById('forgot-password-modal');
+        if (modal) {
+            modal.classList.remove('hidden');
+            document.getElementById('reset-email').focus();
+        }
+    }
+    
+    async sendPasswordReset(email) {
+        const resetMessage = document.getElementById('reset-message');
+        const submitBtn = document.querySelector('#forgot-password-form button');
+        
+        try {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            
+            // Send password reset email via Firebase Auth
+            await this.firebaseAuth.sendPasswordResetEmail(email);
+            
+            // Show success message
+            resetMessage.textContent = `✅ Password reset link sent to ${email}! Check your inbox.`;
+            resetMessage.className = 'reset-message success';
+            resetMessage.classList.remove('hidden');
+            
+            console.log(`✅ Password reset email sent to: ${email}`);
+            
+            // Auto-close modal after 3 seconds
+            setTimeout(() => {
+                document.getElementById('forgot-password-modal').classList.add('hidden');
+                this.resetForgotPasswordForm();
+            }, 3000);
+            
+        } catch (error) {
+            console.error('Password reset error:', error);
+            
+            // Show error message
+            let errorMsg = 'Failed to send reset email. ';
+            if (error.code === 'auth/user-not-found') {
+                errorMsg += 'No account found with this email.';
+            } else if (error.code === 'auth/invalid-email') {
+                errorMsg += 'Invalid email address.';
+            } else {
+                errorMsg += error.message;
+            }
+            
+            resetMessage.textContent = `❌ ${errorMsg}`;
+            resetMessage.className = 'reset-message error';
+            resetMessage.classList.remove('hidden');
+            
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Reset Link';
+        }
+    }
+    
+    resetForgotPasswordForm() {
+        const form = document.getElementById('forgot-password-form');
+        const resetMessage = document.getElementById('reset-message');
+        const submitBtn = document.querySelector('#forgot-password-form button');
+        
+        if (form) form.reset();
+        if (resetMessage) {
+            resetMessage.classList.add('hidden');
+            resetMessage.textContent = '';
+        }
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Reset Link';
         }
     }
 }

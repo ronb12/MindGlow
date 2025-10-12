@@ -159,11 +159,71 @@ body {
     background: var(--secondary-color);
 }
 
+.forgot-password-link {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 14px;
+    transition: opacity 0.3s ease;
+}
+
+.forgot-password-link:hover {
+    opacity: 0.7;
+    text-decoration: underline;
+}
+
 .company-credit {
     text-align: center;
     margin-top: 20px;
     color: var(--text-secondary);
     font-size: 12px;
+}
+
+#forgot-password-modal .modal-content {
+    max-width: 450px;
+    text-align: center;
+}
+
+#forgot-password-modal h2 {
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+#forgot-password-modal p {
+    color: var(--text-secondary);
+    margin-bottom: 25px;
+}
+
+#forgot-password-form input {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.reset-message {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.reset-message.success {
+    background: var(--success-color);
+    color: white;
+}
+
+.reset-message.error {
+    background: var(--danger-color);
+    color: white;
 }
 
 /* Main App Layout */
