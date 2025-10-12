@@ -1,6 +1,10 @@
 // MindGlow Configuration
 // A product of Bradley Virtual Solutions, LLC
 
+// NOTE: Firebase API keys in client-side code are SAFE and INTENDED to be public
+// They are protected by Firebase Security Rules and domain restrictions
+// See SECURITY.md for details: https://firebase.google.com/docs/projects/api-keys
+
 export const CONFIG = {
     appName: 'MindGlow',
     version: '1.0.0',
