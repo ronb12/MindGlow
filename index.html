@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindGlow - Wellness & Meditation</title>
+    <link rel="stylesheet" href="styles.css?v=1.0.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loader"></div>
+        <p>Loading MindGlow...</p>
+    </div>
+
+    <!-- Auth Section -->
+    <div id="auth-section" class="auth-section hidden">
+        <div class="auth-container">
+            <div class="logo">
+                <i class="fas fa-brain"></i>
+                <h1>MindGlow</h1>
+                <p class="tagline">Your Personal Wellness Companion</p>
+            </div>
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">Login</button>
+                <button class="auth-tab" data-tab="signup">Sign Up</button>
+            </div>
+            <div class="auth-form-container">
+                <form id="login-form" class="auth-form">
+                    <input type="email" id="login-email" placeholder="Email" required>
+                    <input type="password" id="login-password" placeholder="Password" required>
+                    <button type="submit" class="btn-primary">Login</button>
+                </form>
+                <form id="signup-form" class="auth-form hidden">
+                    <input type="text" id="signup-name" placeholder="Full Name" required>
+                    <input type="email" id="signup-email" placeholder="Email" required>
+                    <input type="password" id="signup-password" placeholder="Password" required>
+                    <button type="submit" class="btn-primary">Create Account</button>
+                </form>
+            </div>
+            <p class="company-credit">A product of Bradley Virtual Solutions, LLC</p>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app-container" class="app-container hidden">
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="nav-logo">
+                <i class="fas fa-brain"></i>
+                <span>MindGlow</span>
+            </div>
+            <div class="nav-items">
+                <button class="nav-item active" data-page="dashboard"><i class="fas fa-home"></i> Dashboard</button>
+                <button class="nav-item" data-page="meditate"><i class="fas fa-spa"></i> Meditate</button>
+                <button class="nav-item" data-page="breathe"><i class="fas fa-wind"></i> Breathe</button>
+                <button class="nav-item" data-page="wellness"><i class="fas fa-heartbeat"></i> Wellness</button>
+                <button class="nav-item" data-page="journal"><i class="fas fa-book"></i> Journal</button>
+                <button class="nav-item" data-page="community"><i class="fas fa-users"></i> Community</button>
+                <button class="nav-item" data-page="library"><i class="fas fa-book-open"></i> Library</button>
+                <button class="nav-item" data-page="settings"><i class="fas fa-cog"></i> Settings</button>
+            </div>
+            <button id="logout-btn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Dashboard Page -->
+            <div id="dashboard-page" class="page active">
+                <div class="page-header">
+                    <h2>Welcome back, <span id="user-name">Friend</span>!</h2>
+                    <div class="theme-toggle">
+                        <i class="fas fa-sun"></i>
+                        <label class="switch">
+                            <input type="checkbox" id="theme-toggle">
+                            <span class="slider"></span>
+                        </label>
+                        <i class="fas fa-moon"></i>
+                    </div>
+                </div>
+
+                <!-- Daily Quote -->
+                <div class="quote-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p id="daily-quote">Loading quote...</p>
+                    <span id="quote-author"></span>
+                </div>
+
+                <!-- Stats Overview -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-fire"></i>
+                        <h3 id="streak-count">0</h3>
+                        <p>Day Streak</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-clock"></i>
+                        <h3 id="total-minutes">0</h3>
+                        <p>Minutes Meditated</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-trophy"></i>
+                        <h3 id="badges-earned">0</h3>
+                        <p>Badges Earned</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h3 id="wellness-score">0</h3>
+                        <p>Wellness Score</p>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <h3>Quick Start</h3>
+                    <div class="action-grid">
+                        <button class="action-card" data-action="quick-meditate">
+                            <i class="fas fa-spa"></i>
+                            <span>5-Min Meditation</span>
+                        </button>
+                        <button class="action-card" data-action="breathing">
+                            <i class="fas fa-wind"></i>
+                            <span>Breathing Exercise</span>
+                        </button>
+                        <button class="action-card" data-action="mood-check">
+                            <i class="fas fa-smile"></i>
+                            <span>Mood Check-in</span>
+                        </button>
+                        <button class="action-card" data-action="sleep-story">
+                            <i class="fas fa-bed"></i>
+                            <span>Sleep Story</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Today's Progress -->
+                <div class="progress-section">
+                    <h3>Today's Progress</h3>
+                    <div class="progress-items">
+                        <div class="progress-item">
+                            <span>Meditation Goal</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="meditation-progress" style="width: 0%"></div>
+                            </div>
+                            <span class="progress-text"><span id="meditation-done">0</span>/20 min</span>
+                        </div>
+                        <div class="progress-item">
+                            <span>Water Intake</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="water-progress" style="width: 0%"></div>
+                            </div>
+                            <span class="progress-text"><span id="water-done">0</span>/8 glasses</span>
+                        </div>
+                        <div class="progress-item">
+                            <span>Habits Completed</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="habits-progress" style="width: 0%"></div>
+                            </div>
+                            <span class="progress-text"><span id="habits-done">0</span>/5 habits</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Meditate Page -->
+            <div id="meditate-page" class="page">
+                <h2>Meditation Sessions</h2>
+                
+                <div class="meditation-categories">
+                    <button class="category-btn active" data-category="all">All</button>
+                    <button class="category-btn" data-category="guided">Guided</button>
+                    <button class="category-btn" data-category="sleep">Sleep</button>
+                    <button class="category-btn" data-category="stress">Stress Relief</button>
+                    <button class="category-btn" data-category="focus">Focus</button>
+                    <button class="category-btn" data-category="chakra">Chakra</button>
+                </div>
+
+                <div class="meditation-grid" id="meditation-grid"></div>
+
+                <!-- Meditation Timer -->
+                <div class="timer-section">
+                    <h3>Custom Meditation Timer</h3>
+                    <div class="timer-container">
+                        <div class="timer-display">
+                            <span id="timer-minutes">10</span>:<span id="timer-seconds">00</span>
+                        </div>
+                        <div class="timer-controls">
+                            <button class="timer-btn" data-time="5">5 min</button>
+                            <button class="timer-btn" data-time="10">10 min</button>
+                            <button class="timer-btn" data-time="15">15 min</button>
+                            <button class="timer-btn" data-time="20">20 min</button>
+                            <button class="timer-btn" data-time="30">30 min</button>
+                        </div>
+                        <button id="start-timer" class="btn-primary">Start Session</button>
+                    </div>
+                </div>
+
+                <!-- Ambient Sounds -->
+                <div class="sounds-section">
+                    <h3>Ambient Soundscapes</h3>
+                    <div class="sounds-grid" id="sounds-grid"></div>
+                </div>
+            </div>
+
+            <!-- Breathe Page -->
+            <div id="breathe-page" class="page">
+                <h2>Breathing Exercises</h2>
+                
+                <div class="breathing-exercises">
+                    <div class="exercise-card" data-exercise="box">
+                        <h3>Box Breathing</h3>
+                        <p>4-4-4-4 pattern for stress relief</p>
+                        <button class="btn-primary">Start</button>
+                    </div>
+                    <div class="exercise-card" data-exercise="478">
+                        <h3>4-7-8 Breathing</h3>
+                        <p>Natural tranquilizer for the nervous system</p>
+                        <button class="btn-primary">Start</button>
+                    </div>
+                    <div class="exercise-card" data-exercise="calm">
+                        <h3>Calm Breathing</h3>
+                        <p>Simple breathing for relaxation</p>
+                        <button class="btn-primary">Start</button>
+                    </div>
+                </div>
+
+                <div id="breathing-visualizer" class="breathing-visualizer hidden">
+                    <div class="breath-circle"></div>
+                    <div class="breath-instruction"></div>
+                    <button id="stop-breathing" class="btn-secondary">Stop</button>
+                </div>
+            </div>
+
+            <!-- Wellness Page -->
+            <div id="wellness-page" class="page">
+                <h2>Wellness Tracking</h2>
+
+                <!-- Mood Tracker -->
+                <div class="wellness-section">
+                    <h3>Mood Tracker</h3>
+                    <div class="mood-selector">
+                        <button class="mood-btn" data-mood="great"><i class="fas fa-grin-stars"></i> Great</button>
+                        <button class="mood-btn" data-mood="good"><i class="fas fa-smile"></i> Good</button>
+                        <button class="mood-btn" data-mood="okay"><i class="fas fa-meh"></i> Okay</button>
+                        <button class="mood-btn" data-mood="bad"><i class="fas fa-frown"></i> Bad</button>
+                        <button class="mood-btn" data-mood="terrible"><i class="fas fa-sad-tear"></i> Terrible</button>
+                    </div>
+                    <div id="mood-chart" class="chart-container"></div>
+                </div>
+
+                <!-- Stress Monitor -->
+                <div class="wellness-section">
+                    <h3>Stress Level</h3>
+                    <div class="stress-slider">
+                        <input type="range" id="stress-level" min="1" max="10" value="5">
+                        <div class="stress-labels">
+                            <span>Low</span>
+                            <span id="stress-value">5</span>
+                            <span>High</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Habit Tracker -->
+                <div class="wellness-section">
+                    <h3>Daily Habits</h3>
+                    <div class="habits-list" id="habits-list"></div>
+                    <button id="add-habit" class="btn-secondary">+ Add Habit</button>
+                </div>
+
+                <!-- Water Intake -->
+                <div class="wellness-section">
+                    <h3>Water Intake</h3>
+                    <div class="water-tracker">
+                        <div class="water-glasses" id="water-glasses"></div>
+                        <button id="add-water" class="btn-primary">+ Glass</button>
+                    </div>
+                </div>
+
+                <!-- Sleep Quality -->
+                <div class="wellness-section">
+                    <h3>Sleep Quality</h3>
+                    <div class="sleep-input">
+                        <label>Hours slept:</label>
+                        <input type="number" id="sleep-hours" min="0" max="24" step="0.5" placeholder="8">
+                        <label>Quality (1-10):</label>
+                        <input type="number" id="sleep-quality" min="1" max="10" placeholder="7">
+                        <button id="log-sleep" class="btn-primary">Log Sleep</button>
+                    </div>
+                </div>
+
+                <!-- Screen Time Monitor -->
+                <div class="wellness-section">
+                    <h3>Screen Time Monitor</h3>
+                    <div class="screen-time-display">
+                        <p>Today: <span id="screen-time">0h 0m</span></p>
+                        <button id="log-screen-time" class="btn-secondary">Log Time</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Journal Page -->
+            <div id="journal-page" class="page">
+                <h2>Personal Journal</h2>
+                
+                <div class="journal-tabs">
+                    <button class="journal-tab active" data-tab="gratitude">Gratitude</button>
+                    <button class="journal-tab" data-tab="affirmations">Affirmations</button>
+                    <button class="journal-tab" data-tab="notes">Notes</button>
+                </div>
+
+                <div class="journal-content">
+                    <!-- Gratitude Journal -->
+                    <div id="gratitude-tab" class="journal-tab-content">
+                        <h3>Daily Gratitude</h3>
+                        <textarea id="gratitude-entry" placeholder="What are you grateful for today?"></textarea>
+                        <button id="save-gratitude" class="btn-primary">Save Entry</button>
+                        <div id="gratitude-history" class="journal-history"></div>
+                    </div>
+
+                    <!-- Affirmations -->
+                    <div id="affirmations-tab" class="journal-tab-content hidden">
+                        <h3>Daily Affirmations</h3>
+                        <div id="affirmation-display" class="affirmation-display"></div>
+                        <button id="new-affirmation" class="btn-primary">New Affirmation</button>
+                        <div class="custom-affirmation">
+                            <h4>Create Custom Affirmation</h4>
+                            <input type="text" id="custom-affirmation" placeholder="I am...">
+                            <button id="add-affirmation" class="btn-secondary">Add</button>
+                        </div>
+                        <div id="my-affirmations" class="affirmations-list"></div>
+                    </div>
+
+                    <!-- Personal Notes -->
+                    <div id="notes-tab" class="journal-tab-content hidden">
+                        <h3>Personal Notes</h3>
+                        <textarea id="note-entry" placeholder="Write your thoughts..."></textarea>
+                        <button id="save-note" class="btn-primary">Save Note</button>
+                        <div id="notes-history" class="journal-history"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Community Page -->
+            <div id="community-page" class="page">
+                <h2>Community</h2>
+
+                <!-- Friend Connections -->
+                <div class="community-section">
+                    <h3>Friends</h3>
+                    <div class="friends-list" id="friends-list"></div>
+                    <button id="add-friend" class="btn-secondary">+ Add Friend</button>
+                </div>
+
+                <!-- Weekly Challenges -->
+                <div class="community-section">
+                    <h3>Weekly Challenge</h3>
+                    <div class="challenge-card">
+                        <h4 id="challenge-title">7-Day Meditation Streak</h4>
+                        <p id="challenge-description">Meditate for at least 10 minutes every day this week</p>
+                        <div class="challenge-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="challenge-progress" style="width: 0%"></div>
+                            </div>
+                            <span class="progress-text"><span id="challenge-done">0</span>/7 days</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Group Sessions -->
+                <div class="community-section">
+                    <h3>Group Meditation Sessions</h3>
+                    <div class="sessions-list" id="group-sessions"></div>
+                </div>
+
+                <!-- Share Progress -->
+                <div class="community-section">
+                    <h3>Share Your Journey</h3>
+                    <textarea id="share-text" placeholder="Share your wellness journey..."></textarea>
+                    <button id="share-btn" class="btn-primary">Share</button>
+                    <div id="community-feed" class="community-feed"></div>
+                </div>
+            </div>
+
+            <!-- Library Page -->
+            <div id="library-page" class="page">
+                <h2>Wellness Library</h2>
+
+                <!-- Yoga Poses -->
+                <div class="library-section">
+                    <h3>Yoga Pose Library</h3>
+                    <div class="yoga-grid" id="yoga-grid"></div>
+                </div>
+
+                <!-- Wellness Articles -->
+                <div class="library-section">
+                    <h3>Wellness Articles</h3>
+                    <div class="articles-grid" id="articles-grid"></div>
+                </div>
+
+                <!-- Mindful Eating Guide -->
+                <div class="library-section">
+                    <h3>Mindful Eating Guide</h3>
+                    <div class="eating-guide">
+                        <p>Learn to develop a healthier relationship with food through mindful eating practices.</p>
+                        <button class="btn-primary">View Guide</button>
+                    </div>
+                </div>
+
+                <!-- Daily Wellness Tips -->
+                <div class="library-section">
+                    <h3>Daily Wellness Tips</h3>
+                    <div id="wellness-tips" class="tips-container"></div>
+                </div>
+            </div>
+
+            <!-- Settings Page -->
+            <div id="settings-page" class="page">
+                <h2>Settings</h2>
+
+                <!-- Profile Settings -->
+                <div class="settings-section">
+                    <h3>Profile</h3>
+                    <div class="profile-settings">
+                        <input type="text" id="profile-name" placeholder="Display Name">
+                        <input type="email" id="profile-email" placeholder="Email">
+                        <button id="update-profile" class="btn-primary">Update Profile</button>
+                    </div>
+                </div>
+
+                <!-- Notification Settings -->
+                <div class="settings-section">
+                    <h3>Reminders & Notifications</h3>
+                    <div class="notification-settings">
+                        <label>
+                            <input type="checkbox" id="daily-reminder"> Daily meditation reminder
+                        </label>
+                        <label>
+                            <input type="checkbox" id="water-reminder"> Water intake reminders
+                        </label>
+                        <label>
+                            <input type="checkbox" id="bedtime-reminder"> Bedtime reminder
+                        </label>
+                        <label>
+                            <input type="checkbox" id="challenge-notifications"> Challenge notifications
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Goal Settings -->
+                <div class="settings-section">
+                    <h3>Meditation Goals</h3>
+                    <div class="goal-settings">
+                        <label>Daily meditation goal (minutes):</label>
+                        <input type="number" id="meditation-goal" min="5" max="120" value="20">
+                        <button id="update-goal" class="btn-primary">Update Goal</button>
+                    </div>
+                </div>
+
+                <!-- Background Customization -->
+                <div class="settings-section">
+                    <h3>Customizable Backgrounds</h3>
+                    <div class="background-options" id="background-options"></div>
+                </div>
+
+                <!-- Data Management -->
+                <div class="settings-section">
+                    <h3>Data Management</h3>
+                    <button id="export-data" class="btn-secondary">Export Progress Data</button>
+                    <button id="view-history" class="btn-secondary">View Session History</button>
+                </div>
+
+                <!-- Calendar Integration -->
+                <div class="settings-section">
+                    <h3>Calendar Integration</h3>
+                    <button id="sync-calendar" class="btn-secondary">Sync with Calendar</button>
+                </div>
+
+                <!-- Offline Mode -->
+                <div class="settings-section">
+                    <h3>Offline Mode</h3>
+                    <label>
+                        <input type="checkbox" id="offline-mode"> Enable offline mode
+                    </label>
+                    <p class="help-text">Download content for offline access</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Session History Modal -->
+    <div id="history-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Session History</h2>
+            <div id="history-content" class="history-content"></div>
+        </div>
+    </div>
+
+    <!-- Badges Modal -->
+    <div id="badges-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Achievement Badges</h2>
+            <div id="badges-content" class="badges-grid"></div>
+        </div>
+    </div>
+
+    <!-- Productivity Timer (Pomodoro) -->
+    <div id="pomodoro-widget" class="pomodoro-widget">
+        <button id="toggle-pomodoro" class="toggle-widget"><i class="fas fa-clock"></i></button>
+        <div class="pomodoro-content hidden">
+            <h4>Focus Timer</h4>
+            <div class="pomodoro-display">
+                <span id="pomodoro-minutes">25</span>:<span id="pomodoro-seconds">00</span>
+            </div>
+            <button id="start-pomodoro" class="btn-primary">Start</button>
+        </div>
+    </div>
+
+    <script type="module" src="app.js?v=1.0.0"></script>
+</body>
+</html>
+
