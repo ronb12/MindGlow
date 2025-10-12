@@ -1,6 +1,7 @@
 // MindGlow - Main Application Entry Point
 // A product of Bradley Virtual Solutions, LLC
 
+import './firebase-init.js'; // Initialize Firebase first
 import { CONFIG } from './config.js';
 import { appState } from './utils/state.js';
 import { navigation } from './utils/navigation.js';

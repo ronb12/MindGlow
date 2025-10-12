@@ -1,6 +1,7 @@
 // Authentication Module
 
 import { appState } from '../utils/state.js';
+import { auth, db } from '../firebase-init.js';
 
 export class AuthManager {
     constructor() {
@@ -9,6 +10,8 @@ export class AuthManager {
         this.authSection = null;
         this.appContainer = null;
         this.logoutBtn = null;
+        this.firebaseAuth = auth;
+        this.firestore = db;
     }
 
     initialize() {
@@ -65,35 +68,80 @@ export class AuthManager {
         }
     }
 
-    login(email, password) {
-        // Simulated login (replace with real Firebase Auth later)
-        const user = { 
-            name: email.split('@')[0], 
-            email 
-        };
-        
-        appState.set('user', user);
-        this.showApp(user.name);
-        
-        // Trigger dashboard initialization
-        window.dispatchEvent(new CustomEvent('userLoggedIn', { detail: user }));
+    async login(email, password) {
+        try {
+            // Real Firebase Authentication
+            const userCredential = await this.firebaseAuth.signInWithEmailAndPassword(email, password);
+            const firebaseUser = userCredential.user;
+            
+            // Get user profile from Firestore
+            const userDoc = await this.firestore.collection('users').doc(firebaseUser.uid).get();
+            const userData = userDoc.data();
+            
+            const user = { 
+                uid: firebaseUser.uid,
+                name: userData?.name || email.split('@')[0], 
+                email: firebaseUser.email
+            };
+            
+            appState.set('user', user);
+            this.showApp(user.name);
+            
+            console.log('✅ User logged in:', user.email);
+            
+            // Trigger dashboard initialization
+            window.dispatchEvent(new CustomEvent('userLoggedIn', { detail: user }));
+        } catch (error) {
+            console.error('Login error:', error);
+            alert(`Login failed: ${error.message}`);
+        }
     }
 
-    signup(name, email, password) {
-        // Simulated signup (replace with real Firebase Auth later)
-        const user = { name, email };
-        
-        appState.set('user', user);
-        this.showApp(name);
-        
-        // Trigger dashboard initialization
-        window.dispatchEvent(new CustomEvent('userLoggedIn', { detail: user }));
+    async signup(name, email, password) {
+        try {
+            // Real Firebase Authentication
+            const userCredential = await this.firebaseAuth.createUserWithEmailAndPassword(email, password);
+            const firebaseUser = userCredential.user;
+            
+            // Create user profile in Firestore
+            await this.firestore.collection('users').doc(firebaseUser.uid).set({
+                name: name,
+                email: email,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                wellnessScore: 0,
+                totalMinutes: 0,
+                streak: 0
+            });
+            
+            const user = { 
+                uid: firebaseUser.uid,
+                name, 
+                email 
+            };
+            
+            appState.set('user', user);
+            this.showApp(name);
+            
+            console.log('✅ User created:', user.email);
+            
+            // Trigger dashboard initialization
+            window.dispatchEvent(new CustomEvent('userLoggedIn', { detail: user }));
+        } catch (error) {
+            console.error('Signup error:', error);
+            alert(`Signup failed: ${error.message}`);
+        }
     }
 
-    logout() {
-        appState.set('user', null);
-        this.appContainer.classList.add('hidden');
-        this.authSection.classList.remove('hidden');
+    async logout() {
+        try {
+            await this.firebaseAuth.signOut();
+            appState.set('user', null);
+            this.appContainer.classList.add('hidden');
+            this.authSection.classList.remove('hidden');
+            console.log('✅ User logged out');
+        } catch (error) {
+            console.error('Logout error:', error);
+        }
     }
 
     showApp(userName) {

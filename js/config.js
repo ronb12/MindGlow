@@ -6,14 +6,14 @@ export const CONFIG = {
     version: '1.0.0',
     company: 'Bradley Virtual Solutions, LLC',
     
-    // Firebase Configuration (to be set up)
+    // Firebase Configuration
     firebase: {
-        apiKey: null,
-        authDomain: null,
-        projectId: 'mindglow-wellness',
-        storageBucket: null,
-        messagingSenderId: null,
-        appId: null
+        apiKey: "AIzaSyCPeje156M5dKwrRpfFepXutHMzbj51V8w",
+        authDomain: "mindglow-wellness.firebaseapp.com",
+        projectId: "mindglow-wellness",
+        storageBucket: "mindglow-wellness.firebasestorage.app",
+        messagingSenderId: "868876349935",
+        appId: "1:868876349935:web:cad1fbdb5b8d1a3623c61a"
     },
     
     // Default Settings
