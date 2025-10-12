@@ -81,25 +81,70 @@ export class SettingsFeature {
 
     renderBackgroundOptions() {
         const backgrounds = [
-            '#6366f1', '#8b5cf6', '#ec4899', '#10b981', '#f59e0b',
-            'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-            'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)'
+            { color: '#6366f1', name: 'Indigo' },
+            { color: '#8b5cf6', name: 'Purple' },
+            { color: '#ec4899', name: 'Pink' },
+            { color: '#10b981', name: 'Green' },
+            { color: '#f59e0b', name: 'Orange' },
+            { color: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', name: 'Purple Gradient' },
+            { color: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', name: 'Pink Gradient' },
+            { color: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', name: 'Blue Gradient' }
         ];
         
         const container = document.getElementById('background-options');
         if (!container) return;
         
+        // Get saved background
+        const savedBg = localStorage.getItem('appBackground') || backgrounds[0].color;
+        
         container.innerHTML = backgrounds.map((bg, i) => `
-            <div class="background-option" style="background: ${bg}" data-bg="${bg}"></div>
+            <div class="background-option ${bg.color === savedBg ? 'active' : ''}" 
+                 style="background: ${bg.color}" 
+                 data-bg="${bg.color}"
+                 title="${bg.name}"></div>
         `).join('');
         
+        // Apply saved background
+        this.applyBackground(savedBg);
+        
+        // Add click handlers
         container.querySelectorAll('.background-option').forEach(option => {
             option.addEventListener('click', () => {
+                const bgColor = option.dataset.bg;
+                
+                // Update UI
                 container.querySelectorAll('.background-option').forEach(o => o.classList.remove('active'));
                 option.classList.add('active');
+                
+                // Apply background
+                this.applyBackground(bgColor);
+                
+                // Save preference
+                localStorage.setItem('appBackground', bgColor);
+                
+                console.log(`✅ Background changed to: ${option.title}`);
             });
         });
+    }
+    
+    applyBackground(bgColor) {
+        // Apply to main content area for a subtle effect
+        const mainContent = document.querySelector('.main-content');
+        if (mainContent) {
+            // Create a subtle overlay effect
+            mainContent.style.background = `linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)), ${bgColor}`;
+            
+            // In dark mode, use darker overlay
+            if (document.body.hasAttribute('data-theme')) {
+                mainContent.style.background = `linear-gradient(rgba(17,24,39,0.95), rgba(17,24,39,0.95)), ${bgColor}`;
+            }
+        }
+        
+        // Also apply to auth section for visual effect
+        const authSection = document.querySelector('.auth-section');
+        if (authSection) {
+            authSection.style.background = bgColor;
+        }
     }
 
     exportData() {

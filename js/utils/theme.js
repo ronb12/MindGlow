@@ -31,6 +31,19 @@ export class ThemeManager {
         }
         
         localStorage.setItem('theme', theme);
+        
+        // Reapply background for theme
+        const savedBg = localStorage.getItem('appBackground');
+        if (savedBg) {
+            const mainContent = document.querySelector('.main-content');
+            if (mainContent) {
+                if (theme === 'dark') {
+                    mainContent.style.background = `linear-gradient(rgba(17,24,39,0.95), rgba(17,24,39,0.95)), ${savedBg}`;
+                } else {
+                    mainContent.style.background = `linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)), ${savedBg}`;
+                }
+            }
+        }
     }
 
     getTheme() {
