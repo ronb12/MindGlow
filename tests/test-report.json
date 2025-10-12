@@ -1,0 +1,74 @@
+{
+  "timestamp": "2025-10-12T21:53:36.410Z",
+  "total": 15,
+  "passed": 10,
+  "failed": 5,
+  "passRate": "66.67%",
+  "features": [
+    {
+      "name": "Feature 1: User Authentication (Sign Up)",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 39: Quote of the Day",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 12: Streak Counter & Statistics",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 11: Progress Tracking",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 2: Guided Meditation Sessions (10 sessions)",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 4: Meditation Category Filtering",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 10: Meditation Timer",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 5: Ambient Soundscapes (8 sounds)",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 3: Breathing Exercises (Box, 4-7-8, Calm)",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 3a: Box Breathing Visualizer",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 6: Mood Tracking",
+      "status": "FAILED",
+      "error": "Input.dispatchMouseEvent timed out. Increase the 'protocolTimeout' setting in launch/connect calls for a higher timeout if needed."
+    },
+    {
+      "name": "Feature 7: Stress Level Monitoring",
+      "status": "FAILED",
+      "error": "Waiting for selector `#stress-level` failed: Waiting failed: 30000ms exceeded"
+    },
+    {
+      "name": "Feature 30: Habit Tracker",
+      "status": "FAILED",
+      "error": "DOM.describeNode timed out. Increase the 'protocolTimeout' setting in launch/connect calls for a higher timeout if needed."
+    },
+    {
+      "name": "Feature 27: Water Intake Tracker",
+      "status": "FAILED",
+      "error": "DOM.describeNode timed out. Increase the 'protocolTimeout' setting in launch/connect calls for a higher timeout if needed."
+    },
+    {
+      "name": "Feature 26: Sleep Quality Tracking",
+      "status": "FAILED",
+      "error": "Protocol error (DOM.describeNode): Target closed"
+    }
+  ]
+}

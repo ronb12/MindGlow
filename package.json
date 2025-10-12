@@ -1,0 +1,22 @@
+{
+  "name": "mindglow",
+  "version": "2.0.0",
+  "description": "MindGlow - Wellness & Meditation App with 50 features",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8080",
+    "test": "node tests/run-tests.js",
+    "test:features": "node tests/feature-tests.js"
+  },
+  "keywords": [
+    "wellness",
+    "meditation",
+    "mindfulness",
+    "health"
+  ],
+  "author": "Bradley Virtual Solutions, LLC",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "puppeteer": "^21.11.0"
+  }
+}
