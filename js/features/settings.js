@@ -128,23 +128,22 @@ export class SettingsFeature {
     }
     
     applyBackground(bgColor) {
-        // Apply to main content area for a subtle effect
-        const mainContent = document.querySelector('.main-content');
-        if (mainContent) {
-            // Create a subtle overlay effect
-            mainContent.style.background = `linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)), ${bgColor}`;
-            
-            // In dark mode, use darker overlay
-            if (document.body.hasAttribute('data-theme')) {
-                mainContent.style.background = `linear-gradient(rgba(17,24,39,0.95), rgba(17,24,39,0.95)), ${bgColor}`;
-            }
+        // Apply to body for visible effect
+        const body = document.body;
+        
+        // Create a visible but not overwhelming background
+        if (document.body.hasAttribute('data-theme')) {
+            // Dark mode - use 60% opacity overlay
+            body.style.background = `linear-gradient(rgba(17,24,39,0.6), rgba(17,24,39,0.6)), ${bgColor}`;
+        } else {
+            // Light mode - use 60% opacity overlay  
+            body.style.background = `linear-gradient(rgba(249,250,251,0.6), rgba(249,250,251,0.6)), ${bgColor}`;
         }
         
-        // Also apply to auth section for visual effect
-        const authSection = document.querySelector('.auth-section');
-        if (authSection) {
-            authSection.style.background = bgColor;
-        }
+        body.style.backgroundAttachment = 'fixed';
+        body.style.backgroundSize = 'cover';
+        
+        console.log(`🎨 Background applied: ${bgColor.substring(0, 50)}...`);
     }
 
     exportData() {
