@@ -35,12 +35,14 @@ export class ThemeManager {
         // Reapply background for theme
         const savedBg = localStorage.getItem('appBackground');
         if (savedBg) {
+            document.body.style.background = savedBg;
+            
             const mainContent = document.querySelector('.main-content');
             if (mainContent) {
                 if (theme === 'dark') {
-                    mainContent.style.background = `linear-gradient(rgba(17,24,39,0.95), rgba(17,24,39,0.95)), ${savedBg}`;
+                    mainContent.style.backgroundColor = 'rgba(17, 24, 39, 0.85)';
                 } else {
-                    mainContent.style.background = `linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)), ${savedBg}`;
+                    mainContent.style.backgroundColor = 'rgba(255, 255, 255, 0.85)';
                 }
             }
         }

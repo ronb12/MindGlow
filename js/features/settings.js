@@ -128,22 +128,24 @@ export class SettingsFeature {
     }
     
     applyBackground(bgColor) {
-        // Apply to body for visible effect
+        // Apply background color directly to body (very visible)
         const body = document.body;
-        
-        // Create a visible but not overwhelming background
-        if (document.body.hasAttribute('data-theme')) {
-            // Dark mode - use 60% opacity overlay
-            body.style.background = `linear-gradient(rgba(17,24,39,0.6), rgba(17,24,39,0.6)), ${bgColor}`;
-        } else {
-            // Light mode - use 60% opacity overlay  
-            body.style.background = `linear-gradient(rgba(249,250,251,0.6), rgba(249,250,251,0.6)), ${bgColor}`;
-        }
-        
+        body.style.background = bgColor;
         body.style.backgroundAttachment = 'fixed';
         body.style.backgroundSize = 'cover';
         
-        console.log(`🎨 Background applied: ${bgColor.substring(0, 50)}...`);
+        // Add subtle pattern overlay for texture (optional)
+        const mainContent = document.querySelector('.main-content');
+        if (mainContent) {
+            // Light semi-transparent overlay for readability
+            if (document.body.hasAttribute('data-theme')) {
+                mainContent.style.backgroundColor = 'rgba(17, 24, 39, 0.85)';
+            } else {
+                mainContent.style.backgroundColor = 'rgba(255, 255, 255, 0.85)';
+            }
+        }
+        
+        console.log(`🎨 Background applied: ${bgColor}`);
     }
 
     exportData() {
