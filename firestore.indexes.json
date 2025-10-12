@@ -99,16 +99,6 @@
       ]
     },
     {
-      "collectionGroup": "community",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "date",
-          "order": "DESCENDING"
-        }
-      ]
-    },
-    {
       "collectionGroup": "friends",
       "queryScope": "COLLECTION",
       "fields": [
