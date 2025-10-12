@@ -1,7 +1,7 @@
 // Authentication Module
 
 import { appState } from '../utils/state.js';
-import { auth, db } from '../firebase-init.js';
+import { auth as firebaseAuth, db as firestore } from '../firebase-init.js';
 
 export class AuthManager {
     constructor() {
@@ -10,8 +10,8 @@ export class AuthManager {
         this.authSection = null;
         this.appContainer = null;
         this.logoutBtn = null;
-        this.firebaseAuth = auth;
-        this.firestore = db;
+        this.firebaseAuth = firebaseAuth;
+        this.firestore = firestore;
     }
 
     initialize() {
