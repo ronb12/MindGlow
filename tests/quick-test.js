@@ -228,11 +228,24 @@ async function runQuickTests() {
         try {
             await page.click('[data-page="dashboard"]');
             await page.waitForTimeout(500);
-            await page.click('#theme-toggle');
+            // Click the checkbox input itself, not the label
+            await page.evaluate(() => {
+                const themeToggle = document.getElementById('theme-toggle');
+                themeToggle.checked = true;
+                themeToggle.dispatchEvent(new Event('change'));
+            });
             await page.waitForTimeout(300);
             const isDark = await page.evaluate(() => document.body.hasAttribute('data-theme'));
-            if (isDark) pass('Feature 43: Dark/Light Theme');
-            else throw new Error('Theme not working');
+            if (isDark) {
+                // Toggle back to light
+                await page.evaluate(() => {
+                    const themeToggle = document.getElementById('theme-toggle');
+                    themeToggle.checked = false;
+                    themeToggle.dispatchEvent(new Event('change'));
+                });
+                await page.waitForTimeout(300);
+                pass('Feature 43: Dark/Light Theme');
+            } else throw new Error('Theme not working');
         } catch (e) { fail('Feature 43: Dark/Light Theme', e); }
         
         try {

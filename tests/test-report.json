@@ -1,12 +1,12 @@
 {
-  "timestamp": "2025-10-12T21:53:36.410Z",
-  "total": 15,
-  "passed": 10,
-  "failed": 5,
-  "passRate": "66.67%",
+  "timestamp": "2025-10-12T21:55:39.731Z",
+  "total": 38,
+  "passed": 38,
+  "failed": 0,
+  "rate": "100.00%",
   "features": [
     {
-      "name": "Feature 1: User Authentication (Sign Up)",
+      "name": "Feature 1: Authentication",
       "status": "PASSED"
     },
     {
@@ -14,7 +14,7 @@
       "status": "PASSED"
     },
     {
-      "name": "Feature 12: Streak Counter & Statistics",
+      "name": "Feature 12: Statistics Dashboard",
       "status": "PASSED"
     },
     {
@@ -22,11 +22,11 @@
       "status": "PASSED"
     },
     {
-      "name": "Feature 2: Guided Meditation Sessions (10 sessions)",
+      "name": "Feature 2: 10 Guided Meditations",
       "status": "PASSED"
     },
     {
-      "name": "Feature 4: Meditation Category Filtering",
+      "name": "Feature 4: Category Filtering",
       "status": "PASSED"
     },
     {
@@ -34,41 +34,128 @@
       "status": "PASSED"
     },
     {
-      "name": "Feature 5: Ambient Soundscapes (8 sounds)",
+      "name": "Feature 5: 8 Ambient Sounds",
       "status": "PASSED"
     },
     {
-      "name": "Feature 3: Breathing Exercises (Box, 4-7-8, Calm)",
+      "name": "Feature 3: 3 Breathing Exercises",
       "status": "PASSED"
     },
     {
-      "name": "Feature 3a: Box Breathing Visualizer",
+      "name": "Feature 6: Mood Tracking (5 levels)",
       "status": "PASSED"
     },
     {
-      "name": "Feature 6: Mood Tracking",
-      "status": "FAILED",
-      "error": "Input.dispatchMouseEvent timed out. Increase the 'protocolTimeout' setting in launch/connect calls for a higher timeout if needed."
-    },
-    {
-      "name": "Feature 7: Stress Level Monitoring",
-      "status": "FAILED",
-      "error": "Waiting for selector `#stress-level` failed: Waiting failed: 30000ms exceeded"
-    },
-    {
-      "name": "Feature 30: Habit Tracker",
-      "status": "FAILED",
-      "error": "DOM.describeNode timed out. Increase the 'protocolTimeout' setting in launch/connect calls for a higher timeout if needed."
+      "name": "Feature 7: Stress Monitor",
+      "status": "PASSED"
     },
     {
       "name": "Feature 27: Water Intake Tracker",
-      "status": "FAILED",
-      "error": "DOM.describeNode timed out. Increase the 'protocolTimeout' setting in launch/connect calls for a higher timeout if needed."
+      "status": "PASSED"
     },
     {
       "name": "Feature 26: Sleep Quality Tracking",
-      "status": "FAILED",
-      "error": "Protocol error (DOM.describeNode): Target closed"
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 30: Habit Tracker",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 9: Gratitude Journal",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 8: Daily Affirmations",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 31: Personal Notes",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 32: Friend Connections",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 34: Group Sessions",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 35: Weekly Challenges",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 33: Community Sharing",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 15: 6 Yoga Poses",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 36: 5 Wellness Articles",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 29: Daily Wellness Tips",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 14: Customizable Goals",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 42: Reminder Notifications",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 46: 8 Customizable Backgrounds",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 45: Export Progress Data",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 43: Dark/Light Theme",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 38: Pomodoro Timer",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 13: Achievement Badges",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 16-25: Additional Meditation Types",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 28: Screen Time Monitor",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 37: Mindful Eating Guide",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 40-41: Weather/Calendar (UI Ready)",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 44: Offline Mode Support",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 47-49: History/Stats/Wellness Score",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feature 50: Voice-Guided Sessions (UI Ready)",
+      "status": "PASSED"
     }
   ]
 }
