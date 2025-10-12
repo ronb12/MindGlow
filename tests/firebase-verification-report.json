@@ -1,0 +1,30 @@
+{
+  "timestamp": "2025-10-12T22:38:40.169Z",
+  "testUser": "fbtest1760308720166@mindglow.app",
+  "firebaseMessages": [
+    "🔥 Firebase initialized successfully!",
+    "Project: mindglow-wellness",
+    "Auth Domain: mindglow-wellness.firebaseapp.com",
+    "%c🧘 MindGlow v1.0.0 color: #6366f1; font-size: 20px; font-weight: bold",
+    "%cA product of Bradley Virtual Solutions, LLC color: #8b5cf6; font-size: 14px",
+    "✅ MindGlow initialized successfully!",
+    "[DOM] Input elements should have autocomplete attributes (suggested: \"current-password\"): (More info: https://goo.gl/9p2vKq) %o",
+    "[DOM] Input elements should have autocomplete attributes (suggested: \"current-password\"): (More info: https://goo.gl/9p2vKq) %o",
+    "Failed to load resource: the server responded with a status of 404 (File not found)",
+    "Failed to load resource: the server responded with a status of 400 ()",
+    "Signup error: JSHandle@error"
+  ],
+  "errors": [
+    "Authentication error - Email/Password provider may not be enabled"
+  ],
+  "dataEntries": [],
+  "verification": {
+    "firebaseLoaded": {
+      "loaded": true,
+      "initialized": true,
+      "authReady": true,
+      "firestoreReady": true
+    }
+  },
+  "success": false
+}
