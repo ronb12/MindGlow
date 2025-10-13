@@ -540,7 +540,7 @@ export class MeditationFeature {
 
                 <div style="margin: 20px 0; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 10px;">
                     <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px;">
-                        <i class="fas fa-music" style="font-size: 18px;"></i>
+                        <i id="music-icon" class="fas fa-music" style="font-size: 18px;"></i>
                         <span style="font-size: 16px; font-weight: 600;">${randomMusic.title}</span>
                     </div>
                     <div style="opacity: 0.7; font-size: 14px; margin-bottom: 15px;">by ${randomMusic.artist}</div>
@@ -566,7 +566,7 @@ export class MeditationFeature {
                     </button>
                 </div>
 
-                <audio id="modal-meditation-audio" loop>
+                <audio id="modal-meditation-audio" loop preload="auto">
                     <source src="${randomMusic.url}" type="audio/mpeg">
                 </audio>
             </div>
@@ -588,7 +588,14 @@ export class MeditationFeature {
 
         // Set audio volume to 80% for clear audibility
         audio.volume = 0.8;
+        audio.muted = false; // CRITICAL: Ensure audio is NOT muted
         audio.preload = 'auto'; // Preload the audio
+        
+        console.log('🎵 Modal audio initialized:', {
+            volume: audio.volume,
+            muted: audio.muted,
+            src: audio.querySelector('source')?.src
+        });
         
         // Volume slider control
         const volumeSlider = modal.querySelector('#modal-volume-slider');
@@ -606,16 +613,51 @@ export class MeditationFeature {
         // Start/Resume button
         startBtn.addEventListener('click', () => {
             if (!isRunning) {
-                // Ensure audio is loaded and play
+                // CRITICAL: Ensure audio is unmuted and volume is set
+                audio.muted = false;
+                audio.volume = 0.8;
+                
+                // Load and play audio
                 audio.load();
-                audio.play()
-                    .then(() => {
-                        console.log('✅ Modal music playing at 80% volume');
-                    })
-                    .catch(err => {
-                        console.log('Audio play failed:', err);
-                        showNotification('Click Start again to play music', 'info');
-                    });
+                
+                const playPromise = audio.play();
+                
+if (playPromise !== undefined) {
+                    playPromise
+                        .then(() => {
+                            console.log('✅ Modal music playing at 80% volume');
+                            console.log('🔊 Audio state:', {
+                                playing: !audio.paused,
+                                volume: audio.volume,
+                                muted: audio.muted,
+                                currentTime: audio.currentTime,
+                                readyState: audio.readyState
+                            });
+                            
+                            // Animate music icon to show it's playing
+                            const musicIcon = modal.querySelector('#music-icon');
+                            if (musicIcon) {
+                                musicIcon.style.animation = 'pulse 2s ease-in-out infinite';
+                            }
+                            
+                            // Show notification with volume info
+                            showNotification(`🎵 Music playing at ${Math.round(audio.volume * 100)}% volume`, 'success');
+                            
+                            // Check audio is actually producing sound after 1 second
+                            setTimeout(() => {
+                                if (!audio.muted && audio.volume > 0 && !audio.paused) {
+                                    console.log('✅ Audio confirmed playing with sound');
+                                } else {
+                                    console.warn('⚠️ Audio may be muted or paused');
+                                    showNotification('🔊 If you can\'t hear music, check device volume', 'info');
+                                }
+                            }, 1000);
+                        })
+                        .catch(err => {
+                            console.error('❌ Audio play failed:', err);
+                            showNotification('Click Start again to enable music 🎵', 'warning');
+                        });
+                }
                 
                 timerInterval = setInterval(() => {
                     timeRemaining--;
