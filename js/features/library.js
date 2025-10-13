@@ -10,11 +10,13 @@ export class LibraryFeature {
     }
 
     initialize() {
+        console.log('📚 Library feature initializing...');
         this.renderYogaPoses();
         this.renderArticles();
         this.renderWellnessTips();
         this.setupMindfulEatingGuide();
         this.loadYogaImages();
+        console.log('✅ Library feature initialized with interactive modals');
     }
     
     setupMindfulEatingGuide() {
@@ -167,9 +169,12 @@ export class LibraryFeature {
         }).join('');
         
         // Add click handlers
-        grid.querySelectorAll('.yoga-card').forEach(card => {
+        const cards = grid.querySelectorAll('.yoga-card');
+        console.log(`🧘 Adding click handlers to ${cards.length} yoga poses`);
+        cards.forEach(card => {
             card.addEventListener('click', () => {
                 const index = parseInt(card.dataset.poseIndex);
+                console.log(`Clicked yoga pose: ${yogaPoses[index].name}`);
                 this.showYogaPoseModal(yogaPoses[index], this.yogaImages[index]);
             });
         });

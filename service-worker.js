@@ -1,8 +1,8 @@
 // MindGlow Service Worker - Advanced PWA
 // A product of Bradley Virtual Solutions, LLC
 
-const CACHE_NAME = 'mindglow-v3.0.0';
-const RUNTIME_CACHE = 'mindglow-runtime-v3.0.0';
+const CACHE_NAME = 'mindglow-v3.1.0';
+const RUNTIME_CACHE = 'mindglow-runtime-v3.1.0';
 
 // Files to cache for offline use
 const PRECACHE_URLS = [

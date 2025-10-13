@@ -1,0 +1,99 @@
+═══════════════════════════════════════════════════════════════════
+   🗑️  DELETE OLD FIREBASE RELEASES - STEP BY STEP GUIDE
+═══════════════════════════════════════════════════════════════════
+
+The Firebase Console should now be open in your browser!
+If not, visit: https://console.firebase.google.com/project/mindglow-wellness/hosting/sites
+
+
+STEP 1: NAVIGATE TO RELEASE HISTORY
+═══════════════════════════════════════════════════════════════════
+
+1. You should see your site: "mindglow-wellness"
+2. Click on the site name
+3. Look for the "Release history" tab at the top
+4. Click "Release history"
+
+
+STEP 2: VIEW ALL RELEASES
+═══════════════════════════════════════════════════════════════════
+
+You'll see a list like this:
+
+   Version abc123def456   Oct 13, 2025 1:57 PM   [Live]
+   Version xyz789ghi012   Oct 13, 2025 1:45 PM
+   Version mno345pqr678   Oct 13, 2025 1:30 PM
+   Version stu901vwx234   Oct 13, 2025 12:00 PM
+   ... (many more old releases)
+
+
+STEP 3: DELETE OLD RELEASES
+═══════════════════════════════════════════════════════════════════
+
+For each OLD release (NOT the live one):
+
+1. Find the "..." menu button on the right side
+2. Click it
+3. Select "Delete" from the dropdown
+4. Confirm deletion
+
+IMPORTANT: 
+✅ KEEP the top 5-10 releases (most recent)
+❌ DELETE everything older than that
+
+
+STEP 4: SET AUTO-CLEANUP (IMPORTANT!)
+═══════════════════════════════════════════════════════════════════
+
+To prevent this from happening again:
+
+1. Look for "Manage retention" or "Settings" button
+2. Click it
+3. Set: "Automatically delete old releases"
+4. Choose: "Keep last 10 releases"
+5. Save
+
+
+STEP 5: VERIFY CLEANUP
+═══════════════════════════════════════════════════════════════════
+
+After deleting:
+- You should have ~10 releases left
+- Your storage should be freed up
+- You'll be able to deploy again!
+
+
+STEP 6: TEST DEPLOYMENT
+═══════════════════════════════════════════════════════════════════
+
+Come back to your terminal and run:
+
+   cd /Users/ronellbradley/Desktop/MindGlow
+   firebase deploy --only hosting --project mindglow-wellness
+
+It should work now! ✅
+
+
+═══════════════════════════════════════════════════════════════════
+   WHAT GETS FIXED AFTER DEPLOYMENT:
+═══════════════════════════════════════════════════════════════════
+
+✅ Yoga pose modals will work (click to see full details)
+✅ Article modals will work (click to read full content)
+✅ Pixabay API errors will be gone (removed from code)
+✅ Console will be clean!
+
+
+═══════════════════════════════════════════════════════════════════
+   QUESTIONS?
+═══════════════════════════════════════════════════════════════════
+
+If you can't find "Release history" or "Delete" option:
+- Try looking under "Hosting" → "Dashboard" → "View details"
+- Or look for a gear icon (⚙️) for settings
+
+The key is to delete OLD releases to free up storage space.
+
+
+═══════════════════════════════════════════════════════════════════
+
