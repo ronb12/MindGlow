@@ -20,22 +20,22 @@ export const ambientSounds = [
     { id: 10, title: "Backbay Lounge", artist: "Kevin MacLeod", icon: "music", url: "./music/ambient-04.mp3", license: "CC BY 4.0", category: "Ambient", duration: "3:16" },
     { id: 11, title: "Long Note Four", artist: "Kevin MacLeod", icon: "music", url: "./music/ambient-05.mp3", license: "CC BY 4.0", category: "Ambient", duration: "6:45" },
     { id: 12, title: "Long Note Two", artist: "Kevin MacLeod", icon: "music", url: "./music/ambient-06.mp3", license: "CC BY 4.0", category: "Ambient", duration: "5:28" },
-    { id: 13, title: "Almost in F", artist: "Kevin MacLeod", icon: "music", url: "./music/ambient-07.mp3", license: "CC BY 4.0", category: "Ambient", duration: "1:48" },
     
     // SLEEP TRACKS - LOCAL FILES
-    { id: 14, title: "Wholesome", artist: "Kevin MacLeod", icon: "moon", url: "./music/sleep-dreamlike.mp3", license: "CC BY 4.0", category: "Sleep", duration: "6:12" },
-    { id: 15, title: "Airport Lounge", artist: "Kevin MacLeod", icon: "moon", url: "./music/airport-lounge.mp3", license: "CC BY 4.0", category: "Sleep", duration: "2:24" },
-    { id: 16, title: "Dreamlike", artist: "Kevin MacLeod", icon: "moon", url: "./music/dreamlike.mp3", license: "CC BY 4.0", category: "Sleep", duration: "3:47" },
-    { id: 17, title: "Evening Melodrama", artist: "Kevin MacLeod", icon: "moon", url: "./music/sleep-03.mp3", license: "CC BY 4.0", category: "Sleep", duration: "4:32" },
-    { id: 18, title: "Eternal Hope", artist: "Kevin MacLeod", icon: "moon", url: "./music/sleep-04.mp3", license: "CC BY 4.0", category: "Sleep", duration: "4:05" },
-    { id: 19, title: "Floating Cities", artist: "Kevin MacLeod", icon: "moon", url: "./music/sleep-05.mp3", license: "CC BY 4.0", category: "Sleep", duration: "4:02" },
+    { id: 13, title: "Wholesome", artist: "Kevin MacLeod", icon: "moon", url: "./music/sleep-dreamlike.mp3", license: "CC BY 4.0", category: "Sleep", duration: "6:12" },
+    { id: 14, title: "Airport Lounge", artist: "Kevin MacLeod", icon: "moon", url: "./music/airport-lounge.mp3", license: "CC BY 4.0", category: "Sleep", duration: "2:24" },
+    { id: 15, title: "Dreamlike", artist: "Kevin MacLeod", icon: "moon", url: "./music/dreamlike.mp3", license: "CC BY 4.0", category: "Sleep", duration: "3:47" },
+    { id: 16, title: "Evening Melodrama", artist: "Kevin MacLeod", icon: "moon", url: "./music/sleep-03.mp3", license: "CC BY 4.0", category: "Sleep", duration: "4:32" },
+    { id: 17, title: "Eternal Hope", artist: "Kevin MacLeod", icon: "moon", url: "./music/sleep-04.mp3", license: "CC BY 4.0", category: "Sleep", duration: "4:05" },
+    { id: 18, title: "Floating Cities", artist: "Kevin MacLeod", icon: "moon", url: "./music/sleep-05.mp3", license: "CC BY 4.0", category: "Sleep", duration: "4:02" },
     
     // ADDITIONAL AMBIENT TRACK
-    { id: 20, title: "Prelude and Action", artist: "Kevin MacLeod", icon: "music", url: "./music/prelude-action.mp3", license: "CC BY 4.0", category: "Ambient", duration: "5:54" }
+    { id: 19, title: "Prelude and Action", artist: "Kevin MacLeod", icon: "music", url: "./music/prelude-action.mp3", license: "CC BY 4.0", category: "Ambient", duration: "5:54" }
 ];
 
-// 20 TOTAL TRACKS - ALL LOCAL FILES
+// 19 TOTAL TRACKS - ALL LOCAL FILES
 // 100% reliable playback, works online AND offline!
+// Note: Removed ambient-07.mp3 (75MB - too large for GitHub/Firebase)
 
 export function getSoundById(id) {
     return ambientSounds.find(s => s.id === id);

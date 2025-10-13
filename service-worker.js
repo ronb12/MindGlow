@@ -34,7 +34,7 @@ const PRECACHE_URLS = [
   '/js/data/content.js',
   '/js/data/mindful-eating.js',
   '/manifest.json',
-  // Music files - 20 tracks hardcoded into app for offline access
+  // Music files - 19 tracks hardcoded into app for offline access
   '/music/meditation-01.mp3',
   '/music/meditation-02.mp3',
   '/music/meditation-03.mp3',
@@ -47,7 +47,6 @@ const PRECACHE_URLS = [
   '/music/ambient-04.mp3',
   '/music/ambient-05.mp3',
   '/music/ambient-06.mp3',
-  '/music/ambient-07.mp3',
   '/music/sleep-dreamlike.mp3',
   '/music/airport-lounge.mp3',
   '/music/dreamlike.mp3',
