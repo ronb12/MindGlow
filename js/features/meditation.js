@@ -114,7 +114,7 @@ export class MeditationFeature {
                 const instructions = document.createElement('p');
                 instructions.id = 'music-instructions';
                 instructions.style.cssText = 'text-align: center; margin: 0.5rem 0 1rem 0; opacity: 0.8; font-size: 0.95rem;';
-                instructions.innerHTML = '🎵 16 tracks for meditation, relaxation & sleep • Click to play';
+                instructions.innerHTML = '🎵 High-quality ambient music - Click any track to play';
                 soundsSection.insertAdjacentElement('afterend', instructions);
             }
             
