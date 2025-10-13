@@ -1,5 +1,15 @@
 # MindGlow App Icons
 
+## ✅ SVG Logo Created!
+
+A beautiful MindGlow logo has been created: `mindglow-logo.svg`
+
+Features:
+- Purple gradient background (#6366f1 to #8b5cf6)
+- Lotus flower design (meditation symbol)
+- "MG" text in the center
+- Clean, professional design
+
 ## Required Icons for PWA
 
 To complete the PWA setup, you need to create app icons in the following sizes:
@@ -58,4 +68,43 @@ To complete the PWA setup, you need to create app icons in the following sizes:
 ## Quick Fix for Testing
 
 For testing purposes, you can use a simple emoji-to-icon converter or create a solid color square with your app initials "MG" for MindGlow.
+
+## Converting SVG to PNG Icons
+
+### Method 1: Online Converter (Easiest)
+1. Go to https://realfavicongenerator.net/
+2. Upload `mindglow-logo.svg`
+3. Generate all sizes
+4. Download and extract to this `/icons` folder
+
+### Method 2: CloudConvert (Quick)
+1. Visit https://cloudconvert.com/svg-to-png
+2. Upload `mindglow-logo.svg`
+3. Set sizes: 72, 96, 128, 144, 152, 192, 384, 512
+4. Download all PNGs
+
+### Method 3: Command Line (Mac/Linux with ImageMagick)
+```bash
+# Install ImageMagick (Mac)
+brew install imagemagick
+
+# Convert to all sizes
+for size in 72 96 128 144 152 192 384 512; do
+  convert mindglow-logo.svg -resize ${size}x${size} icon-${size}x${size}.png
+done
+```
+
+### Method 4: Use the SVG Directly
+For fastest testing, update `manifest.json` to use the SVG:
+```json
+"icons": [
+  {
+    "src": "/icons/mindglow-logo.svg",
+    "sizes": "any",
+    "type": "image/svg+xml"
+  }
+]
+```
+
+⚠️ **Current Status**: SVG logo created, PNG conversion needed to eliminate PWA icon warning.
 
