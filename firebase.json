@@ -11,7 +11,10 @@
       "**/node_modules/**",
       "README.md",
       ".git",
-      ".gitignore"
+      ".gitignore",
+      "tests/**",
+      "music/**",
+      "icons/README.md"
     ],
     "rewrites": [
       {
