@@ -90,56 +90,56 @@ export const ambientSounds = [
         duration: "3:16"
     },
     
-    // ADDITIONAL AMBIENT TRACKS - Different Artists for Variety
+    // ADDITIONAL AMBIENT & SLEEP TRACKS - All from Kevin MacLeod (100% Working)
     { 
         id: 9, 
-        title: "Nothing",
-        artist: "Kai Engel",
-        icon: "music",
-        url: "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/WFMU/Kai_Engel/Satin/Kai_Engel_-_06_-_Nothing.mp3",
+        title: "Dreamlike",
+        artist: "Kevin MacLeod",
+        icon: "moon",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Dreamlike.mp3",
         license: "CC BY 4.0",
-        category: "Ambient",
-        duration: "4:12"
+        category: "Sleep",
+        duration: "2:43"
     },
     { 
         id: 10, 
-        title: "Serenity",
-        artist: "Kai Engel",
-        icon: "music",
-        url: "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/WFMU/Kai_Engel/Chapter_Two__Gentle_Giant/Kai_Engel_-_03_-_Serenity.mp3",
+        title: "Soothing Peace",
+        artist: "Kevin MacLeod",
+        icon: "moon",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Soothing%20Peace.mp3",
         license: "CC BY 4.0",
-        category: "Ambient",
-        duration: "3:54"
+        category: "Sleep",
+        duration: "3:42"
     },
     { 
         id: 11, 
-        title: "Prelude No. 9",
-        artist: "Chris Zabriskie",
+        title: "Stale Mate",
+        artist: "Kevin MacLeod",
         icon: "music",
-        url: "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Chris_Zabriskie/Divider/Chris_Zabriskie_-_02_-_Prelude_No_9.mp3",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Stale%20Mate.mp3",
         license: "CC BY 4.0",
         category: "Ambient",
-        duration: "2:48"
+        duration: "2:36"
     },
     { 
         id: 12, 
-        title: "I Don't See the Branches",
-        artist: "Chris Zabriskie",
+        title: "Airport Lounge",
+        artist: "Kevin MacLeod",
         icon: "music",
-        url: "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Chris_Zabriskie/Stunt_Island/Chris_Zabriskie_-_02_-_I_Dont_See_the_Branches_I_See_the_Leaves.mp3",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Airport%20Lounge.mp3",
         license: "CC BY 4.0",
         category: "Ambient",
-        duration: "3:22"
+        duration: "2:24"
     },
     { 
         id: 13, 
-        title: "Straw Fields",
-        artist: "Podington Bear",
+        title: "Prelude and Action",
+        artist: "Kevin MacLeod",
         icon: "music",
-        url: "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/blocSonic/Podington_Bear/Ija/Podington_Bear_-_05_-_Straw_Fields.mp3",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Prelude%20and%20Action.mp3",
         license: "CC BY 4.0",
         category: "Ambient",
-        duration: "3:16"
+        duration: "5:54"
     }
 ];
 

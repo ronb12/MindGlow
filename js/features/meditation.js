@@ -127,7 +127,7 @@ export class MeditationFeature {
                 const attribution = document.createElement('p');
                 attribution.id = 'music-attribution';
                 attribution.style.cssText = 'text-align: center; margin-top: 1.5rem; padding: 1rem; opacity: 0.7; font-size: 0.85rem; border-top: 1px solid var(--border-color);';
-                attribution.innerHTML = '🎼 Music by <strong>Kevin MacLeod</strong>, <strong>Kai Engel</strong>, <strong>Chris Zabriskie</strong> & <strong>Podington Bear</strong><br>Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" style="color: var(--primary-color);">Creative Commons: By Attribution 4.0</a>';
+                attribution.innerHTML = '🎼 Music by <strong>Kevin MacLeod</strong> (incompetech.com)<br>Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" style="color: var(--primary-color);">Creative Commons: By Attribution 4.0</a>';
                 soundsSection.parentElement.appendChild(attribution);
             }
         }
