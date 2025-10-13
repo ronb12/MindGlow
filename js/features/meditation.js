@@ -56,7 +56,7 @@ export class MeditationFeature {
             card.addEventListener('click', () => {
                 const id = parseInt(card.dataset.id);
                 const session = getSessionById(id);
-                this.startSession(session.duration);
+                this.openMeditationModal(session);
             });
         });
     }
@@ -475,6 +475,158 @@ export class MeditationFeature {
             </video>
         `;
         document.body.insertAdjacentHTML('afterbegin', videoHTML);
+    }
+
+    // Open meditation modal with video + music
+    async openMeditationModal(session) {
+        // Remove existing modal if any
+        const existing = document.getElementById('meditation-modal');
+        if (existing) existing.remove();
+
+        showNotification('Loading meditation experience...', 'info');
+
+        // Fetch a calming video from Pexels
+        const videos = await pexelsAPI.getCalmingVideos(5);
+        const videoUrl = videos.length > 0 ? 
+            videos[0].video_files.find(f => f.quality === 'hd' || f.quality === 'sd')?.link : null;
+
+        // Pick a random ambient music
+        const randomMusic = ambientSounds[Math.floor(Math.random() * ambientSounds.length)];
+
+        // Create modal
+        const modal = document.createElement('div');
+        modal.id = 'meditation-modal';
+        modal.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        `;
+
+        modal.innerHTML = `
+            ${videoUrl ? `
+                <video autoplay loop muted playsinline
+                       style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+                              object-fit: cover; opacity: 0.4;">
+                    <source src="${videoUrl}" type="video/mp4">
+                </video>
+            ` : ''}
+            
+            <div style="position: relative; z-index: 10; max-width: 600px; width: 90%; 
+                        background: rgba(0,0,0,0.7); padding: 40px; border-radius: 20px;
+                        backdrop-filter: blur(10px); text-align: center; color: white;">
+                
+                <button id="close-meditation-modal" 
+                        style="position: absolute; top: 15px; right: 15px; background: rgba(255,255,255,0.2);
+                               border: none; color: white; font-size: 24px; cursor: pointer; 
+                               width: 40px; height: 40px; border-radius: 50%; line-height: 40px;">
+                    ×
+                </button>
+
+                <h2 style="margin: 0 0 10px 0; font-size: 32px;">${session.title}</h2>
+                <p style="margin: 0 0 20px 0; opacity: 0.9; font-size: 16px;">${session.description}</p>
+                
+                <div style="margin: 30px 0;">
+                    <div style="font-size: 72px; font-weight: 200; letter-spacing: 2px; font-family: 'Courier New', monospace;">
+                        <span id="modal-timer-minutes">${session.duration.toString().padStart(2, '0')}</span>:<span id="modal-timer-seconds">00</span>
+                    </div>
+                </div>
+
+                <div style="margin: 20px 0; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px;">
+                        <i class="fas fa-music" style="font-size: 18px;"></i>
+                        <span style="font-size: 16px;">${randomMusic.title}</span>
+                    </div>
+                    <div style="opacity: 0.7; font-size: 14px;">by ${randomMusic.artist}</div>
+                </div>
+
+                <div style="display: flex; gap: 15px; justify-content: center; margin-top: 30px;">
+                    <button id="start-modal-session" class="btn-primary" 
+                            style="padding: 15px 40px; font-size: 18px; border-radius: 30px;">
+                        <i class="fas fa-play"></i> Start Session
+                    </button>
+                    <button id="pause-modal-session" class="btn-secondary" 
+                            style="padding: 15px 40px; font-size: 18px; border-radius: 30px; display: none;">
+                        <i class="fas fa-pause"></i> Pause
+                    </button>
+                </div>
+
+                <audio id="modal-meditation-audio" loop>
+                    <source src="${randomMusic.url}" type="audio/mpeg">
+                </audio>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+
+        // Setup controls
+        const audio = modal.querySelector('#modal-meditation-audio');
+        const startBtn = modal.querySelector('#start-modal-session');
+        const pauseBtn = modal.querySelector('#pause-modal-session');
+        const closeBtn = modal.querySelector('#close-meditation-modal');
+        const minutesEl = modal.querySelector('#modal-timer-minutes');
+        const secondsEl = modal.querySelector('#modal-timer-seconds');
+
+        let isRunning = false;
+        let timeRemaining = session.duration * 60;
+        let timerInterval = null;
+
+        // Start/Resume button
+        startBtn.addEventListener('click', () => {
+            if (!isRunning) {
+                audio.play().catch(err => console.log('Audio play failed:', err));
+                
+                timerInterval = setInterval(() => {
+                    timeRemaining--;
+                    const mins = Math.floor(timeRemaining / 60);
+                    const secs = timeRemaining % 60;
+                    minutesEl.textContent = mins.toString().padStart(2, '0');
+                    secondsEl.textContent = secs.toString().padStart(2, '0');
+
+                    if (timeRemaining <= 0) {
+                        clearInterval(timerInterval);
+                        this.completeSession(session.duration);
+                        modal.remove();
+                        showNotification('Meditation complete! 🎉', 'success');
+                    }
+                }, 1000);
+
+                startBtn.style.display = 'none';
+                pauseBtn.style.display = 'inline-block';
+                isRunning = true;
+            }
+        });
+
+        // Pause button
+        pauseBtn.addEventListener('click', () => {
+            clearInterval(timerInterval);
+            audio.pause();
+            startBtn.style.display = 'inline-block';
+            pauseBtn.style.display = 'none';
+            isRunning = false;
+        });
+
+        // Close button
+        closeBtn.addEventListener('click', () => {
+            clearInterval(timerInterval);
+            audio.pause();
+            modal.remove();
+        });
+
+        // Close on background click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                clearInterval(timerInterval);
+                audio.pause();
+                modal.remove();
+            }
+        });
     }
 }
 
