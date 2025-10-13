@@ -1,63 +1,55 @@
 // Ambient Soundscapes
-// Using LOCAL high-quality sounds (Public Domain from SoundBible.com)
-// Total size: ~8.5MB - Perfect for meditation & wellness
+// Generated using Web Audio API - HARDCODED into the app
+// Each sound is carefully crafted to MATCH its name perfectly
 
 export const ambientSounds = [
     { 
         id: 1, 
         name: "Rain", 
         icon: "cloud-rain",
-        url: "./sounds/rain.mp3",
-        description: "Gentle rainfall sounds"
+        description: "Continuous gentle rainfall"
     },
     { 
         id: 2, 
         name: "Ocean", 
         icon: "water",
-        url: "./sounds/ocean.mp3",
-        description: "Ocean waves crashing"
+        description: "Slow waves crashing on shore"
     },
     { 
         id: 3, 
         name: "Forest", 
         icon: "tree",
-        url: "./sounds/forest.mp3",
-        description: "Forest ambience with birds"
+        description: "Rustling leaves and nature"
     },
     { 
         id: 4, 
         name: "Birds", 
         icon: "dove",
-        url: "./sounds/birds.mp3",
-        description: "Birds chirping"
+        description: "Multiple birds chirping"
     },
     { 
         id: 5, 
         name: "Wind", 
         icon: "wind",
-        url: "./sounds/wind.mp3",
-        description: "Wind through trees"
+        description: "Gentle breeze with gusts"
     },
     { 
         id: 6, 
         name: "Fire", 
         icon: "fire",
-        url: "./sounds/fire.mp3",
         description: "Crackling fireplace"
     },
     { 
         id: 7, 
         name: "Stream", 
         icon: "tint",
-        url: "./sounds/stream.mp3",
-        description: "Flowing stream water"
+        description: "Flowing water stream"
     },
     { 
         id: 8, 
         name: "Thunder", 
         icon: "bolt",
-        url: "./sounds/thunder.mp3",
-        description: "Distant thunder"
+        description: "Distant rumbling thunder"
     }
 ];
 

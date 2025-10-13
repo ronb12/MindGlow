@@ -4,14 +4,14 @@ import { appState } from '../utils/state.js';
 import { meditationSessions, getSessionsByCategory, getSessionById } from '../data/meditations.js';
 import { ambientSounds } from '../data/sounds.js';
 import { updateProgress, showNotification } from '../utils/helpers.js';
+import { soundGenerator } from '../utils/audio-generator.js';
 
 export class MeditationFeature {
     constructor() {
         this.timer = null;
         this.selectedTime = 10;
-        this.audioElements = new Map();
         this.currentSound = null;
-        this.volume = 0.5;
+        this.volume = 0.4;
     }
 
     initialize() {
@@ -60,32 +60,13 @@ export class MeditationFeature {
         const grid = document.getElementById('sounds-grid');
         if (!grid) return;
         
-        // Create sound cards with real audio elements
+        // Create sound cards (Web Audio API - no audio elements needed)
         grid.innerHTML = ambientSounds.map(sound => `
             <div class="sound-card" data-id="${sound.id}" data-name="${sound.name}">
                 <i class="fas fa-${sound.icon}"></i>
                 <p>${sound.name}</p>
-                <audio id="sound-${sound.id}" src="${sound.url}" loop preload="metadata" crossorigin="anonymous"></audio>
             </div>
         `).join('');
-        
-        // Store audio elements
-        ambientSounds.forEach(sound => {
-            const audio = document.getElementById(`sound-${sound.id}`);
-            if (audio) {
-                audio.volume = this.volume;
-                this.audioElements.set(sound.id, audio);
-                
-                // Add error handling
-                audio.addEventListener('error', (e) => {
-                    console.error(`Failed to load ${sound.name}:`, e);
-                });
-                
-                audio.addEventListener('loadeddata', () => {
-                    console.log(`✅ ${sound.name} loaded successfully`);
-                });
-            }
-        });
         
         // Setup click handlers for playback
         grid.querySelectorAll('.sound-card').forEach(card => {
@@ -112,68 +93,47 @@ export class MeditationFeature {
             const instructions = document.createElement('p');
             instructions.id = 'sound-instructions';
             instructions.style.cssText = 'text-align: center; margin: 0.5rem 0; opacity: 0.7; font-size: 0.9rem;';
-            instructions.textContent = '🎵 Click any sound to play high-quality ambient audio';
+            instructions.innerHTML = '🎵 Click any sound below - <strong>Each sound name matches what you\'ll hear!</strong>';
             soundsSection.insertAdjacentElement('afterend', instructions);
         }
     }
 
     playSound(soundId, soundName) {
-        // Stop current sound
-        if (this.currentSound && this.audioElements.has(this.currentSound)) {
-            const currentAudio = this.audioElements.get(this.currentSound);
-            currentAudio.pause();
-            currentAudio.currentTime = 0;
-        }
-        
-        // Play new sound
-        const newAudio = this.audioElements.get(soundId);
-        if (newAudio) {
-            newAudio.volume = this.volume;
+        try {
+            // Set volume
+            soundGenerator.setVolume(this.volume);
             
-            const playPromise = newAudio.play();
+            // Play the appropriate sound using Web Audio API
+            const soundMethods = {
+                1: () => soundGenerator.playRain(),
+                2: () => soundGenerator.playOcean(),
+                3: () => soundGenerator.playForest(),
+                4: () => soundGenerator.playBirds(),
+                5: () => soundGenerator.playWind(),
+                6: () => soundGenerator.playFire(),
+                7: () => soundGenerator.playStream(),
+                8: () => soundGenerator.playThunder()
+            };
             
-            if (playPromise !== undefined) {
-                playPromise
-                    .then(() => {
-                        console.log(`✅ Playing ambient sound: ${soundName}`);
-                        this.currentSound = soundId;
-                        
-                        // Update instructions
-                        const instructions = document.getElementById('sound-instructions');
-                        if (instructions) {
-                            instructions.textContent = `🎵 Now playing: ${soundName}`;
-                        }
-                        
-                        showNotification(`Playing ${soundName}`, 'success');
-                    })
-                    .catch(err => {
-                        console.error(`❌ Failed to play sound: ${soundName}`, err);
-                        
-                        // User-friendly error messages
-                        if (err.name === 'NotAllowedError') {
-                            showNotification(`Click again to play ${soundName}`, 'warning');
-                        } else if (err.name === 'NotSupportedError') {
-                            showNotification(`${soundName} format not supported`, 'error');
-                        } else {
-                            showNotification(`Loading ${soundName}...`, 'info');
-                            // Try again after a short delay
-                            setTimeout(() => {
-                                newAudio.play()
-                                    .then(() => {
-                                        console.log(`✅ ${soundName} playing after retry`);
-                                        const instructions = document.getElementById('sound-instructions');
-                                        if (instructions) {
-                                            instructions.textContent = `🎵 Now playing: ${soundName}`;
-                                        }
-                                    })
-                                    .catch(e => console.error(`Retry failed for ${soundName}:`, e));
-                            }, 1000);
-                        }
-                    });
+            if (soundMethods[soundId]) {
+                soundMethods[soundId]();
+                this.currentSound = soundId;
+                
+                // Update instructions
+                const instructions = document.getElementById('sound-instructions');
+                if (instructions) {
+                    instructions.innerHTML = `🎵 Now playing: <strong>${soundName}</strong> - Sound matches the name!`;
+                }
+                
+                showNotification(`Playing ${soundName}`, 'success');
+            } else {
+                console.error(`Unknown sound ID: ${soundId}`);
+                showNotification(`Sound not found`, 'error');
             }
-        } else {
-            console.error(`No audio element found for sound ID: ${soundId}`);
-            showNotification(`Sound not found`, 'error');
+            
+        } catch (err) {
+            console.error(`❌ Failed to play sound: ${soundName}`, err);
+            showNotification(`Error playing ${soundName}. Try again.`, 'error');
         }
     }
 
@@ -187,10 +147,10 @@ export class MeditationFeature {
             const volumeHtml = `
                 <div class="volume-control" style="margin-top: 1rem; display: flex; align-items: center; gap: 1rem; justify-content: center;">
                     <i class="fas fa-volume-down" style="font-size: 1.2rem;"></i>
-                    <input type="range" id="sound-volume-control" min="0" max="100" value="50" 
+                    <input type="range" id="sound-volume-control" min="0" max="100" value="40" 
                            style="width: 200px; cursor: pointer;">
                     <i class="fas fa-volume-up" style="font-size: 1.2rem;"></i>
-                    <span id="volume-percentage" style="min-width: 40px;">50%</span>
+                    <span id="volume-percentage" style="min-width: 40px;">40%</span>
                 </div>
             `;
             soundsSection.insertAdjacentHTML('beforeend', volumeHtml);
@@ -202,10 +162,8 @@ export class MeditationFeature {
                 const newVolume = parseInt(e.target.value) / 100;
                 this.volume = newVolume;
                 
-                // Update all audio elements
-                this.audioElements.forEach(audio => {
-                    audio.volume = newVolume;
-                });
+                // Update sound generator volume
+                soundGenerator.setVolume(newVolume);
                 
                 // Update percentage display
                 const percentageDisplay = document.getElementById('volume-percentage');
@@ -219,10 +177,7 @@ export class MeditationFeature {
     }
 
     stopAllSounds() {
-        this.audioElements.forEach(audio => {
-            audio.pause();
-            audio.currentTime = 0;
-        });
+        soundGenerator.stop();
         this.currentSound = null;
     }
 
