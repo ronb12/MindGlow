@@ -93,23 +93,40 @@ class PexelsAPI {
         }
     }
 
-    // Get yoga/wellness library images
-    async getYogaImages(perPage = 20) {
-        const queries = ['yoga', 'wellness', 'mindfulness', 'healthy lifestyle', 'exercise'];
-        const randomQuery = queries[Math.floor(Math.random() * queries.length)];
+    // Get yoga/wellness library images - specific to pose names
+    async getYogaPoseImages(poseNames) {
+        const images = [];
         
         try {
-            const response = await fetch(
-                `${API_URL}/search?query=${randomQuery}&per_page=${perPage}`,
-                { headers: this.headers }
-            );
+            for (const poseName of poseNames) {
+                // Search for specific pose (e.g., "downward dog yoga pose")
+                const searchQuery = `${poseName} yoga pose`;
+                
+                const response = await fetch(
+                    `${API_URL}/search?query=${encodeURIComponent(searchQuery)}&per_page=1&orientation=landscape`,
+                    { headers: this.headers }
+                );
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.photos && data.photos.length > 0) {
+                        images.push(data.photos[0]);
+                    } else {
+                        // Fallback: generic yoga image
+                        images.push(null);
+                    }
+                } else {
+                    images.push(null);
+                }
+                
+                // Small delay between API calls
+                await new Promise(resolve => setTimeout(resolve, 200));
+            }
             
-            if (!response.ok) throw new Error('Pexels API error');
-            
-            const data = await response.json();
-            return data.photos;
+            console.log('✅ Loaded', images.filter(img => img).length, 'specific yoga pose images');
+            return images;
         } catch (error) {
-            console.error('Error fetching yoga images:', error);
+            console.error('Error fetching yoga pose images:', error);
             return [];
         }
     }

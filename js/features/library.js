@@ -191,12 +191,16 @@ export class LibraryFeature {
         `).join('');
     }
 
-    // Load yoga images from Pexels
+    // Load yoga images from Pexels - SPECIFIC to each pose
     async loadYogaImages() {
         try {
-            this.yogaImages = await pexelsAPI.getYogaImages(12);
-            console.log('✅ Loaded', this.yogaImages.length, 'yoga/wellness images');
-            this.renderYogaPoses(); // Re-render with images
+            // Extract pose names
+            const poseNames = yogaPoses.map(pose => pose.name);
+            
+            // Fetch images specific to each pose
+            this.yogaImages = await pexelsAPI.getYogaPoseImages(poseNames);
+            console.log('✅ Loaded', this.yogaImages.filter(img => img).length, 'specific yoga pose images');
+            this.renderYogaPoses(); // Re-render with pose-specific images
         } catch (error) {
             console.error('Error loading yoga images:', error);
         }
