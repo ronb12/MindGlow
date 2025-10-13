@@ -35,6 +35,48 @@ export function hideModal(modalId) {
 }
 
 export function showNotification(message, type = 'success') {
-    alert(message); // Simple for now, can be enhanced later
+    // Remove any existing notification
+    const existing = document.getElementById('toast-notification');
+    if (existing) existing.remove();
+
+    // Create toast notification
+    const toast = document.createElement('div');
+    toast.id = 'toast-notification';
+    toast.className = `toast-notification toast-${type}`;
+    
+    const icons = {
+        success: 'fa-check-circle',
+        error: 'fa-exclamation-circle',
+        warning: 'fa-exclamation-triangle',
+        info: 'fa-info-circle'
+    };
+    
+    const colors = {
+        success: '#10b981',
+        error: '#ef4444',
+        warning: '#f59e0b',
+        info: '#3b82f6'
+    };
+    
+    toast.innerHTML = `
+        <div class="toast-content">
+            <i class="fas ${icons[type] || icons.success}" style="color: ${colors[type]};"></i>
+            <span class="toast-message">${message}</span>
+        </div>
+        <button class="toast-close" onclick="this.parentElement.remove()">
+            <i class="fas fa-times"></i>
+        </button>
+    `;
+    
+    document.body.appendChild(toast);
+    
+    // Trigger animation
+    setTimeout(() => toast.classList.add('show'), 10);
+    
+    // Auto-remove after 4 seconds
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+    }, 4000);
 }
 

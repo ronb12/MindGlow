@@ -538,12 +538,21 @@ export class MeditationFeature {
                     </div>
                 </div>
 
-                <div style="margin: 20px 0; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                <div style="margin: 20px 0; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 10px;">
                     <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px;">
                         <i class="fas fa-music" style="font-size: 18px;"></i>
-                        <span style="font-size: 16px;">${randomMusic.title}</span>
+                        <span style="font-size: 16px; font-weight: 600;">${randomMusic.title}</span>
                     </div>
-                    <div style="opacity: 0.7; font-size: 14px;">by ${randomMusic.artist}</div>
+                    <div style="opacity: 0.7; font-size: 14px; margin-bottom: 15px;">by ${randomMusic.artist}</div>
+                    
+                    <div style="display: flex; align-items: center; gap: 10px; margin-top: 15px;">
+                        <i class="fas fa-volume-down" style="font-size: 14px;"></i>
+                        <input type="range" id="modal-volume-slider" min="0" max="100" value="80" 
+                               style="flex: 1; cursor: pointer; height: 6px; border-radius: 3px; 
+                                      background: rgba(255,255,255,0.3); outline: none;">
+                        <i class="fas fa-volume-up" style="font-size: 14px;"></i>
+                        <span id="modal-volume-display" style="min-width: 35px; font-size: 13px;">80%</span>
+                    </div>
                 </div>
 
                 <div style="display: flex; gap: 15px; justify-content: center; margin-top: 30px;">
@@ -577,10 +586,36 @@ export class MeditationFeature {
         let timeRemaining = session.duration * 60;
         let timerInterval = null;
 
+        // Set audio volume to 80% for clear audibility
+        audio.volume = 0.8;
+        audio.preload = 'auto'; // Preload the audio
+        
+        // Volume slider control
+        const volumeSlider = modal.querySelector('#modal-volume-slider');
+        const volumeDisplay = modal.querySelector('#modal-volume-display');
+        
+        if (volumeSlider) {
+            volumeSlider.addEventListener('input', (e) => {
+                const volume = parseInt(e.target.value) / 100;
+                audio.volume = volume;
+                volumeDisplay.textContent = `${e.target.value}%`;
+                console.log(`🔊 Modal volume: ${e.target.value}%`);
+            });
+        }
+        
         // Start/Resume button
         startBtn.addEventListener('click', () => {
             if (!isRunning) {
-                audio.play().catch(err => console.log('Audio play failed:', err));
+                // Ensure audio is loaded and play
+                audio.load();
+                audio.play()
+                    .then(() => {
+                        console.log('✅ Modal music playing at 80% volume');
+                    })
+                    .catch(err => {
+                        console.log('Audio play failed:', err);
+                        showNotification('Click Start again to play music', 'info');
+                    });
                 
                 timerInterval = setInterval(() => {
                     timeRemaining--;
