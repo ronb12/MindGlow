@@ -161,32 +161,4 @@ self.addEventListener('push', event => {
     tag: 'mindglow-reminder',
     requireInteraction: false,
     actions: [
-      { action: 'meditate', title: 'Start Session' },
-      { action: 'dismiss', title: 'Dismiss' }
-    ]
-  };
-
-  event.waitUntil(
-    self.registration.showNotification('MindGlow Reminder', options)
-  );
-});
-
-// Notification click handler
-self.addEventListener('notificationclick', event => {
-  console.log('[Service Worker] Notification clicked:', event.action);
-  
-  event.notification.close();
-  
-  if (event.action === 'meditate') {
-    event.waitUntil(
-      clients.openWindow('/?action=quick-meditate')
-    );
-  } else {
-    event.waitUntil(
-      clients.openWindow('/')
-    );
-  }
-});
-
-console.log('[Service Worker] Loaded successfully');
-
+      { action: 
