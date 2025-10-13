@@ -93,13 +93,13 @@ export const ambientSounds = [
     // ADDITIONAL AMBIENT & SLEEP TRACKS - All LOCAL FILES (100% Working)
     { 
         id: 9, 
-        title: "Dreamlike",
+        title: "Wholesome",
         artist: "Kevin MacLeod",
         icon: "moon",
-        url: "./music/dreamlike.mp3",
+        url: "./music/sleep-dreamlike.mp3",
         license: "CC BY 4.0",
         category: "Sleep",
-        duration: "2:43"
+        duration: "6:12"
     },
     { 
         id: 10, 
