@@ -120,6 +120,98 @@ export const ambientSounds = [
         license: "CC BY 4.0",
         category: "Ambient",
         duration: "5:54"
+    },
+    
+    // EXPANDED MUSIC LIBRARY - More tracks from Kevin MacLeod
+    { 
+        id: 12, 
+        title: "Dreaming",
+        artist: "Kevin MacLeod",
+        icon: "moon",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Dreaming.mp3",
+        license: "CC BY 4.0",
+        category: "Sleep",
+        duration: "3:17"
+    },
+    { 
+        id: 13, 
+        title: "Peaceful",
+        artist: "Kevin MacLeod",
+        icon: "cloud",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Peaceful.mp3",
+        license: "CC BY 4.0",
+        category: "Relaxation",
+        duration: "2:52"
+    },
+    { 
+        id: 14, 
+        title: "Ambient Ambulance",
+        artist: "Kevin MacLeod",
+        icon: "music",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Ambient%20Ambulance.mp3",
+        license: "CC BY 4.0",
+        category: "Ambient",
+        duration: "3:56"
+    },
+    { 
+        id: 15, 
+        title: "Soaring",
+        artist: "Kevin MacLeod",
+        icon: "cloud",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Soaring.mp3",
+        license: "CC BY 4.0",
+        category: "Relaxation",
+        duration: "4:18"
+    },
+    { 
+        id: 16, 
+        title: "Almost in F",
+        artist: "Kevin MacLeod",
+        icon: "music",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Almost%20in%20F.mp3",
+        license: "CC BY 4.0",
+        category: "Ambient",
+        duration: "1:48"
+    },
+    { 
+        id: 17, 
+        title: "Long Note Four",
+        artist: "Kevin MacLeod",
+        icon: "music",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Long%20Note%20Four.mp3",
+        license: "CC BY 4.0",
+        category: "Ambient",
+        duration: "3:36"
+    },
+    { 
+        id: 18, 
+        title: "Long Note Two",
+        artist: "Kevin MacLeod",
+        icon: "music",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Long%20Note%20Two.mp3",
+        license: "CC BY 4.0",
+        category: "Ambient",
+        duration: "3:37"
+    },
+    { 
+        id: 19, 
+        title: "Drifting",
+        artist: "Kevin MacLeod",
+        icon: "cloud",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Drifting.mp3",
+        license: "CC BY 4.0",
+        category: "Relaxation",
+        duration: "3:18"
+    },
+    { 
+        id: 20, 
+        title: "Candlelight",
+        artist: "Kevin MacLeod",
+        icon: "moon",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Candlelight.mp3",
+        license: "CC BY 4.0",
+        category: "Sleep",
+        duration: "2:35"
     }
 ];
 
