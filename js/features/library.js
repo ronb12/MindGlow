@@ -158,24 +158,42 @@ export class LibraryFeature {
                 : '';
             
             return `
-                <div class="yoga-card" style="${bgStyle}">
+                <div class="yoga-card" style="${bgStyle}" data-pose-index="${index}">
                     <h4 style="color: ${image ? 'white' : 'inherit'}; text-shadow: ${image ? '2px 2px 4px rgba(0,0,0,0.8)' : 'none'};">${pose.name}</h4>
                     <p style="color: ${image ? 'white' : 'inherit'}; text-shadow: ${image ? '1px 1px 2px rgba(0,0,0,0.8)' : 'none'};">${pose.description}</p>
+                    <div class="card-click-hint" style="color: ${image ? 'white' : 'inherit'};">Click for details</div>
                 </div>
             `;
         }).join('');
+        
+        // Add click handlers
+        grid.querySelectorAll('.yoga-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const index = parseInt(card.dataset.poseIndex);
+                this.showYogaPoseModal(yogaPoses[index], this.yogaImages[index]);
+            });
+        });
     }
 
     renderArticles() {
         const grid = document.getElementById('articles-grid');
         if (!grid) return;
         
-        grid.innerHTML = articles.map(article => `
-            <div class="article-card">
+        grid.innerHTML = articles.map((article, index) => `
+            <div class="article-card" data-article-index="${index}">
                 <h4>${article.title}</h4>
                 <p>${article.preview}</p>
+                <div class="card-click-hint">Read more</div>
             </div>
         `).join('');
+        
+        // Add click handlers
+        grid.querySelectorAll('.article-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const index = parseInt(card.dataset.articleIndex);
+                this.showArticleModal(articles[index]);
+            });
+        });
     }
 
     renderWellnessTips() {
@@ -189,6 +207,110 @@ export class LibraryFeature {
                 <p>${tip}</p>
             </div>
         `).join('');
+    }
+
+    // Show detailed yoga pose modal
+    showYogaPoseModal(pose, image) {
+        const modal = document.createElement('div');
+        modal.className = 'modal-overlay';
+        modal.id = 'yoga-pose-modal';
+        
+        const bgStyle = image ? `background-image: url(${image.src.large}); background-size: cover; background-position: center;` : '';
+        
+        modal.innerHTML = `
+            <div class="modal-content yoga-modal">
+                <button class="modal-close" id="close-yoga-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+                
+                <div class="yoga-modal-header" style="${bgStyle}">
+                    <div class="yoga-modal-header-overlay">
+                        <h2>${pose.name}</h2>
+                        <p class="sanskrit-name">${pose.sanskritName}</p>
+                        <span class="difficulty-badge ${pose.difficulty.toLowerCase()}">${pose.difficulty}</span>
+                    </div>
+                </div>
+                
+                <div class="yoga-modal-body">
+                    <div class="yoga-section">
+                        <h3><i class="fas fa-list-ol"></i> How to Do It</h3>
+                        <ol class="yoga-instructions">
+                            ${pose.instructions.map(step => `<li>${step}</li>`).join('')}
+                        </ol>
+                    </div>
+                    
+                    <div class="yoga-section">
+                        <h3><i class="fas fa-heart"></i> Benefits</h3>
+                        <ul class="yoga-benefits">
+                            ${pose.benefits.map(benefit => `<li>${benefit}</li>`).join('')}
+                        </ul>
+                    </div>
+                    
+                    <div class="yoga-tip">
+                        <i class="fas fa-info-circle"></i>
+                        <p><strong>Tip:</strong> ${pose.description}. Practice mindfully and listen to your body.</p>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        // Close button
+        document.getElementById('close-yoga-modal').addEventListener('click', () => {
+            modal.remove();
+        });
+        
+        // Click outside to close
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.remove();
+            }
+        });
+    }
+    
+    // Show detailed article modal
+    showArticleModal(article) {
+        const modal = document.createElement('div');
+        modal.className = 'modal-overlay';
+        modal.id = 'article-modal';
+        
+        modal.innerHTML = `
+            <div class="modal-content article-modal">
+                <button class="modal-close" id="close-article-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+                
+                <div class="article-modal-header">
+                    <h2>${article.title}</h2>
+                    <p class="article-meta">
+                        <i class="fas fa-clock"></i> ${Math.ceil(article.content.split(' ').length / 200)} min read
+                    </p>
+                </div>
+                
+                <div class="article-modal-body">
+                    ${article.content}
+                </div>
+                
+                <div class="article-modal-footer">
+                    <p><i class="fas fa-lightbulb"></i> Apply these insights using MindGlow's meditation and wellness features!</p>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        // Close button
+        document.getElementById('close-article-modal').addEventListener('click', () => {
+            modal.remove();
+        });
+        
+        // Click outside to close
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.remove();
+            }
+        });
     }
 
     // Load yoga images from Pexels - SPECIFIC to each pose

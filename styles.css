@@ -1189,6 +1189,218 @@ input:checked + .slider:before {
     font-size: 14px;
 }
 
+.card-click-hint {
+    margin-top: 10px;
+    font-size: 12px;
+    opacity: 0.7;
+    font-style: italic;
+}
+
+/* Yoga Pose Modal */
+.yoga-modal {
+    max-width: 700px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 0;
+}
+
+.yoga-modal-header {
+    position: relative;
+    height: 250px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px 15px 0 0;
+}
+
+.yoga-modal-header-overlay {
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    border-radius: 15px 15px 0 0;
+}
+
+.yoga-modal-header h2 {
+    color: white;
+    font-size: 32px;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.sanskrit-name {
+    color: rgba(255, 255, 255, 0.9);
+    font-style: italic;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.difficulty-badge {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.difficulty-badge.beginner {
+    background: rgba(16, 185, 129, 0.3);
+    border-color: rgba(16, 185, 129, 0.5);
+}
+
+.difficulty-badge.intermediate {
+    background: rgba(245, 158, 11, 0.3);
+    border-color: rgba(245, 158, 11, 0.5);
+}
+
+.difficulty-badge.advanced {
+    background: rgba(239, 68, 68, 0.3);
+    border-color: rgba(239, 68, 68, 0.5);
+}
+
+.yoga-modal-body {
+    padding: 30px;
+}
+
+.yoga-section {
+    margin-bottom: 30px;
+}
+
+.yoga-section h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+}
+
+.yoga-instructions, .yoga-benefits {
+    padding-left: 20px;
+}
+
+.yoga-instructions li, .yoga-benefits li {
+    margin-bottom: 12px;
+    line-height: 1.6;
+    color: var(--text-primary);
+}
+
+.yoga-tip {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+    border-left: 4px solid var(--primary-color);
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    gap: 15px;
+}
+
+.yoga-tip i {
+    color: var(--primary-color);
+    font-size: 24px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.yoga-tip p {
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+/* Article Modal */
+.article-modal {
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.article-modal-header {
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+.article-modal-header h2 {
+    color: var(--primary-color);
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.article-meta {
+    color: var(--text-secondary);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.article-modal-body {
+    line-height: 1.8;
+    color: var(--text-primary);
+}
+
+.article-modal-body h3 {
+    color: var(--primary-color);
+    margin-top: 25px;
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.article-modal-body h4 {
+    color: var(--secondary-color);
+    margin-top: 20px;
+    margin-bottom: 12px;
+    font-size: 18px;
+}
+
+.article-modal-body ul, .article-modal-body ol {
+    margin: 15px 0;
+    padding-left: 30px;
+}
+
+.article-modal-body li {
+    margin-bottom: 10px;
+}
+
+.article-modal-body p {
+    margin-bottom: 15px;
+}
+
+.article-modal-body strong {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.article-modal-footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 2px solid var(--border-color);
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(139, 92, 246, 0.05));
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.article-modal-footer p {
+    color: var(--text-secondary);
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.article-modal-footer i {
+    color: var(--warning-color);
+    font-size: 20px;
+}
+
 .eating-guide {
     background: var(--bg-color);
     padding: 25px;
