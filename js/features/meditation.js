@@ -369,9 +369,6 @@ export class MeditationFeature {
 
     // Setup background controls
     setupBackgroundControls() {
-        const meditationSection = document.querySelector('.meditation-section');
-        if (!meditationSection) return;
-
         // Add background controls if not exists
         if (!document.getElementById('bg-controls')) {
             const controlsHTML = `

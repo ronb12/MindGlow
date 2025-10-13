@@ -3,7 +3,7 @@
 
 const puppeteer = require('puppeteer');
 
-const BASE_URL = 'http://localhost:8080';
+const BASE_URL = 'https://mindglow-wellness.web.app';
 const TEST_USER = {
     email: 'bgtest1760309211328@mindglow.app',
     password: 'TestBG123!'
@@ -65,13 +65,28 @@ async function testPexelsFeatures() {
         log('-'.repeat(70));
         
         // Go to Meditation page
+        log('   🔄 Navigating to meditation page...', '\x1b[36m');
         await page.click('[data-page="meditate"]');
-        await page.waitForTimeout(2000);
+        await page.waitForTimeout(4000); // Give more time for initialization
+        
+        // Debug: Check what's in the page
+        const debugInfo = await page.evaluate(() => {
+            return {
+                meditationPageExists: !!document.getElementById('meditate-page'),
+                meditationPageActive: document.getElementById('meditate-page')?.classList.contains('active'),
+                bgControlsExists: !!document.getElementById('bg-controls'),
+                bgControlsDisplay: document.getElementById('bg-controls')?.style.display,
+                bodyChildren: document.body.children.length
+            };
+        });
+        
+        log(`   🔍 Debug: Meditation page exists: ${debugInfo.meditationPageExists}`, '\x1b[90m');
+        log(`   🔍 Debug: Meditation page active: ${debugInfo.meditationPageActive}`, '\x1b[90m');
+        log(`   🔍 Debug: Controls exist: ${debugInfo.bgControlsExists}`, '\x1b[90m');
+        log(`   🔍 Debug: Controls display: ${debugInfo.bgControlsDisplay}`, '\x1b[90m');
         
         // Check if background controls exist
-        const bgControlsExist = await page.evaluate(() => {
-            return !!document.getElementById('bg-controls');
-        });
+        const bgControlsExist = debugInfo.bgControlsExists;
         
         if (bgControlsExist) {
             log('   ✅ Background controls found!', '\x1b[32m');
