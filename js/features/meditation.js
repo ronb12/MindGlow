@@ -5,6 +5,7 @@ import { meditationSessions, getSessionsByCategory, getSessionById } from '../da
 import { ambientSounds } from '../data/sounds.js';
 import { updateProgress, showNotification } from '../utils/helpers.js';
 import { pexelsAPI } from '../utils/pexels.js';
+import { fetchPixabayMusic } from '../data/pixabay-music.js';
 
 export class MeditationFeature {
     constructor() {
@@ -15,6 +16,8 @@ export class MeditationFeature {
         this.volume = 0.6;
         this.backgroundImages = [];
         this.currentVideoUrl = null;
+        this.allMusicTracks = [...ambientSounds]; // Start with local tracks
+        this.pixabayTracksLoaded = false;
     }
 
     initialize() {
@@ -25,6 +28,7 @@ export class MeditationFeature {
         this.setupVolumeControl();
         this.loadMeditationBackgrounds();
         this.setupBackgroundControls();
+        this.loadPixabayMusic(); // Load Pixabay music
     }
 
     setupCategories() {
@@ -65,8 +69,8 @@ export class MeditationFeature {
         const grid = document.getElementById('sounds-grid');
         if (!grid) return;
         
-        // Create music cards with title and artist
-        grid.innerHTML = ambientSounds.map(music => `
+        // Create music cards with title and artist (using all tracks including Pixabay)
+        grid.innerHTML = this.allMusicTracks.map(music => `
             <div class="music-card" data-id="${music.id}" data-category="${music.category}">
                 <div class="music-icon">
                     <i class="fas fa-${music.icon}"></i>
@@ -82,7 +86,7 @@ export class MeditationFeature {
         `).join('');
         
         // Store audio elements and preload
-        ambientSounds.forEach(music => {
+        this.allMusicTracks.forEach(music => {
             const audio = document.getElementById(`music-${music.id}`);
             if (audio) {
                 audio.volume = this.volume;
@@ -490,8 +494,8 @@ export class MeditationFeature {
         const videoUrl = videos.length > 0 ? 
             videos[0].video_files.find(f => f.quality === 'hd' || f.quality === 'sd')?.link : null;
 
-        // Pick a random ambient music
-        const randomMusic = ambientSounds[Math.floor(Math.random() * ambientSounds.length)];
+        // Pick a random ambient music (from all tracks including Pixabay)
+        const randomMusic = this.allMusicTracks[Math.floor(Math.random() * this.allMusicTracks.length)];
 
         // Create modal
         const modal = document.createElement('div');
@@ -704,6 +708,38 @@ if (playPromise !== undefined) {
                 modal.remove();
             }
         });
+    }
+
+    // Load Pixabay music tracks
+    async loadPixabayMusic() {
+        if (this.pixabayTracksLoaded) return;
+
+        try {
+            showNotification('Loading music library from Pixabay...', 'info');
+            
+            const pixabayTracks = await fetchPixabayMusic();
+            
+            if (pixabayTracks.length > 0) {
+                // Add Pixabay tracks to existing local tracks
+                this.allMusicTracks = [...ambientSounds, ...pixabayTracks];
+                this.pixabayTracksLoaded = true;
+                
+                console.log('✅ Total music tracks:', this.allMusicTracks.length);
+                console.log('   📁 Local:', ambientSounds.length);
+                console.log('   🌐 Pixabay:', pixabayTracks.length);
+                
+                // Re-render the music grid with new tracks
+                this.renderAmbientSounds();
+                
+                showNotification(`🎵 ${pixabayTracks.length} Pixabay tracks added! (${this.allMusicTracks.length} total)`, 'success');
+            } else {
+                console.warn('⚠️ No Pixabay tracks fetched');
+                showNotification('Using local music library (12 tracks)', 'info');
+            }
+        } catch (error) {
+            console.error('Error loading Pixabay music:', error);
+            showNotification('Using local music library', 'info');
+        }
     }
 }
 

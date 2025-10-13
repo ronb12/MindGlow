@@ -41,6 +41,12 @@ export const CONFIG = {
         apiKey: 'fukzfUyQBBPXqfJyNeXsFvIFOXhIjkRWFaeNVLSggxEZ9aKhqnWa3lgR',
         apiUrl: 'https://api.pexels.com/v1',
         videoApiUrl: 'https://api.pexels.com/videos'
+    },
+    
+    // Pixabay API Configuration (for music)
+    pixabay: {
+        apiKey: '48553549-2dc3fce510aea40e30bbe9d31',
+        apiUrl: 'https://pixabay.com/api/'
     }
 };
 
