@@ -123,6 +123,11 @@ export const ambientSounds = [
     }
 ];
 
+// NOTE: External music URLs (incompetech.com, Internet Archive, etc.) 
+// do NOT work reliably due to browser CORS and autoplay restrictions.
+// Only LOCAL files in the /music/ directory work 100% of the time.
+// To expand beyond 11 tracks, download MP3 files and add them locally.
+
 export function getSoundById(id) {
     return ambientSounds.find(s => s.id === id);
 }
