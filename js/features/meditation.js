@@ -142,6 +142,11 @@ export class MeditationFeature {
         if (newAudio) {
             newAudio.volume = this.volume;
             
+            // Force load if not ready
+            if (newAudio.readyState < 2) {
+                newAudio.load();
+            }
+            
             const playPromise = newAudio.play();
             
             if (playPromise !== undefined) {
@@ -160,29 +165,48 @@ export class MeditationFeature {
                     })
                     .catch(err => {
                         console.error(`❌ Failed to play: ${title}`, err);
+                        console.error('Error details:', err.name, err.message);
                         
                         if (err.name === 'NotAllowedError') {
                             showNotification(`Click again to play ${title}`, 'warning');
+                        } else if (err.name === 'NotSupportedError') {
+                            showNotification(`${title} - Format not supported or URL unavailable`, 'error');
                         } else {
-                            showNotification(`Loading ${title}...`, 'info');
-                            // Retry after delay
-                            setTimeout(() => {
-                                newAudio.play()
-                                    .then(() => {
-                                        console.log(`✅ ${title} playing after retry`);
-                                        const instructions = document.getElementById('music-instructions');
-                                        if (instructions) {
-                                            instructions.innerHTML = `🎵 Now playing: <strong>${title}</strong> by ${artist}`;
-                                        }
-                                    })
-                                    .catch(e => console.error(`Retry failed:`, e));
-                            }, 1000);
+                            showNotification(`Loading ${title}... Please wait`, 'info');
+                            // Retry up to 3 times with delays
+                            this.retryPlayback(newAudio, title, artist, 0);
                         }
                     });
             }
         } else {
             console.error(`No audio element found for music ID: ${soundId}`);
         }
+    }
+
+    retryPlayback(audio, title, artist, attempt) {
+        if (attempt >= 3) {
+            console.error(`Failed to play ${title} after 3 attempts`);
+            showNotification(`${title} unavailable. Try another track.`, 'error');
+            return;
+        }
+        
+        setTimeout(() => {
+            audio.load(); // Force reload
+            audio.play()
+                .then(() => {
+                    console.log(`✅ ${title} playing after retry #${attempt + 1}`);
+                    this.currentSound = parseInt(audio.id.replace('music-', ''));
+                    const instructions = document.getElementById('music-instructions');
+                    if (instructions) {
+                        instructions.innerHTML = `🎵 Now playing: <strong>${title}</strong> by ${artist}`;
+                    }
+                    showNotification(`Playing: ${title}`, 'success');
+                })
+                .catch(e => {
+                    console.error(`Retry #${attempt + 1} failed for ${title}`);
+                    this.retryPlayback(audio, title, artist, attempt + 1);
+                });
+        }, 1500 * (attempt + 1)); // Increasing delays: 1.5s, 3s, 4.5s
     }
 
     setupVolumeControl() {

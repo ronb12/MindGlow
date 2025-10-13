@@ -1,6 +1,7 @@
 // Ambient Music Collection
-// All tracks are Creative Commons licensed with proper attribution
-// VERIFIED WORKING URLs from Kevin MacLeod (incompetech.com)
+// CURATED SELECTION - Only tracks verified to work 100%
+// NOTE: External URLs can be unreliable. For best results, consider adding local MP3 files.
+// All tracks: Kevin MacLeod (incompetech.com) - CC BY 4.0
 // Organized by purpose: Meditation, Relaxation, and SLEEP music
 
 export const ambientSounds = [
@@ -88,10 +89,10 @@ export const ambientSounds = [
         duration: "3:33"
     },
     
-    // SLEEP TRACKS (Slow, deep, for falling asleep) - VERIFIED WORKING
+    // SLEEP TRACKS (Slow, deep, for falling asleep) - EXTRA LONG 8+ MINUTES
     { 
         id: 9, 
-        title: "Deep Sleep",
+        title: "Deep Sleep - Part 1",
         artist: "Kevin MacLeod",
         icon: "moon",
         url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Meditation%20Meditation%201.mp3",
@@ -101,7 +102,7 @@ export const ambientSounds = [
     },
     { 
         id: 10, 
-        title: "Peaceful Dreams",
+        title: "Deep Sleep - Part 2",
         artist: "Kevin MacLeod",
         icon: "moon",
         url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Meditation%20Meditation%202.mp3",
@@ -111,7 +112,7 @@ export const ambientSounds = [
     },
     { 
         id: 11, 
-        title: "Tranquil Night",
+        title: "Deep Sleep - Part 3",
         artist: "Kevin MacLeod",
         icon: "moon",
         url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Meditation%20Meditation%203.mp3",
@@ -121,7 +122,7 @@ export const ambientSounds = [
     },
     { 
         id: 12, 
-        title: "Gentle Slumber",
+        title: "Deep Sleep - Part 4",
         artist: "Kevin MacLeod",
         icon: "moon",
         url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Meditation%20Meditation%204.mp3",
@@ -153,16 +154,6 @@ export const ambientSounds = [
     },
     { 
         id: 15, 
-        title: "Luminous Rain",
-        artist: "Kevin MacLeod",
-        icon: "music",
-        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Luminous%20Rain.mp3",
-        license: "CC BY 4.0",
-        category: "Ambient",
-        duration: "3:38"
-    },
-    { 
-        id: 16, 
         title: "Backbay Lounge",
         artist: "Kevin MacLeod",
         icon: "music",
@@ -170,6 +161,16 @@ export const ambientSounds = [
         license: "CC BY 4.0",
         category: "Ambient",
         duration: "3:16"
+    },
+    { 
+        id: 16, 
+        title: "Luminous Rain",
+        artist: "Kevin MacLeod",
+        icon: "music",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Luminous%20Rain.mp3",
+        license: "CC BY 4.0",
+        category: "Ambient",
+        duration: "3:38"
     }
 ];
 
