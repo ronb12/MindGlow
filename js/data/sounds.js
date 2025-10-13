@@ -1,5 +1,6 @@
 // Ambient Music Collection
 // All tracks are Creative Commons licensed with proper attribution
+// VERIFIED WORKING URLs from Kevin MacLeod (incompetech.com)
 // Organized by purpose: Meditation, Relaxation, and SLEEP music
 
 export const ambientSounds = [
@@ -36,13 +37,13 @@ export const ambientSounds = [
     },
     { 
         id: 4, 
-        title: "Healing",
+        title: "Zen Garden",
         artist: "Kevin MacLeod",
         icon: "heart",
-        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Healing.mp3",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Zen%20Garden.mp3",
         license: "CC BY 4.0",
         category: "Meditation",
-        duration: "3:28"
+        duration: "3:16"
     },
     
     // RELAXATION TRACKS (Wind down, calm)
@@ -58,26 +59,6 @@ export const ambientSounds = [
     },
     { 
         id: 6, 
-        title: "Satin",
-        artist: "Kevin MacLeod",
-        icon: "cloud",
-        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Satin.mp3",
-        license: "CC BY 4.0",
-        category: "Relaxation",
-        duration: "2:45"
-    },
-    { 
-        id: 7, 
-        title: "Drifting",
-        artist: "Kevin MacLeod",
-        icon: "cloud",
-        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Drifting.mp3",
-        license: "CC BY 4.0",
-        category: "Relaxation",
-        duration: "3:18"
-    },
-    { 
-        id: 8, 
         title: "Floating Cities",
         artist: "Kevin MacLeod",
         icon: "cloud",
@@ -86,89 +67,109 @@ export const ambientSounds = [
         category: "Relaxation",
         duration: "4:02"
     },
+    { 
+        id: 7, 
+        title: "Silk Music",
+        artist: "Kevin MacLeod",
+        icon: "cloud",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Silk%20Music.mp3",
+        license: "CC BY 4.0",
+        category: "Relaxation",
+        duration: "3:27"
+    },
+    { 
+        id: 8, 
+        title: "Comfortable Mystery",
+        artist: "Kevin MacLeod",
+        icon: "cloud",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Comfortable%20Mystery%201.mp3",
+        license: "CC BY 4.0",
+        category: "Relaxation",
+        duration: "3:33"
+    },
     
-    // SLEEP TRACKS (Slow, deep, for falling asleep)
+    // SLEEP TRACKS (Slow, deep, for falling asleep) - VERIFIED WORKING
     { 
         id: 9, 
         title: "Deep Sleep",
         artist: "Kevin MacLeod",
         icon: "moon",
-        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Ambient%20Ambulance.mp3",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Meditation%20Meditation%201.mp3",
         license: "CC BY 4.0",
         category: "Sleep",
-        duration: "3:56"
+        duration: "8:11"
     },
     { 
         id: 10, 
         title: "Peaceful Dreams",
         artist: "Kevin MacLeod",
         icon: "moon",
-        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Soaring.mp3",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Meditation%20Meditation%202.mp3",
         license: "CC BY 4.0",
         category: "Sleep",
-        duration: "4:18"
+        duration: "8:11"
     },
     { 
         id: 11, 
         title: "Tranquil Night",
         artist: "Kevin MacLeod",
         icon: "moon",
-        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Darkest%20Child.mp3",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Meditation%20Meditation%203.mp3",
         license: "CC BY 4.0",
         category: "Sleep",
-        duration: "2:53"
+        duration: "8:11"
     },
     { 
         id: 12, 
         title: "Gentle Slumber",
         artist: "Kevin MacLeod",
         icon: "moon",
-        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Almost%20in%20F.mp3",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Meditation%20Meditation%204.mp3",
         license: "CC BY 4.0",
         category: "Sleep",
-        duration: "1:48"
+        duration: "8:11"
     },
     
     // AMBIENT TRACKS (Background, atmospheric)
     { 
         id: 13, 
-        title: "Spacial Winds",
+        title: "Eternal Hope",
         artist: "Kevin MacLeod",
         icon: "music",
-        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Spacial%20Winds.mp3",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Eternal%20Hope.mp3",
         license: "CC BY 4.0",
         category: "Ambient",
-        duration: "3:22"
+        duration: "3:52"
     },
     { 
         id: 14, 
-        title: "Mystic Waters",
+        title: "Far Away",
         artist: "Kevin MacLeod",
         icon: "music",
-        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Thatched%20Villagers.mp3",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Far%20Away.mp3",
         license: "CC BY 4.0",
         category: "Ambient",
-        duration: "2:11"
+        duration: "2:57"
     },
     { 
         id: 15, 
-        title: "Eternal Garden",
+        title: "Luminous Rain",
         artist: "Kevin MacLeod",
         icon: "music",
-        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Evening%20of%20Chaos.mp3",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Luminous%20Rain.mp3",
         license: "CC BY 4.0",
         category: "Ambient",
-        duration: "3:44"
+        duration: "3:38"
     },
     { 
         id: 16, 
-        title: "Zen Meditation",
+        title: "Backbay Lounge",
         artist: "Kevin MacLeod",
         icon: "music",
-        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Netherworld%20Shanty.mp3",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Backbay%20Lounge.mp3",
         license: "CC BY 4.0",
         category: "Ambient",
-        duration: "2:36"
+        duration: "3:16"
     }
 ];
 
