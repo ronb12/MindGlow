@@ -88,6 +88,58 @@ export const ambientSounds = [
         license: "CC BY 4.0",
         category: "Ambient",
         duration: "3:16"
+    },
+    
+    // ADDITIONAL AMBIENT TRACKS - Different Artists for Variety
+    { 
+        id: 9, 
+        title: "Nothing",
+        artist: "Kai Engel",
+        icon: "music",
+        url: "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/WFMU/Kai_Engel/Satin/Kai_Engel_-_06_-_Nothing.mp3",
+        license: "CC BY 4.0",
+        category: "Ambient",
+        duration: "4:12"
+    },
+    { 
+        id: 10, 
+        title: "Serenity",
+        artist: "Kai Engel",
+        icon: "music",
+        url: "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/WFMU/Kai_Engel/Chapter_Two__Gentle_Giant/Kai_Engel_-_03_-_Serenity.mp3",
+        license: "CC BY 4.0",
+        category: "Ambient",
+        duration: "3:54"
+    },
+    { 
+        id: 11, 
+        title: "Prelude No. 9",
+        artist: "Chris Zabriskie",
+        icon: "music",
+        url: "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Chris_Zabriskie/Divider/Chris_Zabriskie_-_02_-_Prelude_No_9.mp3",
+        license: "CC BY 4.0",
+        category: "Ambient",
+        duration: "2:48"
+    },
+    { 
+        id: 12, 
+        title: "I Don't See the Branches",
+        artist: "Chris Zabriskie",
+        icon: "music",
+        url: "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Chris_Zabriskie/Stunt_Island/Chris_Zabriskie_-_02_-_I_Dont_See_the_Branches_I_See_the_Leaves.mp3",
+        license: "CC BY 4.0",
+        category: "Ambient",
+        duration: "3:22"
+    },
+    { 
+        id: 13, 
+        title: "Straw Fields",
+        artist: "Podington Bear",
+        icon: "music",
+        url: "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/blocSonic/Podington_Bear/Ija/Podington_Bear_-_05_-_Straw_Fields.mp3",
+        license: "CC BY 4.0",
+        category: "Ambient",
+        duration: "3:16"
     }
 ];
 
