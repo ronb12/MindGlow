@@ -90,6 +90,7 @@ export class MeditationFeature {
             const audio = document.getElementById(`music-${music.id}`);
             if (audio) {
                 audio.volume = this.volume;
+                audio.muted = false; // CRITICAL: Ensure NOT muted
                 audio.preload = 'auto'; // Force preloading
                 this.audioElements.set(music.id, audio);
                 
@@ -154,6 +155,7 @@ export class MeditationFeature {
         const newAudio = this.audioElements.get(soundId);
         if (newAudio) {
             newAudio.volume = this.volume;
+            newAudio.muted = false; // CRITICAL: Ensure NOT muted before playing
             
             // Wait for audio to be ready to play
             if (newAudio.readyState < 3) {
@@ -189,6 +191,7 @@ export class MeditationFeature {
                 playPromise
                     .then(() => {
                         console.log(`✅ Playing: ${title} by ${artist}`);
+                        console.log(`🔊 Audio state: Volume=${Math.round(newAudio.volume*100)}%, Muted=${newAudio.muted}, Playing=${!newAudio.paused}`);
                         this.currentSound = soundId;
                         
                         // Update instructions with now playing info
@@ -197,7 +200,7 @@ export class MeditationFeature {
                             instructions.innerHTML = `🎵 Now playing: <strong>${title}</strong> by ${artist}`;
                         }
                         
-                        showNotification(`Playing: ${title}`, 'success');
+                        showNotification(`🎵 Playing: ${title} at ${Math.round(newAudio.volume*100)}%`, 'success');
                     })
                     .catch(err => {
                         console.error(`❌ Failed to play: ${title}`, err);
