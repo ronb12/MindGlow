@@ -78,7 +78,7 @@ export class MeditationFeature {
                     <span class="music-category ${music.category.toLowerCase()}">${music.category}</span>
                     <span class="music-duration">${music.duration}</span>
                 </div>
-                <audio id="music-${music.id}" src="${music.url}" loop preload="metadata"></audio>
+                <audio id="music-${music.id}" src="${music.url}" loop preload="none"></audio>
             </div>
         `).join('');
         
@@ -88,11 +88,8 @@ export class MeditationFeature {
             if (audio) {
                 audio.volume = this.volume;
                 audio.muted = false; // CRITICAL: Ensure NOT muted
-                audio.preload = 'auto'; // Force preloading
+                audio.preload = 'none'; // Don't preload - load only when played (prevents ERR_ABORTED with 30 tracks)
                 this.audioElements.set(music.id, audio);
-                
-                // Start loading immediately
-                audio.load();
             }
         });
         
