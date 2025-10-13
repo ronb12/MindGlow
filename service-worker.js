@@ -33,7 +33,19 @@ const PRECACHE_URLS = [
   '/js/data/affirmations.js',
   '/js/data/content.js',
   '/js/data/mindful-eating.js',
-  '/manifest.json'
+  '/manifest.json',
+  // Music files - hardcoded into app for offline access
+  '/music/meditation-01.mp3',
+  '/music/meditation-02.mp3',
+  '/music/meditation-03.mp3',
+  '/music/relaxation-01.mp3',
+  '/music/relaxation-02.mp3',
+  '/music/ambient-01.mp3',
+  '/music/ambient-02.mp3',
+  '/music/ambient-04.mp3',
+  '/music/sleep-dreamlike.mp3',
+  '/music/airport-lounge.mp3',
+  '/music/prelude-action.mp3'
 ];
 
 // Install event - cache assets
