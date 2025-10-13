@@ -1,0 +1,52 @@
+HIGH-QUALITY AMBIENT SOUNDS - VERIFIED SOURCES
+================================================
+
+Download these SPECIFIC files to replace current sounds:
+
+PIXABAY (Free, No Attribution Required):
+-----------------------------------------
+
+1. RAIN - Download from:
+   https://pixabay.com/sound-effects/rain-on-umbrella-10-second-loop-126952/
+   OR search "rain 10 second loop" - Download MP3, save as rain.mp3
+
+2. OCEAN - Download from:
+   https://pixabay.com/sound-effects/ocean-wave-1-7109/
+   OR search "ocean waves loop" - Download MP3, save as ocean.mp3
+
+3. FOREST - Download from:
+   https://pixabay.com/sound-effects/forest-ambience-with-birds-6832/
+   OR search "forest birds ambient" - Download MP3, save as forest.mp3
+
+4. BIRDS - Download from:
+   https://pixabay.com/sound-effects/birds-chirping-6201/
+   OR search "birds chirping ambient" - Download MP3, save as birds.mp3
+
+5. WIND - Download from:
+   https://pixabay.com/sound-effects/wind-in-trees-117477/
+   OR search "wind trees ambient" - Download MP3, save as wind.mp3
+
+6. FIRE - Download from:
+   https://pixabay.com/sound-effects/fireplace-6350/
+   OR search "fireplace crackling loop" - Download MP3, save as fire.mp3
+
+7. STREAM - Download from:
+   https://pixabay.com/sound-effects/small-river-flowing-6063/
+   OR search "stream water flowing" - Download MP3, save as stream.mp3
+
+8. THUNDER - Download from:
+   https://pixabay.com/sound-effects/thunder-25689/
+   OR search "thunder distant ambient" - Download MP3, save as thunder.mp3
+
+
+AFTER DOWNLOADING:
+==================
+Save all files to: /Users/ronellbradley/Desktop/MindGlow/sounds/
+
+Then run:
+  cd /Users/ronellbradley/Desktop/MindGlow
+  git add sounds/
+  git commit -m "Replace ambient sounds with verified high-quality versions"
+  git push origin main
+  firebase deploy --only hosting
+

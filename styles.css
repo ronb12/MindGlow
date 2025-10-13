@@ -735,18 +735,41 @@ input:checked + .slider:before {
     opacity: 0.9;
 }
 
-.music-genre, .music-duration {
+.music-category, .music-duration {
     font-size: 12px;
     padding: 3px 8px;
     border-radius: 5px;
     background: rgba(0,0,0,0.1);
     margin-right: 5px;
     display: inline-block;
+    font-weight: 500;
 }
 
-.music-card.active .music-genre,
+/* Category-specific colors */
+.music-category.sleep {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.music-category.meditation {
+    background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+    color: #1a1a1a;
+}
+
+.music-category.relaxation {
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    color: #1a1a1a;
+}
+
+.music-category.ambient {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    color: #1a1a1a;
+}
+
+.music-card.active .music-category,
 .music-card.active .music-duration {
-    background: rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.25);
+    color: white;
 }
 
 /* Breathing Exercises */

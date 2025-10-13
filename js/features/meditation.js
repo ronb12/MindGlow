@@ -62,14 +62,14 @@ export class MeditationFeature {
         
         // Create music cards with title and artist
         grid.innerHTML = ambientSounds.map(music => `
-            <div class="music-card" data-id="${music.id}">
+            <div class="music-card" data-id="${music.id}" data-category="${music.category}">
                 <div class="music-icon">
                     <i class="fas fa-${music.icon}"></i>
                 </div>
                 <div class="music-info">
                     <h4 class="music-title">${music.title}</h4>
                     <p class="music-artist">by ${music.artist}</p>
-                    <span class="music-genre">${music.genre}</span>
+                    <span class="music-category ${music.category.toLowerCase()}">${music.category}</span>
                     <span class="music-duration">${music.duration}</span>
                 </div>
                 <audio id="music-${music.id}" src="${music.url}" loop preload="metadata"></audio>
@@ -114,7 +114,7 @@ export class MeditationFeature {
                 const instructions = document.createElement('p');
                 instructions.id = 'music-instructions';
                 instructions.style.cssText = 'text-align: center; margin: 0.5rem 0 1rem 0; opacity: 0.8; font-size: 0.95rem;';
-                instructions.innerHTML = '🎵 Click any track to play beautiful ambient music';
+                instructions.innerHTML = '🎵 16 tracks for meditation, relaxation & sleep • Click to play';
                 soundsSection.insertAdjacentElement('afterend', instructions);
             }
             
