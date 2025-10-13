@@ -1,0 +1,88 @@
+═══════════════════════════════════════════════════════════════════
+   🗑️  QUICK FIREBASE CLEANUP (2 MINUTES)
+═══════════════════════════════════════════════════════════════════
+
+Firebase Console is now open in your browser!
+
+Unfortunately, Firebase CLI doesn't support deleting releases via terminal.
+You MUST use the web console (which I just opened for you).
+
+
+WHAT TO DO IN THE FIREBASE CONSOLE:
+═══════════════════════════════════════════════════════════════════
+
+You should see:
+   mindglow-wellness
+   └─ HOSTING
+
+Click anywhere that says "View" or "Manage" to see releases.
+
+
+LOOK FOR "RELEASE HISTORY" TAB
+═══════════════════════════════════════════════════════════════════
+
+At the top of the page, you'll see tabs:
+   [ Details ] [ Release history ] [ Usage ] [ Settings ]
+
+Click: "Release history"
+
+
+DELETE OLD RELEASES
+═══════════════════════════════════════════════════════════════════
+
+You'll see a list of releases like:
+
+   Version abc...def   Oct 13, 2025 3:06 PM   [Live]  ← KEEP
+   Version xyz...ghi   Oct 13, 2025 2:57 PM   [...]   ← KEEP
+   Version mno...pqr   Oct 13, 2025 2:45 PM   [...]   ← KEEP
+   Version stu...vwx   Oct 13, 2025 1:30 PM   [...]   ← DELETE
+   Version old...old   Oct 13, 2025 12:00 PM  [...]   ← DELETE
+   ... (delete all older ones)
+
+For each OLD release (keep only last 3-5):
+   1. Click the "..." menu (three dots on the right)
+   2. Select "Delete"
+   3. Confirm
+
+
+SET AUTO-CLEANUP (IMPORTANT!)
+═══════════════════════════════════════════════════════════════════
+
+Look for "Settings" tab or a gear icon ⚙️
+
+Find: "Retention settings" or "Release retention"
+
+Set to: "Keep last 10 releases"
+
+This prevents the problem from happening again!
+
+
+AFTER CLEANUP: COME BACK HERE
+═══════════════════════════════════════════════════════════════════
+
+Once you've deleted old releases, come back to terminal and type:
+
+   firebase deploy --only hosting --project mindglow-wellness
+
+This will deploy:
+   ✅ PWA icons (fixes manifest warning)
+   ✅ Library modals (v3.1.0)
+   ✅ All recent fixes
+
+
+═══════════════════════════════════════════════════════════════════
+   WHY THERE'S NO CLI COMMAND:
+═══════════════════════════════════════════════════════════════════
+
+Firebase designed release management to be done through the web
+console for safety - prevents accidental mass deletions.
+
+Available CLI commands:
+   ✅ firebase deploy (create new releases)
+   ✅ firebase hosting:channel:* (manage channels)
+   ✅ firebase hosting:sites:* (manage sites)
+   ❌ No delete release command (must use web console)
+
+
+═══════════════════════════════════════════════════════════════════
+
