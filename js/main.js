@@ -75,15 +75,13 @@ class MindGlowApp {
 
     hideLoadingScreen() {
         const loadingScreen = document.getElementById('loading-screen');
-        const authSection = document.getElementById('auth-section');
         
         if (loadingScreen) {
             loadingScreen.classList.add('hidden');
         }
         
-        if (authSection) {
-            authSection.classList.remove('hidden');
-        }
+        // DON'T show auth section here - let Firebase auth state check handle it
+        // This prevents showing login screen when user is already logged in
     }
 
     initializeUtilities() {

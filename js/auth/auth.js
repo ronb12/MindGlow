@@ -32,6 +32,10 @@ export class AuthManager {
     checkExistingAuth() {
         console.log('🔍 Checking for existing authentication...');
         
+        // Keep both screens hidden until auth check completes
+        this.authSection.classList.add('hidden');
+        this.appContainer.classList.add('hidden');
+        
         this.firebaseAuth.onAuthStateChanged(async (firebaseUser) => {
             if (firebaseUser) {
                 console.log('✅ User already logged in:', firebaseUser.email);
@@ -48,7 +52,16 @@ export class AuthManager {
                     };
                     
                     appState.set('user', user);
-                    this.showApp(user.name);
+                    
+                    // Show app immediately (hide auth)
+                    this.authSection.classList.add('hidden');
+                    this.appContainer.classList.remove('hidden');
+                    
+                    // Update UI
+                    const userNameElement = document.getElementById('user-name');
+                    if (userNameElement) {
+                        userNameElement.textContent = user.name;
+                    }
                     
                     // Trigger dashboard initialization
                     window.dispatchEvent(new CustomEvent('userLoggedIn', { detail: user }));
@@ -56,6 +69,9 @@ export class AuthManager {
                     console.log('✅ Auto-logged in from persisted session');
                 } catch (error) {
                     console.error('Error loading user data:', error);
+                    // Show login on error
+                    this.authSection.classList.remove('hidden');
+                    this.appContainer.classList.add('hidden');
                 }
             } else {
                 console.log('ℹ️  No existing session - showing login screen');
