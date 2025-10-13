@@ -76,12 +76,16 @@ export class MeditationFeature {
             </div>
         `).join('');
         
-        // Store audio elements
+        // Store audio elements and preload
         ambientSounds.forEach(music => {
             const audio = document.getElementById(`music-${music.id}`);
             if (audio) {
                 audio.volume = this.volume;
+                audio.preload = 'auto'; // Force preloading
                 this.audioElements.set(music.id, audio);
+                
+                // Start loading immediately
+                audio.load();
             }
         });
         
@@ -129,7 +133,7 @@ export class MeditationFeature {
         }
     }
 
-    playSound(soundId, title, artist) {
+    async playSound(soundId, title, artist) {
         // Stop current music
         if (this.currentSound && this.audioElements.has(this.currentSound)) {
             const currentAudio = this.audioElements.get(this.currentSound);
@@ -142,9 +146,32 @@ export class MeditationFeature {
         if (newAudio) {
             newAudio.volume = this.volume;
             
-            // Force load if not ready
-            if (newAudio.readyState < 2) {
+            // Wait for audio to be ready to play
+            if (newAudio.readyState < 3) {
+                console.log(`🔄 Loading ${title}... (readyState: ${newAudio.readyState})`);
                 newAudio.load();
+                
+                // Wait for canplaythrough or timeout
+                await new Promise((resolve) => {
+                    const timeout = setTimeout(() => {
+                        console.log('Loading timeout - attempting play anyway');
+                        resolve();
+                    }, 3000);
+                    
+                    const onReady = () => {
+                        clearTimeout(timeout);
+                        newAudio.removeEventListener('canplaythrough', onReady);
+                        console.log(`✓ ${title} ready to play`);
+                        resolve();
+                    };
+                    
+                    if (newAudio.readyState >= 3) {
+                        clearTimeout(timeout);
+                        resolve();
+                    } else {
+                        newAudio.addEventListener('canplaythrough', onReady, { once: true });
+                    }
+                });
             }
             
             const playPromise = newAudio.play();
