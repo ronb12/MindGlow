@@ -4,6 +4,7 @@ import { appState } from '../utils/state.js';
 import { meditationSessions, getSessionsByCategory, getSessionById } from '../data/meditations.js';
 import { ambientSounds } from '../data/sounds.js';
 import { updateProgress, showNotification } from '../utils/helpers.js';
+import { pexelsAPI } from '../utils/pexels.js';
 
 export class MeditationFeature {
     constructor() {
@@ -12,6 +13,8 @@ export class MeditationFeature {
         this.audioElements = new Map();
         this.currentSound = null;
         this.volume = 0.6;
+        this.backgroundImages = [];
+        this.currentVideoUrl = null;
     }
 
     initialize() {
@@ -20,6 +23,8 @@ export class MeditationFeature {
         this.setupTimer();
         this.setupCategories();
         this.setupVolumeControl();
+        this.loadMeditationBackgrounds();
+        this.setupBackgroundControls();
     }
 
     setupCategories() {
@@ -350,6 +355,123 @@ export class MeditationFeature {
         window.dispatchEvent(new Event('statsUpdated'));
         
         showNotification('Meditation session complete! 🎉');
+    }
+
+    // Load meditation backgrounds from Pexels
+    async loadMeditationBackgrounds() {
+        try {
+            this.backgroundImages = await pexelsAPI.getMeditationPhotos(15);
+            console.log('✅ Loaded', this.backgroundImages.length, 'meditation backgrounds');
+        } catch (error) {
+            console.error('Error loading backgrounds:', error);
+        }
+    }
+
+    // Setup background controls
+    setupBackgroundControls() {
+        const meditationSection = document.querySelector('.meditation-section');
+        if (!meditationSection) return;
+
+        // Add background controls if not exists
+        if (!document.getElementById('bg-controls')) {
+            const controlsHTML = `
+                <div id="bg-controls" style="position: fixed; bottom: 20px; right: 20px; z-index: 100; display: flex; gap: 10px;">
+                    <button id="change-bg" class="btn-secondary" style="padding: 10px 15px; border-radius: 8px;">
+                        <i class="fas fa-image"></i> Change Background
+                    </button>
+                    <button id="toggle-video" class="btn-secondary" style="padding: 10px 15px; border-radius: 8px;">
+                        <i class="fas fa-video"></i> Video Mode
+                    </button>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', controlsHTML);
+
+            // Change background button
+            document.getElementById('change-bg').addEventListener('click', () => {
+                this.changeRandomBackground();
+            });
+
+            // Toggle video button
+            document.getElementById('toggle-video').addEventListener('click', () => {
+                this.toggleVideoBackground();
+            });
+        }
+    }
+
+    // Change to random background
+    changeRandomBackground() {
+        if (this.backgroundImages.length === 0) {
+            showNotification('Loading backgrounds...', 'info');
+            this.loadMeditationBackgrounds().then(() => {
+                this.applyRandomBackground();
+            });
+        } else {
+            this.applyRandomBackground();
+        }
+    }
+
+    // Apply random background
+    applyRandomBackground() {
+        const randomImage = this.backgroundImages[Math.floor(Math.random() * this.backgroundImages.length)];
+        if (randomImage) {
+            document.body.style.backgroundImage = `
+                linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+                url(${randomImage.src.large2x})
+            `;
+            document.body.style.backgroundSize = 'cover';
+            document.body.style.backgroundPosition = 'center';
+            document.body.style.backgroundAttachment = 'fixed';
+            
+            showNotification(`Background by ${randomImage.photographer}`, 'success');
+        }
+    }
+
+    // Toggle video background
+    async toggleVideoBackground() {
+        const videoBtn = document.getElementById('toggle-video');
+        
+        if (this.currentVideoUrl) {
+            // Remove video
+            const videoElement = document.getElementById('meditation-video-bg');
+            if (videoElement) {
+                videoElement.remove();
+                this.currentVideoUrl = null;
+                videoBtn.innerHTML = '<i class="fas fa-video"></i> Video Mode';
+                showNotification('Video mode disabled', 'info');
+            }
+        } else {
+            // Add video
+            showNotification('Loading calming video...', 'info');
+            const videos = await pexelsAPI.getCalmingVideos(5);
+            
+            if (videos.length > 0) {
+                const video = videos[0];
+                const videoFile = video.video_files.find(f => f.quality === 'hd' || f.quality === 'sd');
+                
+                if (videoFile) {
+                    this.createVideoBackground(videoFile.link);
+                    this.currentVideoUrl = videoFile.link;
+                    videoBtn.innerHTML = '<i class="fas fa-times"></i> Exit Video';
+                    showNotification('Video mode active', 'success');
+                }
+            }
+        }
+    }
+
+    // Create video background
+    createVideoBackground(videoUrl) {
+        // Remove existing video if any
+        const existing = document.getElementById('meditation-video-bg');
+        if (existing) existing.remove();
+
+        const videoHTML = `
+            <video id="meditation-video-bg" autoplay loop muted playsinline
+                   style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+                          object-fit: cover; z-index: -1; opacity: 0.7;">
+                <source src="${videoUrl}" type="video/mp4">
+            </video>
+        `;
+        document.body.insertAdjacentHTML('afterbegin', videoHTML);
     }
 }
 

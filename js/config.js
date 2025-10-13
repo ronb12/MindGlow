@@ -34,6 +34,13 @@ export const CONFIG = {
         user: 'mindglow_user',
         state: 'mindglowState',
         theme: 'theme'
+    },
+    
+    // Pexels API Configuration
+    pexels: {
+        apiKey: 'fukzfUyQBBPXqfJyNeXsFvIFOXhIjkRWFaeNVLSggxEZ9aKhqnWa3lgR',
+        apiUrl: 'https://api.pexels.com/v1',
+        videoApiUrl: 'https://api.pexels.com/videos'
     }
 };
 

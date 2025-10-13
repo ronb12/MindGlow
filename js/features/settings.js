@@ -2,9 +2,12 @@
 
 import { appState } from '../utils/state.js';
 import { showNotification } from '../utils/helpers.js';
+import { pexelsAPI } from '../utils/pexels.js';
 
 export class SettingsFeature {
-    constructor() {}
+    constructor() {
+        this.dailyWallpaper = null;
+    }
 
     initialize() {
         this.setupProfile();
@@ -12,6 +15,7 @@ export class SettingsFeature {
         this.setupBackgrounds();
         this.setupDataManagement();
         this.setupCalendar();
+        this.setupDailyWallpaper();
     }
 
     setupProfile() {
@@ -187,6 +191,59 @@ export class SettingsFeature {
 
     syncCalendar() {
         showNotification('Calendar sync feature coming soon! This will integrate with your device calendar.');
+    }
+
+    // Setup daily wallpaper feature
+    setupDailyWallpaper() {
+        const container = document.getElementById('background-options');
+        if (!container) return;
+
+        // Add daily wallpaper button
+        if (!document.getElementById('daily-wallpaper-btn')) {
+            const buttonHTML = `
+                <button id="daily-wallpaper-btn" class="btn-primary" style="width: 100%; margin-top: 15px;">
+                    <i class="fas fa-calendar-day"></i> Get Daily Wallpaper
+                </button>
+            `;
+            container.insertAdjacentHTML('afterend', buttonHTML);
+
+            document.getElementById('daily-wallpaper-btn').addEventListener('click', () => {
+                this.loadDailyWallpaper();
+            });
+        }
+    }
+
+    // Load daily wallpaper from Pexels
+    async loadDailyWallpaper() {
+        try {
+            showNotification('Loading today\'s wallpaper...', 'info');
+            
+            this.dailyWallpaper = await pexelsAPI.getDailyWallpaper();
+            
+            if (this.dailyWallpaper) {
+                // Apply the daily wallpaper
+                const wallpaperUrl = this.dailyWallpaper.src.large2x;
+                document.body.style.backgroundImage = `
+                    linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+                    url(${wallpaperUrl})
+                `;
+                document.body.style.backgroundSize = 'cover';
+                document.body.style.backgroundPosition = 'center';
+                document.body.style.backgroundAttachment = 'fixed';
+                
+                showNotification(`Today's wallpaper by ${this.dailyWallpaper.photographer} 📸`, 'success');
+                
+                // Save to localStorage so it persists
+                localStorage.setItem('dailyWallpaper', JSON.stringify({
+                    url: wallpaperUrl,
+                    photographer: this.dailyWallpaper.photographer,
+                    date: new Date().toDateString()
+                }));
+            }
+        } catch (error) {
+            console.error('Error loading daily wallpaper:', error);
+            showNotification('Could not load daily wallpaper', 'error');
+        }
     }
 }
 

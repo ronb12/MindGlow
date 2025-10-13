@@ -2,15 +2,19 @@
 
 import { yogaPoses, articles, getRandomTips } from '../data/content.js';
 import { mindfulEatingGuide } from '../data/mindful-eating.js';
+import { pexelsAPI } from '../utils/pexels.js';
 
 export class LibraryFeature {
-    constructor() {}
+    constructor() {
+        this.yogaImages = [];
+    }
 
     initialize() {
         this.renderYogaPoses();
         this.renderArticles();
         this.renderWellnessTips();
         this.setupMindfulEatingGuide();
+        this.loadYogaImages();
     }
     
     setupMindfulEatingGuide() {
@@ -147,12 +151,19 @@ export class LibraryFeature {
         const grid = document.getElementById('yoga-grid');
         if (!grid) return;
         
-        grid.innerHTML = yogaPoses.map(pose => `
-            <div class="yoga-card">
-                <h4>${pose.name}</h4>
-                <p>${pose.description}</p>
-            </div>
-        `).join('');
+        grid.innerHTML = yogaPoses.map((pose, index) => {
+            const image = this.yogaImages[index];
+            const bgStyle = image 
+                ? `background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${image.src.medium}); background-size: cover; background-position: center;`
+                : '';
+            
+            return `
+                <div class="yoga-card" style="${bgStyle}">
+                    <h4 style="color: ${image ? 'white' : 'inherit'}; text-shadow: ${image ? '2px 2px 4px rgba(0,0,0,0.8)' : 'none'};">${pose.name}</h4>
+                    <p style="color: ${image ? 'white' : 'inherit'}; text-shadow: ${image ? '1px 1px 2px rgba(0,0,0,0.8)' : 'none'};">${pose.description}</p>
+                </div>
+            `;
+        }).join('');
     }
 
     renderArticles() {
@@ -178,6 +189,17 @@ export class LibraryFeature {
                 <p>${tip}</p>
             </div>
         `).join('');
+    }
+
+    // Load yoga images from Pexels
+    async loadYogaImages() {
+        try {
+            this.yogaImages = await pexelsAPI.getYogaImages(12);
+            console.log('✅ Loaded', this.yogaImages.length, 'yoga/wellness images');
+            this.renderYogaPoses(); // Re-render with images
+        } catch (error) {
+            console.error('Error loading yoga images:', error);
+        }
     }
 }
 
