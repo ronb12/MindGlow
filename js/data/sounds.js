@@ -90,53 +90,33 @@ export const ambientSounds = [
         duration: "3:16"
     },
     
-    // ADDITIONAL AMBIENT & SLEEP TRACKS - All from Kevin MacLeod (100% Working)
+    // ADDITIONAL AMBIENT & SLEEP TRACKS - All LOCAL FILES (100% Working)
     { 
         id: 9, 
         title: "Dreamlike",
         artist: "Kevin MacLeod",
         icon: "moon",
-        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Dreamlike.mp3",
+        url: "./music/dreamlike.mp3",
         license: "CC BY 4.0",
         category: "Sleep",
         duration: "2:43"
     },
     { 
         id: 10, 
-        title: "Soothing Peace",
-        artist: "Kevin MacLeod",
-        icon: "moon",
-        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Soothing%20Peace.mp3",
-        license: "CC BY 4.0",
-        category: "Sleep",
-        duration: "3:42"
-    },
-    { 
-        id: 11, 
-        title: "Stale Mate",
-        artist: "Kevin MacLeod",
-        icon: "music",
-        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Stale%20Mate.mp3",
-        license: "CC BY 4.0",
-        category: "Ambient",
-        duration: "2:36"
-    },
-    { 
-        id: 12, 
         title: "Airport Lounge",
         artist: "Kevin MacLeod",
-        icon: "music",
-        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Airport%20Lounge.mp3",
+        icon: "moon",
+        url: "./music/airport-lounge.mp3",
         license: "CC BY 4.0",
-        category: "Ambient",
+        category: "Sleep",
         duration: "2:24"
     },
     { 
-        id: 13, 
+        id: 11, 
         title: "Prelude and Action",
         artist: "Kevin MacLeod",
         icon: "music",
-        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Prelude%20and%20Action.mp3",
+        url: "./music/prelude-action.mp3",
         license: "CC BY 4.0",
         category: "Ambient",
         duration: "5:54"
