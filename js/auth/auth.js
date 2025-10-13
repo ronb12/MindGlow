@@ -72,7 +72,7 @@ export class AuthManager {
                 console.log('   Email Verified:', firebaseUser.emailVerified);
                 
                 try {
-                    // Get user profile from Firestore
+                    // Get user profile from Firestore (with offline support)
                     const userDoc = await this.firestore.collection('users').doc(firebaseUser.uid).get();
                     const userData = userDoc.data();
                     
@@ -99,10 +99,31 @@ export class AuthManager {
                     
                     console.log('✅ Auto-logged in from persisted session');
                 } catch (error) {
-                    console.error('Error loading user data:', error);
-                    // Show login on error
-                    this.authSection.classList.remove('hidden');
-                    this.appContainer.classList.add('hidden');
+                    console.warn('⚠️  Firestore offline or error:', error.message);
+                    
+                    // Still allow login in offline mode - use Firebase Auth data only
+                    const user = {
+                        uid: firebaseUser.uid,
+                        name: firebaseUser.displayName || firebaseUser.email.split('@')[0],
+                        email: firebaseUser.email
+                    };
+                    
+                    appState.set('user', user);
+                    
+                    // Show app (offline mode)
+                    this.authSection.classList.add('hidden');
+                    this.appContainer.classList.remove('hidden');
+                    
+                    // Update UI
+                    const userNameElement = document.getElementById('user-name');
+                    if (userNameElement) {
+                        userNameElement.textContent = user.name;
+                    }
+                    
+                    // Trigger dashboard initialization
+                    window.dispatchEvent(new CustomEvent('userLoggedIn', { detail: user }));
+                    
+                    console.log('✅ Logged in (offline mode - Firestore data unavailable)');
                 }
             } else {
                 console.log('ℹ️  No existing session - showing login screen');
