@@ -33,9 +33,34 @@ export class AuthManager {
         console.log('🔍 Checking for existing authentication...');
         console.log('   Current auth state:', this.firebaseAuth.currentUser ? 'User exists' : 'No user');
         
-        // Keep both screens hidden until auth check completes
-        this.authSection.classList.add('hidden');
-        this.appContainer.classList.add('hidden');
+        // BACKUP CHECK: Check localStorage first for immediate UI update
+        const wasLoggedIn = localStorage.getItem('mindglow_logged_in') === 'true';
+        const backupUser = localStorage.getItem('mindglow_user_backup');
+        
+        if (wasLoggedIn && backupUser) {
+            console.log('💾 Found backup login in localStorage');
+            try {
+                const user = JSON.parse(backupUser);
+                console.log('   Backup user:', user.email);
+                
+                // Show app immediately while Firebase auth loads
+                this.authSection.classList.add('hidden');
+                this.appContainer.classList.remove('hidden');
+                
+                const userNameElement = document.getElementById('user-name');
+                if (userNameElement) {
+                    userNameElement.textContent = user.name;
+                }
+                
+                console.log('✅ Showing app from backup (Firebase will sync)');
+            } catch (e) {
+                console.error('Error parsing backup user:', e);
+            }
+        } else {
+            // Keep both screens hidden until auth check completes
+            this.authSection.classList.add('hidden');
+            this.appContainer.classList.add('hidden');
+        }
         
         this.firebaseAuth.onAuthStateChanged(async (firebaseUser) => {
             console.log('🔄 Auth state changed event fired!');
@@ -147,6 +172,12 @@ export class AuthManager {
             };
             
             appState.set('user', user);
+            
+            // BACKUP: Save to localStorage as well (in case Firebase persistence fails)
+            localStorage.setItem('mindglow_logged_in', 'true');
+            localStorage.setItem('mindglow_user_backup', JSON.stringify(user));
+            console.log('💾 Backup: User saved to localStorage');
+            
             this.showApp(user.name);
             
             console.log('✅ User logged in:', user.email);
@@ -182,6 +213,12 @@ export class AuthManager {
             };
             
             appState.set('user', user);
+            
+            // BACKUP: Save to localStorage as well
+            localStorage.setItem('mindglow_logged_in', 'true');
+            localStorage.setItem('mindglow_user_backup', JSON.stringify(user));
+            console.log('💾 Backup: User saved to localStorage');
+            
             this.showApp(name);
             
             console.log('✅ User created:', user.email);
@@ -198,6 +235,12 @@ export class AuthManager {
         try {
             await this.firebaseAuth.signOut();
             appState.set('user', null);
+            
+            // Clear localStorage backup
+            localStorage.removeItem('mindglow_logged_in');
+            localStorage.removeItem('mindglow_user_backup');
+            console.log('💾 Backup: Cleared localStorage');
+            
             this.appContainer.classList.add('hidden');
             this.authSection.classList.remove('hidden');
             console.log('✅ User logged out');
