@@ -375,7 +375,7 @@ export class MeditationFeature {
         // Add background controls if not exists
         if (!document.getElementById('bg-controls')) {
             const controlsHTML = `
-                <div id="bg-controls" style="position: fixed; bottom: 20px; right: 20px; z-index: 100; display: flex; gap: 10px;">
+                <div id="bg-controls" style="position: fixed; bottom: 20px; right: 20px; z-index: 100; display: none; gap: 10px;">
                     <button id="change-bg" class="btn-secondary" style="padding: 10px 15px; border-radius: 8px;">
                         <i class="fas fa-image"></i> Change Background
                     </button>
@@ -395,6 +395,12 @@ export class MeditationFeature {
             document.getElementById('toggle-video').addEventListener('click', () => {
                 this.toggleVideoBackground();
             });
+            
+            // Show controls if we're on meditation page
+            const currentPage = document.getElementById('meditate-page');
+            if (currentPage && currentPage.classList.contains('active')) {
+                document.getElementById('bg-controls').style.display = 'flex';
+            }
         }
     }
 

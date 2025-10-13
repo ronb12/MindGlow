@@ -37,6 +37,16 @@ export class NavigationManager {
         if (targetPage) {
             targetPage.classList.add('active');
             this.currentPage = pageName;
+            
+            // Show/hide meditation controls based on page
+            const bgControls = document.getElementById('bg-controls');
+            if (bgControls) {
+                if (pageName === 'meditate') {
+                    bgControls.style.display = 'flex';
+                } else {
+                    bgControls.style.display = 'none';
+                }
+            }
         }
     }
 
