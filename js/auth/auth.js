@@ -31,14 +31,20 @@ export class AuthManager {
     // Check for existing authentication on page load
     checkExistingAuth() {
         console.log('🔍 Checking for existing authentication...');
+        console.log('   Current auth state:', this.firebaseAuth.currentUser ? 'User exists' : 'No user');
         
         // Keep both screens hidden until auth check completes
         this.authSection.classList.add('hidden');
         this.appContainer.classList.add('hidden');
         
         this.firebaseAuth.onAuthStateChanged(async (firebaseUser) => {
+            console.log('🔄 Auth state changed event fired!');
+            console.log('   Firebase User:', firebaseUser ? firebaseUser.email : 'null');
+            
             if (firebaseUser) {
-                console.log('✅ User already logged in:', firebaseUser.email);
+                console.log('✅ User detected in auth state:', firebaseUser.email);
+                console.log('   UID:', firebaseUser.uid);
+                console.log('   Email Verified:', firebaseUser.emailVerified);
                 
                 try {
                     // Get user profile from Firestore
