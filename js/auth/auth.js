@@ -25,6 +25,45 @@ export class AuthManager {
         this.setupForms();
         this.setupLogout();
         this.setupForgotPassword();
+        this.checkExistingAuth(); // Check if user is already logged in
+    }
+
+    // Check for existing authentication on page load
+    checkExistingAuth() {
+        console.log('🔍 Checking for existing authentication...');
+        
+        this.firebaseAuth.onAuthStateChanged(async (firebaseUser) => {
+            if (firebaseUser) {
+                console.log('✅ User already logged in:', firebaseUser.email);
+                
+                try {
+                    // Get user profile from Firestore
+                    const userDoc = await this.firestore.collection('users').doc(firebaseUser.uid).get();
+                    const userData = userDoc.data();
+                    
+                    const user = {
+                        uid: firebaseUser.uid,
+                        name: userData?.name || firebaseUser.email.split('@')[0],
+                        email: firebaseUser.email
+                    };
+                    
+                    appState.set('user', user);
+                    this.showApp(user.name);
+                    
+                    // Trigger dashboard initialization
+                    window.dispatchEvent(new CustomEvent('userLoggedIn', { detail: user }));
+                    
+                    console.log('✅ Auto-logged in from persisted session');
+                } catch (error) {
+                    console.error('Error loading user data:', error);
+                }
+            } else {
+                console.log('ℹ️  No existing session - showing login screen');
+                // User not logged in, show auth screen
+                this.authSection.classList.remove('hidden');
+                this.appContainer.classList.add('hidden');
+            }
+        });
     }
 
     setupAuthTabs() {
