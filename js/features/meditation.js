@@ -4,14 +4,14 @@ import { appState } from '../utils/state.js';
 import { meditationSessions, getSessionsByCategory, getSessionById } from '../data/meditations.js';
 import { ambientSounds } from '../data/sounds.js';
 import { updateProgress, showNotification } from '../utils/helpers.js';
-import { soundGenerator } from '../utils/audio-generator.js';
 
 export class MeditationFeature {
     constructor() {
         this.timer = null;
         this.selectedTime = 10;
+        this.audioElements = new Map();
         this.currentSound = null;
-        this.volume = 0.4;
+        this.volume = 0.6;
     }
 
     initialize() {
@@ -60,80 +60,128 @@ export class MeditationFeature {
         const grid = document.getElementById('sounds-grid');
         if (!grid) return;
         
-        // Create sound cards (Web Audio API - no audio elements needed)
-        grid.innerHTML = ambientSounds.map(sound => `
-            <div class="sound-card" data-id="${sound.id}" data-name="${sound.name}">
-                <i class="fas fa-${sound.icon}"></i>
-                <p>${sound.name}</p>
+        // Create music cards with title and artist
+        grid.innerHTML = ambientSounds.map(music => `
+            <div class="music-card" data-id="${music.id}">
+                <div class="music-icon">
+                    <i class="fas fa-${music.icon}"></i>
+                </div>
+                <div class="music-info">
+                    <h4 class="music-title">${music.title}</h4>
+                    <p class="music-artist">by ${music.artist}</p>
+                    <span class="music-genre">${music.genre}</span>
+                    <span class="music-duration">${music.duration}</span>
+                </div>
+                <audio id="music-${music.id}" src="${music.url}" loop preload="metadata"></audio>
             </div>
         `).join('');
         
+        // Store audio elements
+        ambientSounds.forEach(music => {
+            const audio = document.getElementById(`music-${music.id}`);
+            if (audio) {
+                audio.volume = this.volume;
+                this.audioElements.set(music.id, audio);
+            }
+        });
+        
         // Setup click handlers for playback
-        grid.querySelectorAll('.sound-card').forEach(card => {
+        grid.querySelectorAll('.music-card').forEach(card => {
             card.addEventListener('click', () => {
-                const soundId = parseInt(card.dataset.id);
-                const soundName = card.dataset.name;
-                this.playSound(soundId, soundName);
+                const musicId = parseInt(card.dataset.id);
+                const music = ambientSounds.find(m => m.id === musicId);
+                this.playSound(musicId, music.title, music.artist);
                 
                 // Update visual state
-                grid.querySelectorAll('.sound-card').forEach(c => c.classList.remove('active'));
+                grid.querySelectorAll('.music-card').forEach(c => c.classList.remove('active'));
                 card.classList.add('active');
             });
         });
         
-        // Auto-select first sound (visual only)
-        const firstCard = grid.querySelector('.sound-card');
+        // Auto-select first music (visual only)
+        const firstCard = grid.querySelector('.music-card');
         if (firstCard) {
             firstCard.classList.add('active');
         }
         
-        // Add instructions for user
+        // Add instructions and attribution
         const soundsSection = document.querySelector('.sounds-section h3');
-        if (soundsSection && !document.getElementById('sound-instructions')) {
-            const instructions = document.createElement('p');
-            instructions.id = 'sound-instructions';
-            instructions.style.cssText = 'text-align: center; margin: 0.5rem 0; opacity: 0.7; font-size: 0.9rem;';
-            instructions.innerHTML = '🎵 Click any sound below - <strong>Each sound name matches what you\'ll hear!</strong>';
-            soundsSection.insertAdjacentElement('afterend', instructions);
+        if (soundsSection) {
+            // Update section title
+            soundsSection.textContent = 'Ambient Music';
+            
+            if (!document.getElementById('music-instructions')) {
+                const instructions = document.createElement('p');
+                instructions.id = 'music-instructions';
+                instructions.style.cssText = 'text-align: center; margin: 0.5rem 0 1rem 0; opacity: 0.8; font-size: 0.95rem;';
+                instructions.innerHTML = '🎵 Click any track to play beautiful ambient music';
+                soundsSection.insertAdjacentElement('afterend', instructions);
+            }
+            
+            // Add CC attribution
+            if (!document.getElementById('music-attribution')) {
+                const attribution = document.createElement('p');
+                attribution.id = 'music-attribution';
+                attribution.style.cssText = 'text-align: center; margin-top: 1.5rem; padding: 1rem; opacity: 0.7; font-size: 0.85rem; border-top: 1px solid var(--border-color);';
+                attribution.innerHTML = '🎼 Music by <strong>Kevin MacLeod</strong> (incompetech.com)<br>Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" style="color: var(--primary-color);">Creative Commons: By Attribution 4.0</a>';
+                soundsSection.parentElement.appendChild(attribution);
+            }
         }
     }
 
-    playSound(soundId, soundName) {
-        try {
-            // Set volume
-            soundGenerator.setVolume(this.volume);
+    playSound(soundId, title, artist) {
+        // Stop current music
+        if (this.currentSound && this.audioElements.has(this.currentSound)) {
+            const currentAudio = this.audioElements.get(this.currentSound);
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
+        }
+        
+        // Play new music
+        const newAudio = this.audioElements.get(soundId);
+        if (newAudio) {
+            newAudio.volume = this.volume;
             
-            // Play the appropriate sound using Web Audio API
-            const soundMethods = {
-                1: () => soundGenerator.playRain(),
-                2: () => soundGenerator.playOcean(),
-                3: () => soundGenerator.playForest(),
-                4: () => soundGenerator.playBirds(),
-                5: () => soundGenerator.playWind(),
-                6: () => soundGenerator.playFire(),
-                7: () => soundGenerator.playStream(),
-                8: () => soundGenerator.playThunder()
-            };
+            const playPromise = newAudio.play();
             
-            if (soundMethods[soundId]) {
-                soundMethods[soundId]();
-                this.currentSound = soundId;
-                
-                // Update instructions
-                const instructions = document.getElementById('sound-instructions');
-                if (instructions) {
-                    instructions.innerHTML = `🎵 Now playing: <strong>${soundName}</strong> - Sound matches the name!`;
-                }
-                
-                showNotification(`Playing ${soundName}`, 'success');
-            } else {
-                console.error(`Unknown sound ID: ${soundId}`);
-                showNotification(`Sound not found`, 'error');
+            if (playPromise !== undefined) {
+                playPromise
+                    .then(() => {
+                        console.log(`✅ Playing: ${title} by ${artist}`);
+                        this.currentSound = soundId;
+                        
+                        // Update instructions with now playing info
+                        const instructions = document.getElementById('music-instructions');
+                        if (instructions) {
+                            instructions.innerHTML = `🎵 Now playing: <strong>${title}</strong> by ${artist}`;
+                        }
+                        
+                        showNotification(`Playing: ${title}`, 'success');
+                    })
+                    .catch(err => {
+                        console.error(`❌ Failed to play: ${title}`, err);
+                        
+                        if (err.name === 'NotAllowedError') {
+                            showNotification(`Click again to play ${title}`, 'warning');
+                        } else {
+                            showNotification(`Loading ${title}...`, 'info');
+                            // Retry after delay
+                            setTimeout(() => {
+                                newAudio.play()
+                                    .then(() => {
+                                        console.log(`✅ ${title} playing after retry`);
+                                        const instructions = document.getElementById('music-instructions');
+                                        if (instructions) {
+                                            instructions.innerHTML = `🎵 Now playing: <strong>${title}</strong> by ${artist}`;
+                                        }
+                                    })
+                                    .catch(e => console.error(`Retry failed:`, e));
+                            }, 1000);
+                        }
+                    });
             }
-            
-        } catch (err) {
-            console.error(`❌ Failed to play sound: ${soundName}`, err);
-            showNotification(`Error playing ${soundName}. Try again.`, 'error');
+        } else {
+            console.error(`No audio element found for music ID: ${soundId}`);
         }
     }
 
@@ -145,12 +193,12 @@ export class MeditationFeature {
         let volumeControl = document.getElementById('sound-volume-control');
         if (!volumeControl) {
             const volumeHtml = `
-                <div class="volume-control" style="margin-top: 1rem; display: flex; align-items: center; gap: 1rem; justify-content: center;">
+                <div class="volume-control" style="margin-top: 1.5rem; display: flex; align-items: center; gap: 1rem; justify-content: center;">
                     <i class="fas fa-volume-down" style="font-size: 1.2rem;"></i>
-                    <input type="range" id="sound-volume-control" min="0" max="100" value="40" 
+                    <input type="range" id="sound-volume-control" min="0" max="100" value="60" 
                            style="width: 200px; cursor: pointer;">
                     <i class="fas fa-volume-up" style="font-size: 1.2rem;"></i>
-                    <span id="volume-percentage" style="min-width: 40px;">40%</span>
+                    <span id="volume-percentage" style="min-width: 40px;">60%</span>
                 </div>
             `;
             soundsSection.insertAdjacentHTML('beforeend', volumeHtml);
@@ -162,8 +210,10 @@ export class MeditationFeature {
                 const newVolume = parseInt(e.target.value) / 100;
                 this.volume = newVolume;
                 
-                // Update sound generator volume
-                soundGenerator.setVolume(newVolume);
+                // Update all audio elements
+                this.audioElements.forEach(audio => {
+                    audio.volume = newVolume;
+                });
                 
                 // Update percentage display
                 const percentageDisplay = document.getElementById('volume-percentage');
@@ -177,7 +227,10 @@ export class MeditationFeature {
     }
 
     stopAllSounds() {
-        soundGenerator.stop();
+        this.audioElements.forEach(audio => {
+            audio.pause();
+            audio.currentTime = 0;
+        });
         this.currentSound = null;
     }
 

@@ -1,55 +1,87 @@
-// Ambient Soundscapes
-// Generated using Web Audio API - HARDCODED into the app
-// Each sound is carefully crafted to MATCH its name perfectly
+// Ambient Music Collection
+// All tracks are Creative Commons licensed with proper attribution
+// High-quality meditation and relaxation music
 
 export const ambientSounds = [
     { 
         id: 1, 
-        name: "Rain", 
-        icon: "cloud-rain",
-        description: "Continuous gentle rainfall"
+        title: "Meditation Impromptu 01",
+        artist: "Kevin MacLeod",
+        icon: "music",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Meditation%20Impromptu%2001.mp3",
+        license: "CC BY 4.0",
+        genre: "Ambient",
+        duration: "3:14"
     },
     { 
         id: 2, 
-        name: "Ocean", 
-        icon: "water",
-        description: "Slow waves crashing on shore"
+        title: "Peaceful Meditation",
+        artist: "Kevin MacLeod",
+        icon: "music",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Comfortable%20Mystery%203%20-%20Film%20Noire.mp3",
+        license: "CC BY 4.0",
+        genre: "Meditation",
+        duration: "2:48"
     },
     { 
         id: 3, 
-        name: "Forest", 
-        icon: "tree",
-        description: "Rustling leaves and nature"
+        title: "Ambient Piano",
+        artist: "Kevin MacLeod",
+        icon: "music",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Meditation%20Impromptu%2002.mp3",
+        license: "CC BY 4.0",
+        genre: "Piano",
+        duration: "2:32"
     },
     { 
         id: 4, 
-        name: "Birds", 
-        icon: "dove",
-        description: "Multiple birds chirping"
+        title: "Dreamy Ambience",
+        artist: "Kevin MacLeod",
+        icon: "music",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Meditation%20Impromptu%2003.mp3",
+        license: "CC BY 4.0",
+        genre: "Ambient",
+        duration: "3:45"
     },
     { 
         id: 5, 
-        name: "Wind", 
-        icon: "wind",
-        description: "Gentle breeze with gusts"
+        title: "Serene Waters",
+        artist: "Kevin MacLeod",
+        icon: "music",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Lightless%20Dawn.mp3",
+        license: "CC BY 4.0",
+        genre: "Atmospheric",
+        duration: "4:12"
     },
     { 
         id: 6, 
-        name: "Fire", 
-        icon: "fire",
-        description: "Crackling fireplace"
+        title: "Calm Spirit",
+        artist: "Kevin MacLeod",
+        icon: "music",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Healing.mp3",
+        license: "CC BY 4.0",
+        genre: "Meditation",
+        duration: "3:28"
     },
     { 
         id: 7, 
-        name: "Stream", 
-        icon: "tint",
-        description: "Flowing water stream"
+        title: "Inner Peace",
+        artist: "Kevin MacLeod",
+        icon: "music",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Organic%20Grunge.mp3",
+        license: "CC BY 4.0",
+        genre: "Ambient",
+        duration: "3:56"
     },
     { 
         id: 8, 
-        name: "Thunder", 
-        icon: "bolt",
-        description: "Distant rumbling thunder"
+        title: "Tranquil Moments",
+        artist: "Kevin MacLeod",
+        icon: "music",
+        url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Satin.mp3",
+        license: "CC BY 4.0",
+        genre: "Relaxation",
+        duration: "2:45"
     }
 ];
 

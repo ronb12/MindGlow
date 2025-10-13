@@ -654,11 +654,11 @@ input:checked + .slider:before {
 
 .sounds-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 15px;
 }
 
-.sound-card {
+.sound-card, .music-card {
     background: var(--bg-color);
     padding: 20px;
     border: 2px solid var(--border-color);
@@ -668,11 +668,13 @@ input:checked + .slider:before {
     transition: all 0.3s ease;
 }
 
-.sound-card:hover {
+.sound-card:hover, .music-card:hover {
     border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
-.sound-card.active {
+.sound-card.active, .music-card.active {
     background: var(--primary-color);
     color: white;
     border-color: var(--primary-color);
@@ -681,6 +683,70 @@ input:checked + .slider:before {
 .sound-card i {
     font-size: 30px;
     margin-bottom: 10px;
+}
+
+/* Music Card Specific Styles */
+.music-card {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+}
+
+.music-icon {
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 10px;
+}
+
+.music-card.active .music-icon {
+    background: white;
+    color: var(--primary-color);
+}
+
+.music-icon i {
+    font-size: 24px;
+}
+
+.music-info {
+    flex: 1;
+}
+
+.music-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 5px 0;
+}
+
+.music-artist {
+    font-size: 14px;
+    opacity: 0.8;
+    margin: 0 0 8px 0;
+}
+
+.music-card.active .music-artist {
+    opacity: 0.9;
+}
+
+.music-genre, .music-duration {
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 5px;
+    background: rgba(0,0,0,0.1);
+    margin-right: 5px;
+    display: inline-block;
+}
+
+.music-card.active .music-genre,
+.music-card.active .music-duration {
+    background: rgba(255,255,255,0.2);
 }
 
 /* Breathing Exercises */
