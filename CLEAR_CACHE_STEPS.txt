@@ -1,0 +1,125 @@
+═══════════════════════════════════════════════════════════════════
+   🔧 CLEAR BROWSER CACHE - STEP BY STEP
+═══════════════════════════════════════════════════════════════════
+
+Your browser is loading OLD cached files. Follow these steps:
+
+
+STEP 1: OPEN DEVTOOLS (You probably already have this open)
+═══════════════════════════════════════════════════════════════════
+
+Press: F12 (or ⌘ + Option + J on Mac)
+
+
+STEP 2: GO TO APPLICATION TAB
+═══════════════════════════════════════════════════════════════════
+
+At the top of DevTools, you'll see tabs:
+   Elements | Console | Sources | Network | [Application] ← CLICK HERE
+
+
+STEP 3: CLEAR SERVICE WORKER
+═══════════════════════════════════════════════════════════════════
+
+In the LEFT sidebar of Application tab, look for:
+   
+   Application
+   ├─ Manifest
+   ├─ [Service Workers] ← CLICK HERE
+   ├─ Storage
+   └─ ...
+
+You'll see:
+   mindglow-wellness.web.app
+   Status: activated and is running
+   [Unregister] [Update]  ← CLICK "Unregister"
+
+Click the "Unregister" button!
+
+
+STEP 4: CLEAR ALL STORAGE
+═══════════════════════════════════════════════════════════════════
+
+Still in the Application tab, LEFT sidebar:
+
+Click on "Storage" (at the bottom of the list)
+
+You'll see a button:
+   [Clear site data]  ← CLICK THIS!
+
+This will clear:
+   ✓ Local storage
+   ✓ Session storage
+   ✓ IndexedDB
+   ✓ Cache storage
+   ✓ Everything!
+
+
+STEP 5: HARD REFRESH
+═══════════════════════════════════════════════════════════════════
+
+Press: ⌘ + Shift + R (Mac) or Ctrl + Shift + R (Windows)
+
+Or right-click the refresh button and select:
+   "Empty Cache and Hard Reload"
+
+
+STEP 6: LOGIN AGAIN
+═══════════════════════════════════════════════════════════════════
+
+After refresh, you'll need to login again:
+   Email: ronellbradley@gmail.com
+   Password: (your password)
+
+
+STEP 7: CHECK CONSOLE
+═══════════════════════════════════════════════════════════════════
+
+In DevTools → Console tab, you should NOW see:
+
+   ✅ main.js?v=3.1.0  ← NEW VERSION!
+   📚 Library feature initializing...  ← NEW MESSAGE!
+   🧘 Adding click handlers to 6 yoga poses  ← NEW MESSAGE!
+   ✅ Library feature initialized with interactive modals  ← NEW MESSAGE!
+
+
+STEP 8: TEST YOGA MODALS
+═══════════════════════════════════════════════════════════════════
+
+1. Go to Library section
+2. Click any yoga pose
+3. Modal should OPEN! ✅
+
+
+═══════════════════════════════════════════════════════════════════
+   QUICK ALTERNATIVE: INCOGNITO WINDOW
+═══════════════════════════════════════════════════════════════════
+
+If you want to test immediately without clearing your main browser:
+
+1. Open Incognito/Private window (⌘ + Shift + N)
+2. Go to: https://mindglow-wellness.web.app
+3. Login
+4. Go to Library
+5. Click yoga pose → WORKS! ✅
+
+This proves the code is working - just cache issue in main browser.
+
+
+═══════════════════════════════════════════════════════════════════
+   WHAT YOU'RE LOOKING FOR:
+═══════════════════════════════════════════════════════════════════
+
+BEFORE (What you see now):
+   main.js?v=3.0.0  ← OLD
+   (no library messages)
+
+AFTER (What you should see):
+   main.js?v=3.1.0  ← NEW
+   📚 Library feature initializing...
+   🧘 Adding click handlers to 6 yoga poses
+   ✅ Library feature initialized with interactive modals
+
+
+═══════════════════════════════════════════════════════════════════
+
