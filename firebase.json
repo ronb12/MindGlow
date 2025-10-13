@@ -14,7 +14,10 @@
       ".gitignore",
       "tests/**",
       "**/*.sh",
-      "package*.json"
+      "package*.json",
+      "**/*.txt",
+      "debug-*.js",
+      "test-*.js"
     ],
     "rewrites": [
       {
