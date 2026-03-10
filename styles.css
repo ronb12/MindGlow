@@ -2237,8 +2237,20 @@ input:checked + .slider:before {
     border-top: 1px solid var(--border-color);
 }
 
-#store-add-item {
+.store-owner-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
     margin-bottom: 1rem;
+}
+
+.store-owner-actions .btn-primary,
+.store-owner-actions .btn-secondary {
+    margin-bottom: 0;
+}
+
+#store-add-item {
+    margin-bottom: 0;
 }
 
 .store-owner-panel.hidden {
@@ -2323,10 +2335,84 @@ input:checked + .slider:before {
     color: var(--text-primary);
 }
 
+.store-order-tracking-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.store-order-tracking-row .store-order-tracking-carrier {
+    min-width: 100px;
+    padding: 0.4rem 0.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-primary);
+}
+
+.store-order-tracking-row .store-order-tracking-number {
+    flex: 1;
+    min-width: 140px;
+    padding: 0.4rem 0.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-primary);
+}
+
+.store-order-tracking-link-wrap {
+    margin-bottom: 0.5rem;
+}
+
+.store-tracking-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.store-tracking-link:hover {
+    text-decoration: underline;
+}
+
+.store-my-order-tracking {
+    margin-top: 0.5rem;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.store-my-order-tracking .store-tracking-link {
+    margin-left: 0.25rem;
+}
+
 #store-item-form label,
 .store-item-modal-actions {
     display: block;
     margin-top: 0.5rem;
+}
+
+.store-item-price-hint {
+    font-weight: normal;
+    color: var(--text-secondary);
+    font-size: 12px;
+}
+
+.store-owner-item-profit {
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+.store-item-image-preview {
+    margin-top: 0.5rem;
+}
+
+.store-item-image-preview .store-item-preview-img {
+    max-width: 200px;
+    max-height: 150px;
+    object-fit: contain;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
 }
 
 #store-item-form input,
@@ -2375,5 +2461,604 @@ input:checked + .slider:before {
 
 .store-cart-footer .btn-primary {
     margin-top: 0.5rem;
+}
+
+.store-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.store-search {
+    flex: 1;
+    min-width: 180px;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-primary);
+}
+
+.store-sort, .store-category-select {
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-primary);
+}
+
+.store-tabs .store-category-select {
+    margin-left: auto;
+}
+
+.store-card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.store-qty-add {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.store-qty-input {
+    width: 3rem;
+    padding: 0.25rem;
+    text-align: center;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+.store-out-of-stock {
+    color: var(--text-secondary);
+    font-size: 12px;
+}
+
+.store-detail-content .store-detail-image {
+    height: 200px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.store-detail-type, .store-detail-price {
+    color: var(--text-secondary);
+    margin: 0.25rem 0;
+}
+
+.store-detail-desc {
+    white-space: pre-wrap;
+    margin: 0.5rem 0 1rem;
+}
+
+.store-detail-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.store-detail-qty input {
+    width: 4rem;
+    padding: 0.35rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+.store-orders-badge {
+    background: var(--warning-color);
+    color: white;
+    padding: 0.15rem 0.4rem;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+.store-order-status-select {
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    font-size: 13px;
+}
+
+.store-order-owner-note {
+    width: 100%;
+    margin-top: 0.25rem;
+    padding: 0.35rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    font-size: 13px;
+}
+
+.store-my-orders {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.store-my-orders h3 {
+    margin-bottom: 0.75rem;
+}
+
+.store-cart-notes-label {
+    display: block;
+    margin-top: 0.5rem;
+}
+
+.store-cart-notes {
+    width: 100%;
+    min-height: 60px;
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    margin-top: 0.25rem;
+    font-size: 14px;
+}
+
+.store-cart-promo {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.store-cart-promo input {
+    flex: 1;
+    min-width: 220px;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.store-cart-promo-message {
+    font-size: 13px;
+    margin-top: 0.25rem;
+}
+
+.store-cart-totals p {
+    margin: 0.25rem 0;
+}
+
+.store-settings-note {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    background: var(--bg-color);
+    border-radius: 8px;
+    border-left: 3px solid var(--primary-color);
+}
+
+.store-settings-note i {
+    margin-right: 0.35rem;
+    color: var(--primary-color);
+}
+
+.store-settings-form label,
+.store-settings-form input {
+    display: block;
+    margin-top: 0.35rem;
+}
+
+.store-settings-form input {
+    width: 100%;
+    max-width: 200px;
+}
+
+.store-settings-form .btn-primary {
+    margin-top: 0.75rem;
+}
+
+.store-item-active-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.store-item-active-label input {
+    width: auto;
+}
+
+.store-promo-add {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+.store-promo-add input[type="text"] {
+    width: 220px;
+    min-width: 180px;
+    padding: 0.35rem 0.5rem;
+}
+
+.store-promo-add input[type="number"] {
+    width: 100px;
+    padding: 0.35rem;
+}
+
+.store-promo-add select {
+    padding: 0.35rem;
+}
+
+.store-promo-list {
+    margin-top: 0.75rem;
+}
+
+.store-promo-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 14px;
+}
+
+.store-promo-active {
+    color: var(--text-secondary);
+}
+
+.store-promo-item .store-promo-toggle {
+    padding: 0.25rem 0.5rem;
+    font-size: 12px;
+}
+
+.store-preview-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-radius: 10px;
+}
+
+.store-preview-bar.hidden {
+    display: none !important;
+}
+
+.store-preview-bar span {
+    font-weight: 500;
+}
+
+.store-preview-bar .btn-primary {
+    background: rgba(255,255,255,0.95);
+    color: var(--primary-color);
+}
+
+.store-preview-bar .btn-primary:hover {
+    background: #fff;
+}
+
+.store-owner-preview-row {
+    margin-bottom: 1rem;
+}
+
+.store-owner-preview-row .btn-secondary {
+    padding: 0.5rem 1rem;
+}
+
+.store-reports-note {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.store-reports-period {
+    margin-bottom: 1rem;
+}
+
+.store-reports-period label {
+    margin-right: 0.5rem;
+}
+
+.store-reports-period select {
+    padding: 0.35rem 0.5rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-primary);
+}
+
+.store-reports-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.store-report-card {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.store-report-card i {
+    display: block;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 0.35rem;
+}
+
+.store-report-value {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.store-report-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.store-reports-status {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.store-report-status-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.5rem 0.75rem;
+    background: var(--bg-color);
+    border-radius: 8px;
+    min-width: 120px;
+}
+
+.store-reports-top-items h4,
+.store-reports-cards + h4,
+.store-reports-status + h4 {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+}
+
+.store-reports-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.store-reports-table th,
+.store-reports-table td {
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.store-reports-table th {
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+/* Shopify-style admin (Inventory, Customers) */
+.store-admin-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.store-admin-search {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-primary);
+    font-size: 14px;
+}
+
+.store-admin-table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--card-bg);
+}
+
+.store-admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.store-admin-table th,
+.store-admin-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.store-admin-table th {
+    background: var(--bg-color);
+    color: var(--text-secondary);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.store-admin-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.store-admin-table tbody tr:hover {
+    background: var(--bg-color);
+}
+
+.store-admin-btn {
+    padding: 0.35rem 0.6rem;
+    font-size: 13px;
+}
+
+.store-admin-empty {
+    color: var(--text-secondary);
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.store-status-badge {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.store-status-visible {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--success-color);
+}
+
+.store-status-hidden {
+    background: rgba(107, 114, 128, 0.2);
+    color: var(--text-secondary);
+}
+
+.store-stock-low {
+    color: var(--warning-color);
+    font-weight: 600;
+}
+
+/* Store: Customer form (modern layout + address) */
+.store-customer-modal-content {
+    max-width: 520px;
+}
+
+.store-customer-form-title {
+    margin: 0 0 1.25rem;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.store-customer-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.store-customer-form-section {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.store-customer-form-section:last-of-type {
+    border-bottom: none;
+    margin-bottom: 1rem;
+    padding-bottom: 0;
+}
+
+.store-customer-form-section-title {
+    margin: 0 0 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-secondary);
+}
+
+.store-customer-form-field {
+    margin-bottom: 0.85rem;
+}
+
+.store-customer-form-field:last-child {
+    margin-bottom: 0;
+}
+
+.store-customer-form-field label {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.store-customer-optional {
+    font-weight: 400;
+    color: var(--text-secondary);
+}
+
+.store-customer-form-field input,
+.store-customer-form-field select,
+.store-customer-form-field textarea {
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-primary);
+    font-size: 15px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.store-customer-form-field select {
+    cursor: pointer;
+    appearance: auto;
+}
+
+.store-customer-form-field input:focus,
+.store-customer-form-field select:focus,
+.store-customer-form-field textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.store-customer-form-field input::placeholder,
+.store-customer-form-field textarea::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.8;
+}
+
+.store-customer-form-field textarea {
+    resize: vertical;
+    min-height: 72px;
+}
+
+.store-customer-form-row {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.store-customer-form-row-2 {
+    grid-template-columns: 1fr 1fr;
+}
+
+.store-customer-form-row-3 {
+    grid-template-columns: 1fr 1fr 0.9fr;
+}
+
+@media (max-width: 480px) {
+    .store-customer-form-row-2,
+    .store-customer-form-row-3 {
+        grid-template-columns: 1fr;
+    }
+}
+
+.store-customer-form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
 }
 

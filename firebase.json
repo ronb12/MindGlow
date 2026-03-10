@@ -23,6 +23,10 @@
     ],
     "rewrites": [
       {
+        "source": "/favicon.ico",
+        "destination": "/icons/icon-32x32.png"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

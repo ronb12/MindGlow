@@ -1,9 +1,9 @@
 // MindGlow Configuration
 // A product of Bradley Virtual Solutions, LLC
 
-// NOTE: Firebase API keys in client-side code are SAFE and INTENDED to be public
-// They are protected by Firebase Security Rules and domain restrictions
-// See SECURITY.md for details: https://firebase.google.com/docs/projects/api-keys
+// NOTE: Firebase API keys in client-side code are INTENDED to be public (see SECURITY.md).
+// Data access is enforced by Auth + Firestore/Storage rules. Restrict the key in
+// Google Cloud Console (Credentials → your key → HTTP referrer restrictions).
 
 export const CONFIG = {
     appName: 'MindGlow',
@@ -30,7 +30,7 @@ export const CONFIG = {
     },
     
     // Owner emails: users with these emails get store owner (admin) access
-    ownerEmails: [],
+    ownerEmails: ['ronellbradley@gmail.com'],
 
     // Storage Keys
     storageKeys: {

@@ -125,13 +125,33 @@ service cloud.firestore {
         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'owner';
     }
     
-    // Store: orders - customers create; owner can read all; users can read their own
+    // Store: orders - customers create; owner can read/update all; users can read their own
     match /orders/{orderId} {
       allow create: if isAuthenticated();
       allow read: if isAuthenticated() &&
         (resource.data.userId == request.auth.uid ||
          get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'owner');
       allow update, delete: if isAuthenticated() &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'owner';
+    }
+    
+    // Store: settings (tax, shipping) - owner write, authenticated read
+    match /storeSettings/{docId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'owner';
+    }
+    
+    // Store: promo codes - authenticated read (to apply), owner write
+    match /coupons/{couponId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'owner';
+    }
+
+    // Store: customers (owner-managed list; add/edit manually)
+    match /customers/{customerId} {
+      allow read, write: if isAuthenticated() &&
         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'owner';
     }
   }
