@@ -14,6 +14,7 @@ import { wellness } from './features/wellness.js';
 import { journal } from './features/journal.js';
 import { community } from './features/community.js';
 import { library } from './features/library.js';
+import { store } from './features/store.js';
 import { settings } from './features/settings.js';
 import { pomodoro } from './features/pomodoro.js';
 
@@ -98,6 +99,7 @@ class MindGlowApp {
         journal.initialize();
         community.initialize();
         library.initialize();
+        store.initialize();
         settings.initialize();
         pomodoro.initialize();
     }

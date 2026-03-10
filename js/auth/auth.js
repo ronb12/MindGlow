@@ -1,5 +1,6 @@
 // Authentication Module
 
+import { CONFIG } from '../config.js';
 import { appState } from '../utils/state.js';
 import { auth as firebaseAuth, db as firestore } from '../firebase-init.js';
 
@@ -23,9 +24,64 @@ export class AuthManager {
 
         this.setupAuthTabs();
         this.setupForms();
+        this.setupGoogleSignIn();
         this.setupLogout();
         this.setupForgotPassword();
         this.checkExistingAuth(); // Check if user is already logged in
+    }
+
+    setupGoogleSignIn() {
+        const googleLoginBtn = document.getElementById('google-login-btn');
+        const googleSignupBtn = document.getElementById('google-signup-btn');
+        [googleLoginBtn, googleSignupBtn].filter(Boolean).forEach(btn => {
+            btn.addEventListener('click', () => this.loginWithGoogle());
+        });
+    }
+
+    async loginWithGoogle() {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        try {
+            const userCredential = await this.firebaseAuth.signInWithPopup(provider);
+            const firebaseUser = userCredential.user;
+            const userDoc = await this.firestore.collection('users').doc(firebaseUser.uid).get();
+            const userData = userDoc.data();
+
+            const name = firebaseUser.displayName || firebaseUser.email.split('@')[0];
+            if (!userDoc.exists) {
+                await this.firestore.collection('users').doc(firebaseUser.uid).set({
+                    name,
+                    email: firebaseUser.email,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    wellnessScore: 0,
+                    totalMinutes: 0,
+                    streak: 0
+                }, { merge: true });
+            }
+
+            const role = userData?.role || (CONFIG.ownerEmails && CONFIG.ownerEmails.includes(firebaseUser.email) ? 'owner' : 'user');
+            const user = {
+                uid: firebaseUser.uid,
+                name: userData?.name || name,
+                email: firebaseUser.email,
+                role
+            };
+            if (role === 'owner' && userData?.role !== 'owner') {
+                await this.firestore.collection('users').doc(firebaseUser.uid).set({ role: 'owner' }, { merge: true });
+            }
+
+            appState.set('user', user);
+            localStorage.setItem('mindglow_logged_in', 'true');
+            localStorage.setItem('mindglow_user_backup', JSON.stringify(user));
+            this.showApp(user.name);
+            window.dispatchEvent(new CustomEvent('userLoggedIn', { detail: user }));
+            console.log('✅ Signed in with Google:', user.email);
+        } catch (error) {
+            if (error.code === 'auth/popup-closed-by-user' || error.code === 'auth/cancelled-popup-request') {
+                return;
+            }
+            console.error('Google sign-in error:', error);
+            alert(`Google sign-in failed: ${error.message}`);
+        }
     }
 
     // Check for existing authentication on page load
@@ -76,12 +132,16 @@ export class AuthManager {
                     const userDoc = await this.firestore.collection('users').doc(firebaseUser.uid).get();
                     const userData = userDoc.data();
                     
+                    const role = userData?.role || (CONFIG.ownerEmails && CONFIG.ownerEmails.includes(firebaseUser.email) ? 'owner' : 'user');
                     const user = {
                         uid: firebaseUser.uid,
                         name: userData?.name || firebaseUser.email.split('@')[0],
-                        email: firebaseUser.email
+                        email: firebaseUser.email,
+                        role
                     };
-                    
+                    if (role === 'owner' && userData?.role !== 'owner') {
+                        this.firestore.collection('users').doc(firebaseUser.uid).set({ role: 'owner' }, { merge: true }).catch(() => {});
+                    }
                     appState.set('user', user);
                     
                     // Show app immediately (hide auth)
@@ -105,7 +165,8 @@ export class AuthManager {
                     const user = {
                         uid: firebaseUser.uid,
                         name: firebaseUser.displayName || firebaseUser.email.split('@')[0],
-                        email: firebaseUser.email
+                        email: firebaseUser.email,
+                        role: (CONFIG.ownerEmails && CONFIG.ownerEmails.includes(firebaseUser.email)) ? 'owner' : 'user'
                     };
                     
                     appState.set('user', user);
@@ -186,12 +247,16 @@ export class AuthManager {
             const userDoc = await this.firestore.collection('users').doc(firebaseUser.uid).get();
             const userData = userDoc.data();
             
+            const role = userData?.role || (CONFIG.ownerEmails && CONFIG.ownerEmails.includes(firebaseUser.email) ? 'owner' : 'user');
             const user = { 
                 uid: firebaseUser.uid,
                 name: userData?.name || email.split('@')[0], 
-                email: firebaseUser.email
+                email: firebaseUser.email,
+                role
             };
-            
+            if (role === 'owner' && userData?.role !== 'owner') {
+                this.firestore.collection('users').doc(firebaseUser.uid).set({ role: 'owner' }, { merge: true }).catch(() => {});
+            }
             appState.set('user', user);
             
             // BACKUP: Save to localStorage as well (in case Firebase persistence fails)

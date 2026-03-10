@@ -1,9 +1,23 @@
 ═══════════════════════════════════════════════════════════════════
-   🗑️  DELETE OLD FIREBASE RELEASES - STEP BY STEP GUIDE
+   🗑️  REDUCE STORED RELEASES (RECOMMENDED) - QUICK STEPS
 ═══════════════════════════════════════════════════════════════════
 
-The Firebase Console should now be open in your browser!
-If not, visit: https://console.firebase.google.com/project/mindglow-wellness/hosting/sites
+Open: https://console.firebase.google.com/project/mindglow-wellness/hosting/sites
+
+1. Click your site "mindglow-wellness" (or "View" if you have multiple sites).
+2. In the RELEASE HISTORY table, click the ⋮ (three dots) on the right.
+3. Select "Release storage settings".
+4. Enter number of releases to keep (e.g. 5 or 10) → Save.
+
+Firebase will then auto-delete older releases and free Hosting storage.
+After that, run:  firebase deploy --only hosting
+
+
+═══════════════════════════════════════════════════════════════════
+   🗑️  DELETE OLD FIREBASE RELEASES - FULL STEP BY STEP GUIDE
+═══════════════════════════════════════════════════════════════════
+
+If the console isn't open, visit: https://console.firebase.google.com/project/mindglow-wellness/hosting/sites
 
 
 STEP 1: NAVIGATE TO RELEASE HISTORY
@@ -42,16 +56,18 @@ IMPORTANT:
 ❌ DELETE everything older than that
 
 
-STEP 4: SET AUTO-CLEANUP (IMPORTANT!)
+STEP 4: SET RELEASE STORAGE LIMIT (IMPORTANT!)
 ═══════════════════════════════════════════════════════════════════
 
-To prevent this from happening again:
+To prevent quota errors and auto-delete old releases:
 
-1. Look for "Manage retention" or "Settings" button
-2. Click it
-3. Set: "Automatically delete old releases"
-4. Choose: "Keep last 10 releases"
-5. Save
+1. In the Release history table, click the ⋮ (three dots) menu
+2. Select "Release storage settings"
+3. Enter the number of releases to keep (e.g. 5 or 10)
+4. Click Save
+
+Older releases are then scheduled for deletion automatically.
+See: https://support.google.com/firebase/answer/9242086
 
 
 STEP 5: VERIFY CLEANUP

@@ -117,6 +117,23 @@ service cloud.firestore {
       allow read: if isAuthenticated();
       allow write: if false; // Only server-side functions can write
     }
+    
+    // Store: products - all authenticated users can read; only store owner can write
+    match /products/{productId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'owner';
+    }
+    
+    // Store: orders - customers create; owner can read all; users can read their own
+    match /orders/{orderId} {
+      allow create: if isAuthenticated();
+      allow read: if isAuthenticated() &&
+        (resource.data.userId == request.auth.uid ||
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'owner');
+      allow update, delete: if isAuthenticated() &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'owner';
+    }
   }
 }
 

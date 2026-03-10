@@ -29,6 +29,9 @@ export const CONFIG = {
         pomodoroTime: 25 // minutes
     },
     
+    // Owner emails: users with these emails get store owner (admin) access
+    ownerEmails: [],
+
     // Storage Keys
     storageKeys: {
         user: 'mindglow_user',

@@ -22,7 +22,8 @@ export class StateManager {
             notes: [],
             friends: [],
             sessionHistory: [],
-            customAffirmations: []
+            customAffirmations: [],
+            cart: []
         };
         
         this.loadState();
