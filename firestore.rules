@@ -76,8 +76,13 @@ service cloud.firestore {
       match /screenTime/{timeId} {
         allow read, write: if isOwner(userId);
       }
+
+      // Saved cart (syncs across devices)
+      match /cart/{docId} {
+        allow read, write: if isOwner(userId);
+      }
     }
-    
+
     // Friends collection - users can read friends and write their own connections
     match /friends/{friendshipId} {
       allow read: if isAuthenticated() && 

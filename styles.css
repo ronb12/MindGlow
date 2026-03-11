@@ -2386,6 +2386,14 @@ input:checked + .slider:before {
     margin-left: 0.25rem;
 }
 
+.store-order-manual-payment {
+    margin: 0.75rem 0 0.5rem;
+}
+
+.store-order-manual-payment .store-mark-paid-btn {
+    font-size: 14px;
+}
+
 #store-item-form label,
 .store-item-modal-actions {
     display: block;
@@ -3061,4 +3069,3 @@ input:checked + .slider:before {
     padding-top: 1rem;
     border-top: 1px solid var(--border-color);
 }
-

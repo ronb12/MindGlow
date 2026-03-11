@@ -36,8 +36,27 @@ export class StoreFeature {
         this.setupOwnerArea();
         this.setupDetailModal();
         this.setupModals();
+        this.checkStripeReturn();
         window.addEventListener('userLoggedIn', () => this.onUserChange());
         console.log('✅ Store feature initialized');
+    }
+
+    checkStripeReturn() {
+        const hash = window.location.hash || '';
+        if (!hash.includes('store')) return;
+        const params = new URLSearchParams(hash.split('?')[1] || '');
+        const checkout = params.get('checkout');
+        if (checkout === 'success') {
+            const orderId = params.get('order_id');
+            if (orderId) {
+                setTimeout(() => alert('Thank you for your order! Your payment was successful.'), 300);
+                this.renderMyOrders();
+            }
+            try { window.history.replaceState(null, '', window.location.pathname + '#store'); } catch (_) {}
+        } else if (checkout === 'cancelled') {
+            setTimeout(() => alert('Checkout was cancelled. Your cart has been preserved.'), 300);
+            try { window.history.replaceState(null, '', window.location.pathname + '#store'); } catch (_) {}
+        }
     }
 
     async loadStoreSettings() {
@@ -424,7 +443,81 @@ export class StoreFeature {
         const tax = (subtotal - discount) * taxPercent / 100;
         const total = Math.round((subtotal - discount + tax + shipping) * 100) / 100;
         const items = cart.map(i => ({ productId: i.id, title: i.title, price: i.price, quantity: i.quantity }));
+
         try {
+            const createStripeCheckoutSession = typeof firebase !== 'undefined' && firebase.functions && firebase.functions().httpsCallable('createStripeCheckoutSession');
+            if (createStripeCheckoutSession) {
+                const orderRef = await db.collection(ORDERS_COLLECTION).add({
+                    userId: user.uid,
+                    userName: user.name || user.email,
+                    userEmail: user.email,
+                    items,
+                    notes,
+                    subtotal,
+                    tax,
+                    shipping,
+                    discount,
+                    total,
+                    status: 'pending_payment',
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                const orderId = orderRef.id;
+                const origin = window.location.origin || 'https://mindglow-wellness.web.app';
+                try {
+                    const { data } = await createStripeCheckoutSession({ orderId, origin });
+                    if (data && data.url) {
+                        this.setCart([]);
+                        this.appliedPromo = null;
+                        if (document.getElementById('store-cart-promo')) document.getElementById('store-cart-promo').value = '';
+                        document.getElementById('store-cart-modal').classList.add('hidden');
+                        document.getElementById('store-cart-bar').classList.add('hidden');
+                        window.location.href = data.url;
+                        return;
+                    }
+                } catch (stripeErr) {
+                    await orderRef.update({ status: 'pending' });
+                    for (const item of cart) {
+                        const p = this.products.find(x => x.id === item.id);
+                        if (p && p.stock != null) {
+                            await db.collection(PRODUCTS_COLLECTION).doc(p.id).update({
+                                stock: firebase.firestore.FieldValue.increment(-item.quantity),
+                                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                            });
+                        }
+                    }
+                    this.setCart([]);
+                    this.appliedPromo = null;
+                    if (document.getElementById('store-cart-promo')) document.getElementById('store-cart-promo').value = '';
+                    document.getElementById('store-cart-modal').classList.add('hidden');
+                    document.getElementById('store-cart-bar').classList.add('hidden');
+                    await this.refreshProducts();
+                    alert('Order placed! The store owner will follow up with you.');
+                    if (this.isOwner()) this.loadOrders();
+                    this.renderMyOrders();
+                    return;
+                }
+                await orderRef.update({ status: 'pending' });
+                for (const item of cart) {
+                    const p = this.products.find(x => x.id === item.id);
+                    if (p && p.stock != null) {
+                        await db.collection(PRODUCTS_COLLECTION).doc(p.id).update({
+                            stock: firebase.firestore.FieldValue.increment(-item.quantity),
+                            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+                    }
+                }
+                this.setCart([]);
+                this.appliedPromo = null;
+                if (document.getElementById('store-cart-promo')) document.getElementById('store-cart-promo').value = '';
+                document.getElementById('store-cart-modal').classList.add('hidden');
+                document.getElementById('store-cart-bar').classList.add('hidden');
+                await this.refreshProducts();
+                alert('Order placed! The store owner will follow up with you.');
+                if (this.isOwner()) this.loadOrders();
+                this.renderMyOrders();
+                return;
+            }
+
             await db.collection(ORDERS_COLLECTION).add({
                 userId: user.uid,
                 userName: user.name || user.email,
@@ -459,7 +552,11 @@ export class StoreFeature {
             this.renderMyOrders();
         } catch (e) {
             console.error('Checkout error', e);
-            alert('Could not place order. Please try again.');
+            if (e.code === 'functions/unauthenticated' || e.code === 'unauthenticated') {
+                alert('Please sign in to checkout.');
+                return;
+            }
+            alert('Could not start checkout. Please try again.');
         }
     }
 
@@ -813,7 +910,7 @@ export class StoreFeature {
         });
         const statusEl = document.getElementById('store-reports-status');
         if (statusEl) {
-            const statuses = ['pending', 'confirmed', 'fulfilled', 'shipped'];
+            const statuses = ['pending', 'paid', 'confirmed', 'fulfilled', 'shipped'];
             statusEl.innerHTML = statuses.map(s => `
                 <div class="store-report-status-row">
                     <span>${s}</span>
@@ -1033,7 +1130,7 @@ export class StoreFeature {
             list.innerHTML = '<p class="store-orders-empty">No orders yet.</p>';
             return;
         }
-        const statuses = ['pending', 'confirmed', 'fulfilled', 'shipped'];
+        const statuses = ['pending', 'paid', 'confirmed', 'fulfilled', 'shipped'];
         list.innerHTML = this.orders.map(order => {
             const date = order.createdAt && order.createdAt.toDate ? order.createdAt.toDate().toLocaleString() : '—';
             const items = (order.items || []).map(i => `${i.title} × ${i.quantity} ($${(i.price * i.quantity).toFixed(2)})`).join(', ');
@@ -1120,11 +1217,28 @@ export class StoreFeature {
 
     async updateOrderStatus(orderId, status) {
         try {
-            await db.collection(ORDERS_COLLECTION).doc(orderId).update({ status, updatedAt: firebase.firestore.FieldValue.serverTimestamp() });
             const o = this.orders.find(x => x.id === orderId);
-            if (o) o.status = status;
+            const updates = { status, updatedAt: firebase.firestore.FieldValue.serverTimestamp() };
+            if (status === 'paid' && o && !o.stockDecremented && (o.status === 'pending_payment' || o.status === 'pending')) {
+                const items = o.items || [];
+                for (const item of items) {
+                    const p = this.products.find(x => x.id === item.productId);
+                    if (p && p.stock != null) {
+                        await db.collection(PRODUCTS_COLLECTION).doc(p.id).update({
+                            stock: firebase.firestore.FieldValue.increment(-(item.quantity || 0)),
+                            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+                    }
+                }
+                updates.stockDecremented = true;
+            }
+            await db.collection(ORDERS_COLLECTION).doc(orderId).update(updates);
+            if (o) {
+                o.status = status;
+                if (updates.stockDecremented) o.stockDecremented = true;
+            }
             this.renderOrdersList();
-            const pending = this.orders.filter(o => (o.status || 'pending') === 'pending').length;
+            const pending = this.orders.filter(or => (or.status || 'pending') === 'pending').length;
             const badge = document.getElementById('store-orders-badge');
             if (badge) { badge.textContent = pending > 0 ? pending : ''; badge.classList.toggle('hidden', !pending); }
         } catch (e) { console.error(e); }
